@@ -10,6 +10,7 @@ const ShowBook = () => {
   const { id } = useParams();
 
   useEffect(() => {
+    console.log(id);
     setLoading(true);
     axios
       .get(`http://localhost:5555/books/${id}`)
