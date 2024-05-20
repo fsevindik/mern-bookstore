@@ -1,5 +1,4 @@
 import axios from "axios";
-
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import BackButton from "../components/BackButton";
@@ -36,12 +35,14 @@ const EditBook = () => {
       author,
       publishYear,
     };
+
+    console.log(data);
     setLoading(true);
     axios
       .put(`http://localhost:5555/books/${id}`, data)
       .then(() => {
         setLoading(false);
-        enqueueSnackbar("Book Edited successfully", { variant: "success" });
+
         navigate("/");
       })
       .catch((error) => {
