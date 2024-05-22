@@ -8,25 +8,13 @@ const app = express();
 
 app.use(express.json());
 
-//Middleware for handling CORS Policy
-//option1
 app.use(cors());
-
-//option2 Allow Custom Origins
-// app.use(
-//   cors({
-//     origin: "http://localhost:3000",
-//     methods: ["GET", "POST", "PUT", "DELETE"],
-//     allowedHeaders: ["Content-Type"],
-//   })
-// );
 
 app.get("/", (request, response) => {
   console.log(request);
   return response.status(234).send("Welcome to MERN project");
 });
 
-//This part is middleware for parsing request body
 app.use("/books", booksRoute);
 
 mongoose
