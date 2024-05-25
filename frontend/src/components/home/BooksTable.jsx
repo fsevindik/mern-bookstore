@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 const BooksTable = ({ books }) => {
   return (
-    <table className="w-full border-separate border-spacing-2">
+    <table className="w-full border-separate border-spacing-2 hover:cursor-pointer">
       <thead>
         <tr>
           <th className="border border-slate-600 rounded-md">No</th>
