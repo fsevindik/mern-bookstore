@@ -104,4 +104,43 @@ router.delete("/:id", async (request, response) => {
   }
 });
 
+//Route to like a book
+router.put("/:id/like", async (request, response) => {
+  try {
+    const { id } = request.params;
+    const book = await Book.findByIdAndUpdate(
+      id,
+      { $inc: { likes: 1 } },
+      { new: true }
+    );
+    console.log("likeed");
+    if (!book) {
+      return response.status(404).send({ message: "Book not found" });
+    }
+    return response.status(200).json(book);
+  } catch (error) {
+    console.log(error);
+    response.status(500).send({ message: error.message });
+  }
+});
+
+// Route to dislike a book
+router.put("/:id/unlike", async (request, response) => {
+  try {
+    const { id } = request.params;
+    const book = await Book.findByIdAndUpdate(
+      id,
+      { $inc: { likes: -1 } },
+      { new: true }
+    );
+    if (!book) {
+      return response.status(404).send({ message: "Book not found" });
+    }
+    return response.status(200).json(book);
+  } catch (error) {
+    console.log(error);
+    response.status(500).send({ message: error.message });
+  }
+});
+
 export default router;

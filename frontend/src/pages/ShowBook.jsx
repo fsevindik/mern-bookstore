@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { FaHeart } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import BackButton from "../components/BackButton";
 import Spinner from "../components/Spinner";
@@ -25,36 +26,49 @@ const ShowBook = () => {
   }, [id]);
 
   return (
-    <div className="min-h-screen p-4 bg-[#F5F5DC] flex flex-col items-center ">
+    <div className="min-h-screen p-4 bg-[#F5F5DC] flex flex-col items-center">
       <BackButton />
-      <h1 className="text-3xl my-4">Books Details</h1>
+      <h1 className="text-3xl my-4">Book Details</h1>
       {loading ? (
         <Spinner />
       ) : (
-        <div className="flex flex-col border-2 border-sky-400 rounded-xl w-full max-w-2xl p-6 ">
+        <div className="flex flex-col border-2 border-sky-400 rounded-xl w-full max-w-2xl p-6">
           <div className="my-4">
-            <span className="text-xl mr-4 text-gray-500">Id</span>
+            <span className="text-xl mr-4 text-gray-600 font-bold">Id</span>
             <span>{book._id}</span>
           </div>
           <div className="my-4">
-            <span className="text-xl mr-4 text-gray-500">Title</span>
+            <span className="text-xl mr-4 text-gray-600 font-bold">Title</span>
             <span>{book.title}</span>
           </div>
           <div className="my-4">
-            <span className="text-xl mr-4 text-gray-500">Author</span>
+            <span className="text-xl mr-4 text-gray-600 font-bold">Author</span>
             <span>{book.author}</span>
           </div>
           <div className="my-4">
-            <span className="text-xl mr-4 text-gray-500">Publish Year</span>
+            <span className="text-xl mr-4 text-gray-600 font-bold">
+              Publish Year
+            </span>
             <span>{book.publishYear}</span>
           </div>
           <div className="my-4">
-            <span className="text-xl mr-4 text-gray-500">Create Time</span>
+            <span className="text-xl mr-4 text-gray-600 font-bold">
+              Create Time
+            </span>
             <span>{new Date(book.createdAt).toString()}</span>
           </div>
           <div className="my-4">
-            <span className="text-xl mr-4 text-gray-500">Last Update Time</span>
+            <span className="text-xl mr-4 text-gray-600 font-bold">
+              Last Update Time
+            </span>
             <span>{new Date(book.updatedAt).toString()}</span>
+          </div>
+          <div className="my-4 flex items-center">
+            <span className="text-xl mr-4 text-gray-600 font-bold">
+              How many people like this book
+            </span>
+            <FaHeart color="green" size={24} />
+            <span className="text-xl ml-2">{book.likes}</span>
           </div>
         </div>
       )}

@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useState } from "react";
 import { AiOutlineDislike, AiOutlineEdit, AiOutlineLike } from "react-icons/ai";
 import { BiShow, BiUserCircle } from "react-icons/bi";
@@ -9,15 +10,47 @@ import BookModal from "./BookModal";
 
 const BookSingleCard = ({ book }) => {
   const [showModal, setShowModal] = useState(false);
+  const [likes, setLikes] = useState(book.likes);
+
+  const handleLike = async () => {
+    try {
+      const response = await axios.put(
+        `http://localhost:5555/books/${book._id}/like`
+      );
+      setLikes(response.data.likes);
+    } catch (error) {
+      console.error("Error liking the book:", error);
+    }
+  };
+
+  const handleDislike = async () => {
+    try {
+      const response = await axios.put(
+        `http://localhost:5555/books/${book._id}/unlike`
+      );
+      setLikes(response.data.likes);
+    } catch (error) {
+      console.error("Error disliking the book:", error);
+    }
+  };
 
   return (
     <div className="border-2 border-gray-500 rounded-lg relative hover:shadow-xl bg-[#ded6bb] flex">
       <div className="absolute top-1 left-1 flex flex-col justify-between items-center">
         <div className="border border-gray-500 bg-slate-400 rounded-md mb-1">
-          <AiOutlineLike className="text-3xl text-green-700 hover:text-green-900 cursor-pointer" />
+          <AiOutlineLike
+            className="text-3xl text-blue-700 hover:text-green-300 cursor-pointer"
+            onClick={handleLike}
+          />
         </div>
         <div className="border border-gray-500 bg-slate-400 rounded-md">
-          <AiOutlineDislike className="text-3xl text-red-700 hover:text-red-900 cursor-pointer" />
+          <AiOutlineDislike
+            className="text-3xl text-red-900 hover:text-red-600 cursor-pointer"
+            onClick={handleDislike}
+          />
+        </div>
+        <div className="text-center mt-2">
+          <span>{likes}</span>
         </div>
       </div>
 
