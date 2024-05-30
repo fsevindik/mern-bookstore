@@ -9,15 +9,21 @@ const BooksTable = ({ books }) => {
     <table className="w-full border-separate border-spacing-2 hover:cursor-pointer">
       <thead>
         <tr>
-          <th className="border border-slate-600 rounded-md">No</th>
-          <th className="border border-slate-600 rounded-md">Title</th>
-          <th className="border border-slate-600 rounded-md max-md:hidden">
+          <th className="border border-slate-600 rounded-md bg-slate-200">
+            No
+          </th>
+          <th className="border border-slate-600 rounded-md bg-slate-200">
+            Title
+          </th>
+          <th className="border border-slate-600 rounded-md max-md:hidden bg-slate-200">
             Author
           </th>
-          <th className="border border-slate-600 rounded-md max-md:hidden">
+          <th className="border border-slate-600 rounded-md max-md:hidden bg-slate-200">
             Publish Year
           </th>
-          <th className="border border-slate-600 rounded-md ">Operations</th>
+          <th className="border border-slate-600 rounded-md  bg-slate-200">
+            Operations
+          </th>
         </tr>
       </thead>
       <tbody>

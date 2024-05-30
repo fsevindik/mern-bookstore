@@ -22,16 +22,16 @@ const ShowBook = () => {
         console.log(error);
         setLoading(false);
       });
-  }, []);
+  }, [id]);
 
   return (
-    <div className="p-4 bg-[#F5F5DC]">
+    <div className="min-h-screen p-4 bg-[#F5F5DC] flex flex-col items-center ">
       <BackButton />
-      <h1 className="text-3xl my-4">Show Book</h1>
+      <h1 className="text-3xl my-4">Books Details</h1>
       {loading ? (
         <Spinner />
       ) : (
-        <div className="flex flex-col border-2 border-sky-400 rounded-xl w-fit p-4">
+        <div className="flex flex-col border-2 border-sky-400 rounded-xl w-full max-w-2xl p-6 ">
           <div className="my-4">
             <span className="text-xl mr-4 text-gray-500">Id</span>
             <span>{book._id}</span>
