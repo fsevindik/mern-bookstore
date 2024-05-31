@@ -1,9 +1,9 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { FaHeart } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import BackButton from "../components/BackButton";
 import Spinner from "../components/Spinner";
+import HeartIcon from "../components/icons/HeartIcon ";
 
 const ShowBook = () => {
   const [book, setBook] = useState({});
@@ -67,8 +67,9 @@ const ShowBook = () => {
             <span className="text-xl mr-4 text-gray-600 font-bold">
               How many people like this book
             </span>
-            <FaHeart color="green" size={24} />
-            <span className="text-xl ml-2">{book.likes}</span>
+            {/* <FaHeart color="green" size={24} /> */}
+            {/* <span className="text-xl ml-2">{book.likes}</span> */}
+            <HeartIcon likes={book.likes} />
           </div>
         </div>
       )}

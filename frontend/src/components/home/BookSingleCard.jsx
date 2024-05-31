@@ -37,13 +37,13 @@ const BookSingleCard = ({ book }) => {
   return (
     <div className="border-2 border-gray-500 rounded-lg relative hover:shadow-xl bg-[#ded6bb] flex">
       <div className="absolute top-1 left-1 flex flex-col justify-between items-center">
-        <div className="border border-gray-500 bg-slate-400 rounded-md mb-1">
+        <div className="border border-gray-500 bg-slate-200 rounded-md mb-1">
           <AiOutlineLike
-            className="text-3xl text-blue-700 hover:text-green-300 cursor-pointer"
+            className="text-3xl text-blue-700 hover:text-green-600 cursor-pointer"
             onClick={handleLike}
           />
         </div>
-        <div className="border border-gray-500 bg-slate-400 rounded-md">
+        <div className="border border-gray-500 bg-slate-200 rounded-md">
           <AiOutlineDislike
             className="text-3xl text-red-900 hover:text-red-600 cursor-pointer"
             onClick={handleDislike}
