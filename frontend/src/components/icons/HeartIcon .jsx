@@ -6,8 +6,8 @@ const HeartIcon = ({ likes }) => {
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
-        width="32" // Increased width to make the heart icon bigger
-        height="32" // Increased height to make the heart icon bigger
+        width="32"
+        height="32"
         className="text-green-500 border-2 border-collapse rounded-md"
       >
         <path fill="none" d="M0 0h24v24H0z" />
@@ -22,7 +22,7 @@ const HeartIcon = ({ likes }) => {
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
-          fontSize: "1rem", // Increased font size to make the text bigger
+          fontSize: "1rem",
           color: "white",
           fontWeight: "bold",
         }}

@@ -67,8 +67,6 @@ const ShowBook = () => {
             <span className="text-xl mr-4 text-gray-600 font-bold">
               How many people like this book
             </span>
-            {/* <FaHeart color="green" size={24} /> */}
-            {/* <span className="text-xl ml-2">{book.likes}</span> */}
             <HeartIcon likes={book.likes} />
           </div>
         </div>
