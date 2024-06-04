@@ -35,17 +35,38 @@ const TrendingBooks = ({ sliderSettings }) => {
       ) : (
         <Slider {...sliderSettings}>
           {books.map((book) => (
-            <div key={book.id} className="px-2">
-              <div className="bg-red-300 p-4 rounded-lg shadow-md">
-                <img
-                  src={book.coverImage}
-                  alt={book.title}
-                  className="w-full h-auto sm:h-64 object-cover mb-4 rounded-lg"
-                />
-                <h3 className="text-xl font-semibold">{book.title}</h3>
-                <p className="text-gray-600">Author: {book.author}</p>
-                <p className="mt-2">Rating: {book.likes}</p>
-                <p className="mt-2">Price: $9.99</p>
+            <div key={book.id} className="px-2  ">
+              <div className="bg-red-300 p-4 rounded-lg shadow-md flex">
+                <div className=" w-1/2">
+                  <img
+                    src={
+                      "https://cdn.pixabay.com/photo/2015/11/19/21/10/glasses-1052010_640.jpg"
+                    }
+                    alt={book.title}
+                    className="w-1/3 h-auto sm:h-16  object-cover mb-4 rounded-lg"
+                  />
+                  <h3 className="text-xl font-semibold">{book.title}</h3>
+                  <p className="text-blue-600 bold mt-2">
+                    Author :{"  "}
+                    <span className="text-white bold font-serif">
+                      {book.author}
+                    </span>
+                  </p>
+                  <p className="mt-2 text-blue-600 bold  ">
+                    Rating:{"  "}
+                    <span className="text-white bold font-serif">
+                      {book.likes}{" "}
+                    </span>
+                  </p>
+                  <p className="mt-2 text-blue-600 bold ">
+                    Price:{"  "}
+                    <span className="text-white bold font-serif">$9.99</span>
+                  </p>
+                </div>
+                <div className=" w-1/2 border-2 border-black">
+                  <p>To Do :</p>
+                  <p>here will be comments</p>
+                </div>
               </div>
             </div>
           ))}

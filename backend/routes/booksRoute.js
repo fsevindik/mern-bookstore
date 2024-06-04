@@ -133,6 +133,7 @@ router.put("/:id/unlike", async (request, response) => {
       { $inc: { likes: -1 } },
       { new: true }
     );
+    console.log("disliked");
     if (!book) {
       return response.status(404).send({ message: "Book not found" });
     }
