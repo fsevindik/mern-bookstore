@@ -1,5 +1,5 @@
 import express from "express";
-import { Book } from "../models/bookModel.js";
+import { Book, Comment } from "../models/bookModel.js";
 
 const router = express.Router();
 
@@ -138,6 +138,28 @@ router.put("/:id/unlike", async (request, response) => {
       return response.status(404).send({ message: "Book not found" });
     }
     return response.status(200).json(book);
+  } catch (error) {
+    console.log(error);
+    response.status(500).send({ message: error.message });
+  }
+});
+
+//Route to add comment
+router.post("/:id/comments", async (request, response) => {
+  try {
+    const { id } = request.params;
+    const { text, userId } = request.body;
+    if (!text) {
+      return response.status(400).send({ message: "Comment text is required" });
+    }
+    const book = await Book.findById(id);
+    if (!book) {
+      return response.status(404).send({ message: "Book not found" });
+    }
+    const newComment = await Comment.create({ text, user: userId });
+    book.comments.push(newComment);
+    await book.save();
+    return response.status(201).json(newComment);
   } catch (error) {
     console.log(error);
     response.status(500).send({ message: error.message });
