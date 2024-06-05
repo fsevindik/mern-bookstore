@@ -8,7 +8,7 @@ const HeartIcon = ({ likes }) => {
         viewBox="0 0 24 24"
         width="32"
         height="32"
-        className="text-green-500 border-2 border-collapse rounded-md"
+        className="text-green-500 text-center border-2 border-collapse rounded-md"
       >
         <path fill="none" d="M0 0h24v24H0z" />
         <path
@@ -22,7 +22,7 @@ const HeartIcon = ({ likes }) => {
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
-          fontSize: "1rem",
+          fontSize: "0.9rem",
           color: "white",
           fontWeight: "bold",
         }}
