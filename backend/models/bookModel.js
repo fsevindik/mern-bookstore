@@ -1,21 +1,6 @@
-import mongoose from "mongoose";
+// bookModel.js
 
-// Define the Comment schema
-const commentSchema = new mongoose.Schema({
-  text: {
-    type: String,
-    required: true,
-  },
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: false,
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
-});
+import mongoose from "mongoose";
 
 // Define the Book schema
 const bookSchema = new mongoose.Schema(
@@ -38,17 +23,22 @@ const bookSchema = new mongoose.Schema(
     },
     comments: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Comment",
+        text: {
+          type: String,
+          required: true,
+        },
+        createdAt: {
+          type: Date,
+          default: Date.now,
+        },
       },
     ],
   },
-  {
-    timestamps: true,
-  }
+  { timestamps: true }
 );
 
-const Comment = mongoose.model("Comment", commentSchema);
+// Create the Book model
 const Book = mongoose.model("Book", bookSchema);
 
-export { Book, Comment };
+// Export the Book model
+export { Book };

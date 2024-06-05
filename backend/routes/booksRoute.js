@@ -1,5 +1,5 @@
 import express from "express";
-import { Book, Comment } from "../models/bookModel.js";
+import { Book } from "../models/bookModel.js";
 
 const router = express.Router();
 
@@ -19,6 +19,7 @@ router.post("/", async (request, response) => {
       title: request.body.title,
       author: request.body.author,
       publishYear: request.body.publishYear,
+      comments: [],
     };
 
     const book = await Book.create(newBook);
@@ -144,22 +145,26 @@ router.put("/:id/unlike", async (request, response) => {
   }
 });
 
-//Route to add comment
+// Route to add a comment to a book
 router.post("/:id/comments", async (request, response) => {
   try {
     const { id } = request.params;
-    const { text, userId } = request.body;
+    const { text } = request.body;
+
     if (!text) {
       return response.status(400).send({ message: "Comment text is required" });
     }
+
     const book = await Book.findById(id);
     if (!book) {
       return response.status(404).send({ message: "Book not found" });
     }
-    const newComment = await Comment.create({ text, user: userId });
-    book.comments.push(newComment);
+
+    // Add the new comment to the book's comments array
+    book.comments.push({ text });
     await book.save();
-    return response.status(201).json(newComment);
+
+    return response.status(201).json(book.comments[book.comments.length - 1]); // Return the newly added comment
   } catch (error) {
     console.log(error);
     response.status(500).send({ message: error.message });

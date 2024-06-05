@@ -24,6 +24,7 @@ const ShowBook = () => {
         setBook(response.data);
         setLikes(response.data.likes);
         setLoading(false);
+        setComments(response.data.comments);
       })
       .catch((error) => {
         console.error(error);
