@@ -28,44 +28,42 @@ const TrendingBooks = ({ sliderSettings }) => {
   }, []);
 
   return (
-    <div className="my-8">
+    <div className="my-8 mx-auto max-w-3xl">
       <h2 className="text-3xl font-bold text-center mb-4">Trending Books</h2>
       {loading ? (
         <Spinner />
       ) : (
         <Slider {...sliderSettings}>
           {books.map((book) => (
-            <div key={book.id} className="px-2  ">
-              <div className="bg-red-300 p-4 rounded-lg shadow-md flex">
-                <div className=" w-1/2">
+            <div key={book.id} className="px-2">
+              <div className="bg-red-300 p-2 rounded-lg shadow-md flex">
+                <div className="w-full max-h-full">
                   <img
                     src={
                       "https://cdn.pixabay.com/photo/2015/11/19/21/10/glasses-1052010_640.jpg"
                     }
                     alt={book.title}
-                    className="w-1/3 h-auto sm:h-16  object-cover mb-4 rounded-lg"
+                    className="w-3/4 h-auto sm:h-16 object-cover mb-4 rounded-lg mx-auto"
                   />
-                  <h3 className="text-xl font-semibold">{book.title}</h3>
-                  <p className="text-blue-600 bold mt-2">
-                    Author :{"  "}
+                  <h3 className="text-xl font-semibold text-center">
+                    {book.title}
+                  </h3>
+                  <p className="text-blue-600 bold mt-2 text-left">
+                    Author:{" "}
                     <span className="text-white bold font-serif">
                       {book.author}
                     </span>
                   </p>
-                  <p className="mt-2 text-blue-600 bold  ">
-                    Rating:{"  "}
+                  <p className="mt-2 text-blue-600 bold text-left">
+                    Rating:{" "}
                     <span className="text-white bold font-serif">
-                      {book.likes}{" "}
+                      {book.likes}
                     </span>
                   </p>
-                  <p className="mt-2 text-blue-600 bold ">
-                    Price:{"  "}
+                  <p className="mt-2 text-blue-600 bold text-left">
+                    Price:{" "}
                     <span className="text-white bold font-serif">$9.99</span>
                   </p>
-                </div>
-                <div className=" w-1/2 border-2 border-black">
-                  <p>To Do :</p>
-                  <p>here will be comments</p>
                 </div>
               </div>
             </div>
