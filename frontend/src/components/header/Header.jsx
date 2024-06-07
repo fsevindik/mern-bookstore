@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
-    <header className="bg-blue-400 text-white p-4 shadow-md">
+    <header className="bg-gray-500 text-white p-4 shadow-md">
       <div className="container mx-auto flex items-center justify-between">
-        <div className="text-2xl font-bold italic">
+        <div className="text-xl font-sm italic">
           <Link to="/">Books are the only poison with an antidote</Link>
         </div>
         <nav className="ml-auto flex space-x-4">

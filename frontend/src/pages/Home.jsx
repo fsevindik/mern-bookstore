@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { MdOutlineAddBox } from "react-icons/md";
 import { Link } from "react-router-dom";
 import Spinner from "../components/Spinner";
-import Header from "../components/header/Header";
 import BooksCard from "../components/home/BooksCard";
 import BooksTable from "../components/home/BooksTable";
 import TrendingBooks from "../components/tendingBooks/TrendingBooks";
@@ -30,7 +29,6 @@ const Home = () => {
 
   return (
     <div className="p-4 bg-[#F5F5DC] flex-grow">
-      <Header />
       <TrendingBooks sliderSettings={sliderSettings} />
       <div className="flex justify-center items-center gap-x-4 mb-8">
         <button
