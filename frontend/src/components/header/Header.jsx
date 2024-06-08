@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
-    <header className="bg-gray-500 text-white p-4 shadow-md">
+    <header className="bg-[#1a2d55] text-white p-4 shadow-md">
       <div className="container mx-auto flex items-center justify-between">
         <div className="text-xl font-sm italic">
           <Link to="/">Books are the only poison with an antidote</Link>
@@ -14,7 +14,10 @@ const Header = () => {
             <AiOutlineHome className="mr-1" />
             Home
           </Link>
-          <Link to="/books" className="flex items-center hover:text-gray-300">
+          <Link
+            to="/books/allbooks"
+            className="flex items-center hover:text-gray-300"
+          >
             <AiOutlineBook className="mr-1" />
             Books
           </Link>

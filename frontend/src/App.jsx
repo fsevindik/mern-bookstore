@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import CreateBook from "./pages/CreateBooks";
 import DeleteBook from "./pages/DeleteBook";
 
+import AllBooks from "./components/allBooks/AllBooks";
 import Footer from "./components/footer/Footer";
 import Header from "./components/header/Header";
 import EditBook from "./pages/EditBook";
@@ -19,6 +20,7 @@ const App = () => {
         <Route path="/books/details/:id" element={<ShowBook />} />
         <Route path="/books/edit/:id" element={<EditBook />} />
         <Route path="/books/delete/:id" element={<DeleteBook />} />
+        <Route path="/books/allbooks" element={<AllBooks />} />
       </Routes>
       <Footer />
     </div>
