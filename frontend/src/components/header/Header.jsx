@@ -5,25 +5,29 @@ import { Link } from "react-router-dom";
 const Header = () => {
   return (
     <header className="bg-[#1a2d55] text-white p-4 shadow-md">
-      <div className="container mx-auto flex items-center justify-between">
-        <div className="text-xl font-sm italic">
-          <Link to="/">Books are the only poison with an antidote</Link>
+      <div className="container mx-auto flex flex-wrap items-center justify-between">
+        <div
+          className="text-lg font-sm italic w-full md:w-auto text-center md:text-left mb-2 md:mb-2 p-1 bg-inherit
+        rounded-sm hover:bg-[#39486f] cursor-none
+        "
+        >
+          <p>Books are the only poison with an antidote.</p>
         </div>
-        <nav className="ml-auto flex space-x-4">
+        <nav className="w-full md:w-auto flex justify-center md:justify-end space-x-4">
           <Link to="/" className="flex items-center hover:text-gray-300">
             <AiOutlineHome className="mr-1" />
-            Home
+            <span>Home</span>
           </Link>
           <Link
             to="/books/allbooks"
             className="flex items-center hover:text-gray-300"
           >
             <AiOutlineBook className="mr-1" />
-            Books
+            <span>Bestsellers</span>
           </Link>
           <Link to="/profile" className="flex items-center hover:text-gray-300">
             <AiOutlineUser className="mr-1" />
-            Profile
+            <span>Profile</span>
           </Link>
         </nav>
       </div>

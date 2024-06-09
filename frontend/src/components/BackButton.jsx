@@ -1,15 +1,23 @@
+import React from "react";
 import { BsArrowLeft } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const BackButton = ({ destination = "/" }) => {
+const BackButton = () => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(-1);
+  };
+
   return (
     <div className="flex">
-      <Link
-        to={destination}
-        className="bg-sky-800 text-white px-4 py-1 rounded-lg w-fit"
+      <button
+        onClick={handleClick}
+        className="bg-sky-800 text-white px-4 py-1 rounded-lg flex items-center"
       >
         <BsArrowLeft className="text-2xl" />
-      </Link>
+        <span className="ml-2">Back</span>
+      </button>
     </div>
   );
 };

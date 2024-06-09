@@ -29,7 +29,10 @@ const TrendingBooks = ({ sliderSettings }) => {
 
   return (
     <div className="my-8 mx-auto max-w-3xl">
-      <h2 className="text-3xl font-bold text-center mb-4">Trending Books</h2>
+      <h2 className="text-2xl font-bold text-center mb-4">
+        {" "}
+        Some of Trending Books
+      </h2>
       {loading ? (
         <Spinner />
       ) : (

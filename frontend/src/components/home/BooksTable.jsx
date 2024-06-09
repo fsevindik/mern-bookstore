@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 const BooksTable = ({ books }) => {
   return (
-    <table className="w-full border-separate border-spacing-2 hover:cursor-pointer">
+    <table className="w-full border-separate border-spacing-2 hover:cursor-pointer   ">
       <thead>
         <tr>
           <th className="border border-slate-600 rounded-md bg-slate-200">
@@ -28,7 +28,7 @@ const BooksTable = ({ books }) => {
       </thead>
       <tbody>
         {books.map((book, index) => (
-          <tr key={book._id} className="h-8">
+          <tr key={book._id} className="h-8 bg-gray-300">
             <td className="border border-slate-700 rounded-md text-center">
               {index + 1}
             </td>
