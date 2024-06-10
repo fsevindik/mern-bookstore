@@ -64,7 +64,7 @@ const AllBooks = () => {
                     to={`/books/details/${book._id}`}
                     className="mt-4 self-start"
                   >
-                    <BiSearch className="text-blue-600" />
+                    <BiSearch className="text-blue-600 size-5 hover:text-white transition-transform transform  hover:scale-125 " />
                   </Link>
                 </div>
               </div>
