@@ -13,7 +13,7 @@ const BackButton = () => {
     <div className="flex">
       <button
         onClick={handleClick}
-        className="bg-sky-800 text-white px-4 py-1 rounded-lg flex items-center"
+        className="bg-sky-800 text-white px-4 py-1 rounded-lg flex items-center hover:bg-sky-700"
       >
         <BsArrowLeft className="text-2xl" />
         <span className="ml-2">Back</span>

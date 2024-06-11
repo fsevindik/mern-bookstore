@@ -8,6 +8,7 @@ import Footer from "./components/footer/Footer";
 import Header from "./components/header/Header";
 import EditBook from "./pages/EditBook";
 import Home from "./pages/Home";
+import ProfilePage from "./pages/ProfilePage";
 import ShowBook from "./pages/ShowBook";
 
 const App = () => {
@@ -21,6 +22,7 @@ const App = () => {
         <Route path="/books/edit/:id" element={<EditBook />} />
         <Route path="/books/delete/:id" element={<DeleteBook />} />
         <Route path="/books/allbooks" element={<AllBooks />} />
+        <Route path="/profile" element={<ProfilePage />} />
       </Routes>
       <Footer />
     </div>
