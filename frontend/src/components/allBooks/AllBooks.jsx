@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { BiSearch } from "react-icons/bi";
 import { Link } from "react-router-dom";
+import BackButton from "../BackButton";
 import Spinner from "../Spinner";
 
 const AllBooks = () => {
@@ -27,8 +28,11 @@ const AllBooks = () => {
   }, []);
 
   return (
-    <div className="bg-gray-300 ">
-      <div className="flex-grow w-full h-full my-8 mx-auto max-w-5xl px-4">
+    <div className="bg-gray-300 h-screen flex flex-col items-center justify-center">
+      <div className="mx-auto mt-2">
+        <BackButton />
+      </div>
+      <div className="flex-grow w-full h-full my-8 mx-auto max-w-5xl px-4 ">
         <h2 className="text-3xl font-bold text-center mb-8">Trending Books</h2>
         {loading ? (
           <Spinner />
