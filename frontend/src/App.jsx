@@ -8,6 +8,8 @@ import Footer from "./components/footer/Footer";
 import Header from "./components/header/Header";
 import EditBook from "./pages/EditBook";
 import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 import ShowBook from "./pages/ShowBook";
 
 const App = () => {
@@ -21,6 +23,8 @@ const App = () => {
         <Route path="/books/edit/:id" element={<EditBook />} />
         <Route path="/books/delete/:id" element={<DeleteBook />} />
         <Route path="/books/allbooks" element={<AllBooks />} />
+        <Route path="/books/login" element={<Login />} />
+        <Route path="/books/register" element={<Register />} />
       </Routes>
       <Footer />
     </div>
