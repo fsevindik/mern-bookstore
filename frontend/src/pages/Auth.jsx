@@ -6,11 +6,11 @@ const Auth = () => {
   const mode = new URLSearchParams(location.search).get("mode");
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex flex-col items-center justify-center min-h-screen  bg-[#808076ce]">
       {mode === "register" ? (
         <div className="bg-white p-6 rounded-md shadow-md w-full max-w-md">
           <h2 className="text-2xl font-semibold mb-4">Register</h2>
-          {/* Register Form */}
+
           <form>
             <div className="mb-4">
               <label className="block text-sm font-medium mb-1">Email</label>
@@ -34,7 +34,7 @@ const Auth = () => {
       ) : (
         <div className="bg-white p-6 rounded-md shadow-md w-full max-w-md">
           <h2 className="text-2xl font-semibold mb-4">Login</h2>
-          {/* Login Form */}
+
           <form>
             <div className="mb-4">
               <label className="block text-sm font-medium mb-1">Email</label>
