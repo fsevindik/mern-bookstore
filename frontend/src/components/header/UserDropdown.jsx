@@ -62,13 +62,13 @@ const UserDropdown = ({ user }) => {
             ) : (
               <>
                 <Link
-                  to="/login"
+                  to="/auth?mode=login"
                   className="block px-4 py-2 text-sm hover:bg-gray-100"
                 >
                   Login
                 </Link>
                 <Link
-                  to="/register"
+                  to="/auth?mode=register"
                   className="block px-4 py-2 text-sm hover:bg-gray-100"
                 >
                   Register
