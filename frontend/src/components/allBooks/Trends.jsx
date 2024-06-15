@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import BackButton from "../BackButton";
 import Spinner from "../Spinner";
 
-const AllBooks = () => {
+const Trends = () => {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -28,8 +28,8 @@ const AllBooks = () => {
   }, []);
 
   return (
-    <div className="bg-gray-300 h-screen flex flex-col items-center justify-center">
-      <div className="mx-auto mt-2">
+    <div className="bg-gray-300  flex flex-grow flex-col items-center justify-center">
+      <div className="mx-auto mt-5">
         <BackButton />
       </div>
       <div className="flex-grow w-full h-full my-8 mx-auto max-w-5xl px-4 ">
@@ -80,4 +80,4 @@ const AllBooks = () => {
   );
 };
 
-export default AllBooks;
+export default Trends;

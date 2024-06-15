@@ -16,7 +16,7 @@ const Header = ({ user }) => {
             <span>Home</span>
           </Link>
           <Link
-            to="/books/allbooks"
+            to="/books/trends"
             className="flex items-center hover:text-gray-300"
           >
             <AiOutlineBook className="mr-1" />
