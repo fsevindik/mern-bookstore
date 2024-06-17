@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { AiOutlineUser } from "react-icons/ai";
 import { Link } from "react-router-dom";
 
-const UserDropdown = ({ user }) => {
+const UserDropdown = ({ user, onLogout }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -52,12 +52,12 @@ const UserDropdown = ({ user }) => {
                 >
                   View Profile
                 </Link>
-                <Link
-                  to="/logout"
-                  className="block px-4 py-2 text-sm hover:bg-gray-100"
+                <button
+                  onClick={onLogout}
+                  className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100"
                 >
                   Logout
-                </Link>
+                </button>
               </>
             ) : (
               <>

@@ -1,8 +1,5 @@
-// bookModel.js
-
 import mongoose from "mongoose";
 
-// Define the Book schema
 const bookSchema = new mongoose.Schema(
   {
     title: {
@@ -37,8 +34,6 @@ const bookSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// Create the Book model
 const Book = mongoose.model("Book", bookSchema);
 
-// Export the Book model
 export { Book };
