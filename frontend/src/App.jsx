@@ -1,15 +1,15 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import CreateBook from "./pages/CreateBooks";
-import DeleteBook from "./pages/DeleteBook";
-
 import Trends from "./components/allBooks/Trends";
 import Footer from "./components/footer/Footer";
 import Header from "./components/header/Header";
 import Auth from "./pages/Auth";
+import CreateBook from "./pages/CreateBooks";
+import DeleteBook from "./pages/DeleteBook";
 import EditBook from "./pages/EditBook";
 import Home from "./pages/Home";
 import ShowBook from "./pages/ShowBook";
+import Welcome from "./pages/Welcome";
 
 const App = () => {
   return (
@@ -23,6 +23,7 @@ const App = () => {
         <Route path="/books/delete/:id" element={<DeleteBook />} />
         <Route path="/books/trends" element={<Trends />} />
         <Route path="/auth" element={<Auth />} />
+        <Route path="/welcome" element={<Welcome />} />
       </Routes>
       <Footer />
     </div>

@@ -19,7 +19,7 @@ app.use("/books", booksRoute);
 app.use("/users", usersRoute);
 
 mongoose
-  .connect(mongoDBURL, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(mongoDBURL)
   .then(() => {
     console.log("App connected to database (MongoDb)");
     app.listen(PORT, () => {

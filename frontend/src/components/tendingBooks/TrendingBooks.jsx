@@ -38,7 +38,7 @@ const TrendingBooks = ({ sliderSettings }) => {
       ) : (
         <Slider {...sliderSettings}>
           {books.map((book) => (
-            <div key={book.id} className="px-2">
+            <div key={book._id} className="px-2">
               <div className="bg-red-300 p-2 rounded-lg shadow-md flex">
                 <div className="w-full max-h-full">
                   <img
