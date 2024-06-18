@@ -27,7 +27,11 @@ const Auth = () => {
       });
 
       if (!response.ok) {
-        throw new Error(isLogin ? "Login failed" : "Registration failed");
+        const errorResponse = await response.json();
+        throw new Error(
+          errorResponse.message ||
+            (isLogin ? "Login failed" : "Registration failed")
+        );
       }
 
       const { token } = await response.json();
@@ -35,7 +39,11 @@ const Auth = () => {
       setLoggedIn(true);
       navigate("/welcome");
     } catch (error) {
-      console.error(isLogin ? "Login error:" : "Registration error:", error);
+      console.error(
+        isLogin ? "Login error:" : "Registration error:",
+        error.message
+      );
+      alert(error.message); // Show the error message to the user
     }
   };
 

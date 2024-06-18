@@ -1,10 +1,11 @@
 import express from "express";
 import jwt from "jsonwebtoken";
+import { JWT_SECRET } from "../config.js"; // config and inside jwt_secret
 import User from "../models/userModel.js";
 
 const router = express.Router();
 
-// Register User
+//User register
 router.post("/register", async (request, response) => {
   try {
     const { email, password, name } = request.body;
@@ -17,7 +18,7 @@ router.post("/register", async (request, response) => {
   }
 });
 
-// Login User
+//user login
 router.post("/login", async (request, response) => {
   const { email, password } = request.body;
 
@@ -26,11 +27,9 @@ router.post("/login", async (request, response) => {
     if (user && (await user.matchPassword(password))) {
       console.log("User logged in successfully");
 
-      const token = jwt.sign(
-        { id: user._id },
-        process.env.JWT_SECRET,
-        { expiresIn: "30d" } // 30 days to token expires
-      );
+      const token = jwt.sign({ id: user._id }, JWT_SECRET, {
+        expiresIn: "30d",
+      });
 
       return response.status(200).json({
         _id: user._id,
@@ -46,6 +45,18 @@ router.post("/login", async (request, response) => {
   } catch (error) {
     console.log(error.message);
     response.status(500).send({ message: error.message });
+  }
+});
+
+// find user with ID
+router.get("/user/:id", (req, res) => {
+  const userId = parseInt(req.params.id);
+  const user = users.find((u) => u.id === userId);
+
+  if (user) {
+    res.json(user);
+  } else {
+    res.status(404).send("User not found");
   }
 });
 
