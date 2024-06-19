@@ -12,7 +12,7 @@ const Footer = () => {
           <a
             href="https://muratcan23.github.io/myportfolio/"
             target="blank"
-            className="text-sky-400 hover:text-black"
+            className="text-sky-400 hover:text-yellow-500"
           >
             Murat Can
           </a>

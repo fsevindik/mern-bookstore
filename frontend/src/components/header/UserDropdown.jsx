@@ -74,7 +74,7 @@ const UserDropdown = ({ onLogout }) => {
             {userName !== "Guest" ? (
               <button
                 onClick={handleLogout}
-                className="block w-full text-yellow-500 text-left px-4 py-2 text-sm hover:bg-gray-400 hover:text-white"
+                className="block w-full text-yellow-500 text-left px-4 py-2 text-sm hover:bg-gray-500 hover:text-white"
               >
                 Logout
               </button>
@@ -82,13 +82,13 @@ const UserDropdown = ({ onLogout }) => {
               <>
                 <Link
                   to="/auth?mode=login"
-                  className="block px-4 py-2 text-sm hover:bg-gray-100"
+                  className="block px-4 py-2 text-sm hover:bg-gray-500"
                 >
                   Login
                 </Link>
                 <Link
                   to="/auth?mode=register"
-                  className="block px-4 py-2 text-sm hover:bg-gray-100"
+                  className="block px-4 py-2 text-sm hover:bg-gray-500"
                 >
                   Register
                 </Link>

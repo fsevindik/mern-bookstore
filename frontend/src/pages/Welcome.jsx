@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Welcome = ({ username }) => {
   return (
-    <div className="flex flex-grow h-full items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex flex-grow h-full items-center justify-center min-h-screen bg-yellow-500">
       <div className="bg-white p-6 rounded-md shadow-md w-full max-w-md text-center">
         <h2 className="text-2xl font-semibold mb-4">Welcome {username}</h2>
         <p className="mb-4">Congrats... !!! You have successfully logged in.</p>

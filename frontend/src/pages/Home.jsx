@@ -28,7 +28,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="p-4 bg-[#2a2828] flex-grow">
+    <div className="p-4 bg-[#343131] flex-grow">
       <TrendingBooks sliderSettings={sliderSettings} />
       <div className="flex justify-center items-center gap-x-4 mb-8">
         <button
@@ -49,7 +49,7 @@ const Home = () => {
           Book List
         </h1>
         <Link to="/books/create">
-          <MdOutlineAddBox className="text-sky-800 text-4xl hover:scale-110 transition-transform  hover:text-white " />
+          <MdOutlineAddBox className="text-yellow-500 text-4xl hover:scale-110 transition-transform  hover:text-white " />
         </Link>
       </div>
       {loading ? (
