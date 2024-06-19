@@ -28,15 +28,9 @@ const UserDropdown = ({ onLogout }) => {
     };
   }, []);
 
-  // Çıkış yapma işlevi
   const handleLogout = () => {
-    // LocalStorage'daki tüm verileri temizle
     localStorage.clear();
-
-    // Kullanıcıyı anasayfaya yönlendir
     navigate("/");
-
-    // Eğer varsa, onLogout prop'u olarak geçirilen fonksiyonu çağır
     if (onLogout) onLogout();
   };
 
@@ -44,14 +38,14 @@ const UserDropdown = ({ onLogout }) => {
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={toggleDropdown}
-        className="flex items-center hover:text-gray-300 focus:outline-none "
+        className="flex items-center text-yellow-400 hover:text-gray-200 focus:outline-none "
       >
         <AiOutlineUser className="mr-1" />
         <span>{userName !== "Guest" ? userName : "Profile"}</span>
       </button>
       {dropdownOpen && (
-        <div className="absolute right-0 mt-2 w-40 bg-white text-black rounded-md shadow-lg border-2 border-gray-500">
-          <div className="p-4 flex items-center">
+        <div className="absolute right-0 mt-2 w-40 bg-[#4c4a48] text-black rounded-md shadow-lg border-2 border-gray-500">
+          <div className="p-4 flex items-center text-white">
             {userName !== "Guest" ? (
               <Link
                 to="/welcome"
@@ -63,7 +57,7 @@ const UserDropdown = ({ onLogout }) => {
                   {userNameFirstChar.toUpperCase()}
                 </div>
                 {showTooltip && (
-                  <div className="absolute bg-gray-800 w-full max-w-xs text-white text-md rounded py-1 px-2 top-0 left-0 -translate-x-full transform pointer-events-none">
+                  <div className="absolute bg-yellow-600 w-full max-w-xs text-white text-md rounded py-1 px-2 top-0 left-0 -translate-x-full transform pointer-events-none">
                     Go to your welcome page
                   </div>
                 )}
@@ -80,7 +74,7 @@ const UserDropdown = ({ onLogout }) => {
             {userName !== "Guest" ? (
               <button
                 onClick={handleLogout}
-                className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100"
+                className="block w-full text-yellow-500 text-left px-4 py-2 text-sm hover:bg-gray-400 hover:text-white"
               >
                 Logout
               </button>

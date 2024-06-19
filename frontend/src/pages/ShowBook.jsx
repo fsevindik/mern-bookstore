@@ -81,16 +81,12 @@ const ShowBook = () => {
   }
 
   return (
-    <div className="min-h-screen p-2 bg-[#F5F5DC] flex flex-col items-center">
+    <div className="min-h-screen p-2 bg-[#2a2828]  flex flex-col items-center">
       <BackButton />
       <h1 className="text-xl my-2">Book Details</h1>
-      <div className="flex flex-col border-2 border-sky-400 rounded-xl w-full max-w-2xl p-4">
+      <div className="flex flex-col border-2 border-sky-400 bg-yellow-400 rounded-xl w-full max-w-2xl p-4">
         <div className="flex flex-grow flex-row">
           <div className="flex-grow content-left">
-            <div className="my-2">
-              <span className="text-lg mr-2 text-gray-600 font-bold">Id</span>
-              <span>{book._id}</span>
-            </div>
             <div className="my-2">
               <span className="text-lg mr-2 text-gray-600 font-bold">
                 Title

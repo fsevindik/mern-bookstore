@@ -11,7 +11,7 @@ const CommentSection = ({
 
   return (
     <div className="my-4">
-      <h2 className="text-xl mb-4 text-center font-serif">Comments</h2>
+      <h2 className="text-md mb-4 text-center font-serif">Some Review</h2>
       {comments.length === 0 ? (
         <p className="text-center italic">No comments yet</p>
       ) : (

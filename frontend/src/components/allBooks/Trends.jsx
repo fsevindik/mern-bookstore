@@ -28,12 +28,14 @@ const Trends = () => {
   }, []);
 
   return (
-    <div className="bg-gray-300  flex flex-grow flex-col items-center justify-center">
+    <div className="bg-[#2a2828]  flex flex-grow flex-col items-center justify-center">
       <div className="mx-auto mt-5">
         <BackButton />
       </div>
       <div className="flex-grow w-full h-full my-8 mx-auto max-w-5xl px-4 ">
-        <h2 className="text-3xl font-bold text-center mb-8">Trending Books</h2>
+        <h2 className="text-3xl font-bold text-center mb-8 text-white">
+          Trending Books
+        </h2>
         {loading ? (
           <Spinner />
         ) : (
@@ -41,7 +43,7 @@ const Trends = () => {
             {books.map((book) => (
               <div
                 key={book._id}
-                className="bg-red-300 p-4 rounded-lg shadow-md flex flex-col sm:flex-row relative"
+                className="bg-yellow-400 p-4 rounded-lg shadow-md flex flex-col sm:flex-row relative"
               >
                 <img
                   src={
@@ -50,17 +52,17 @@ const Trends = () => {
                   alt={book.title}
                   className="w-full sm:w-1/2 h-40 object-cover mb-4 sm:mb-0 rounded-lg"
                 />
-                <div className="flex-grow flex flex-col text-left p-4 sm:w-1/2">
+                <div className="flex-grow flex flex-col text-left p-2 sm:w-1/2">
                   <h3 className="text-xl font-semibold mb-2">{book.title}</h3>
-                  <p className="text-blue-600 bold">
+                  <p className="text-blue-600  mt-2 text-left font-bold ">
                     Author:{" "}
                     <span className="text-white font-serif">{book.author}</span>
                   </p>
-                  <p className="text-blue-600 bold">
+                  <p className="text-blue-600 mt-2  text-left font-bold">
                     Rating:{" "}
                     <span className="text-white font-serif">{book.likes}</span>
                   </p>
-                  <p className="text-blue-600 bold">
+                  <p className="text-blue-600  mt-2 text-left font-bold">
                     Price: <span className="text-white font-serif">$9.99</span>
                   </p>
 

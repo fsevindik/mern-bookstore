@@ -11,13 +11,16 @@ const Header = ({ user }) => {
           <p>Books are the only poison with an antidote.</p>
         </div>
         <nav className="w-full md:w-auto flex justify-center md:justify-end space-x-4">
-          <Link to="/" className="flex items-center hover:text-gray-300">
+          <Link
+            to="/"
+            className="flex items-center text-yellow-400 hover:text-gray-200"
+          >
             <AiOutlineHome className="mr-1" />
             <span>Home</span>
           </Link>
           <Link
             to="/books/trends"
-            className="flex items-center hover:text-gray-300"
+            className="flex items-center text-yellow-400 hover:text-gray-200"
           >
             <AiOutlineBook className="mr-1" />
             <span>Bestsellers</span>

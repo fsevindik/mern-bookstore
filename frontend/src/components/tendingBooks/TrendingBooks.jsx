@@ -48,9 +48,7 @@ const TrendingBooks = ({ sliderSettings }) => {
                     alt={book.title}
                     className="w-3/4 h-auto sm:h-16 object-cover mb-4 rounded-lg mx-auto"
                   />
-                  <h3 className="text-xl font-semibold text-center">
-                    {book.title}
-                  </h3>
+                  <h3 className="font-semibold text-center">{book.title}</h3>
                   <p className="text-blue-600  mt-2 text-left font-bold ">
                     Author:{" "}
                     <span className="text-white bold font-serif">
