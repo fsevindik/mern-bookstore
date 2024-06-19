@@ -34,16 +34,21 @@ const Auth = () => {
         );
       }
 
-      const { token } = await response.json();
+      const responseData = await response.json();
+      const { token, name } = responseData; // dont forget to take name too
+
       localStorage.setItem("token", token);
       setLoggedIn(true);
       navigate("/welcome");
+
+      setUserName(name);
+      localStorage.setItem("UserName", name);
     } catch (error) {
       console.error(
         isLogin ? "Login error:" : "Registration error:",
         error.message
       );
-      alert(error.message); // Show the error message to the user
+      alert(error.message);
     }
   };
 

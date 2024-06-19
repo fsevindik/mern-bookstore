@@ -1,10 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
 import { AiOutlineUser } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-const UserDropdown = ({ user, onLogout }) => {
+const UserDropdown = ({ onLogout }) => {
+  const navigate = useNavigate();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const [showTooltip, setShowTooltip] = useState(false);
+
+  const userName = localStorage.getItem("UserName") || "Guest";
+  const userNameFirstChar = userName.charAt(0);
 
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
@@ -23,42 +28,62 @@ const UserDropdown = ({ user, onLogout }) => {
     };
   }, []);
 
-  const userName = user?.name || "Guest";
+  // Çıkış yapma işlevi
+  const handleLogout = () => {
+    // LocalStorage'daki tüm verileri temizle
+    localStorage.clear();
+
+    // Kullanıcıyı anasayfaya yönlendir
+    navigate("/");
+
+    // Eğer varsa, onLogout prop'u olarak geçirilen fonksiyonu çağır
+    if (onLogout) onLogout();
+  };
 
   return (
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={toggleDropdown}
-        className="flex items-center hover:text-gray-300 focus:outline-none"
+        className="flex items-center hover:text-gray-300 focus:outline-none "
       >
         <AiOutlineUser className="mr-1" />
-        <span>Profile</span>
+        <span>{userName !== "Guest" ? userName : "Profile"}</span>
       </button>
       {dropdownOpen && (
-        <div className="absolute right-0 mt-2 w-40 bg-white text-black rounded-md shadow-lg">
+        <div className="absolute right-0 mt-2 w-40 bg-white text-black rounded-md shadow-lg border-2 border-gray-500">
           <div className="p-4 flex items-center">
-            <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center">
-              {userName.charAt(0)}
-            </div>
+            {userName !== "Guest" ? (
+              <Link
+                to="/welcome"
+                className="rounded-full  hover:ring-2 hover:ring-red-500"
+                onMouseEnter={() => setShowTooltip(true)}
+                onMouseLeave={() => setShowTooltip(false)}
+              >
+                <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center hover:text-red-500">
+                  {userNameFirstChar.toUpperCase()}
+                </div>
+                {showTooltip && (
+                  <div className="absolute bg-gray-800 w-full max-w-xs text-white text-md rounded py-1 px-2 top-0 left-0 -translate-x-full transform pointer-events-none">
+                    Go to your welcome page
+                  </div>
+                )}
+              </Link>
+            ) : (
+              <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center">
+                {userNameFirstChar}
+              </div>
+            )}
             <span className="ml-2">{userName}</span>
           </div>
           <div className="border-t border-gray-200"></div>
           <div className="p-2">
-            {user ? (
-              <>
-                <Link
-                  to="/profile"
-                  className="block px-4 py-2 text-sm hover:bg-gray-100"
-                >
-                  View Profile
-                </Link>
-                <button
-                  onClick={onLogout}
-                  className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100"
-                >
-                  Logout
-                </button>
-              </>
+            {userName !== "Guest" ? (
+              <button
+                onClick={handleLogout}
+                className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100"
+              >
+                Logout
+              </button>
             ) : (
               <>
                 <Link
