@@ -29,7 +29,7 @@ const TrendingBooks = ({ sliderSettings }) => {
 
   return (
     <div className="my-8 mx-auto max-w-3xl">
-      <h2 className="text-2xl font-bold text-center mb-4">
+      <h2 className="text-2xl font-bold text-center mb-4 text-white">
         {" "}
         Some of Trending Books
       </h2>
@@ -39,7 +39,7 @@ const TrendingBooks = ({ sliderSettings }) => {
         <Slider {...sliderSettings}>
           {books.map((book) => (
             <div key={book._id} className="px-2">
-              <div className="bg-red-300 p-2 rounded-lg shadow-md flex">
+              <div className="bg-[#f5c518] p-2 rounded-lg shadow-md flex">
                 <div className="w-full max-h-full">
                   <img
                     src={
@@ -51,19 +51,19 @@ const TrendingBooks = ({ sliderSettings }) => {
                   <h3 className="text-xl font-semibold text-center">
                     {book.title}
                   </h3>
-                  <p className="text-blue-600 bold mt-2 text-left">
+                  <p className="text-blue-600  mt-2 text-left font-bold ">
                     Author:{" "}
                     <span className="text-white bold font-serif">
                       {book.author}
                     </span>
                   </p>
-                  <p className="mt-2 text-blue-600 bold text-left">
+                  <p className="mt-2 text-blue-700 font-bold  text-left">
                     Rating:{" "}
                     <span className="text-white bold font-serif">
                       {book.likes}
                     </span>
                   </p>
-                  <p className="mt-2 text-blue-600 bold text-left">
+                  <p className="mt-2 text-blue-600 font-bold  text-left">
                     Price:{" "}
                     <span className="text-white bold font-serif">$9.99</span>
                   </p>

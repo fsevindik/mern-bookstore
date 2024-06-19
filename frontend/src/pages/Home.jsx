@@ -28,7 +28,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="p-4 bg-[#808076ce] flex-grow">
+    <div className="p-4 bg-[#2a2828] flex-grow">
       <TrendingBooks sliderSettings={sliderSettings} />
       <div className="flex justify-center items-center gap-x-4 mb-8">
         <button
@@ -45,7 +45,9 @@ const Home = () => {
         </button>
       </div>
       <div className="flex justify-between items-center">
-        <h1 className="text-3xl my-8 none-italic mx-auto">Book List</h1>
+        <h1 className="text-3xl my-8  mx-auto text-white  font-bold">
+          Book List
+        </h1>
         <Link to="/books/create">
           <MdOutlineAddBox className="text-sky-800 text-4xl hover:scale-110 transition-transform  hover:text-white " />
         </Link>
