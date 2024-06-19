@@ -36,6 +36,7 @@ router.post("/login", async (request, response) => {
         name: user.name,
         email: user.email,
         token: token,
+        role: user.role,
       });
     } else {
       return response

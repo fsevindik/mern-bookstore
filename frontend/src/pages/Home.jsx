@@ -12,8 +12,10 @@ const Home = () => {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showType, setShowType] = useState("table");
+  const userStatus = localStorage.getItem("UserRole");
 
   useEffect(() => {
+    console.log("User Role:", userStatus);
     setLoading(true);
     axios
       .get("http://localhost:5555/books")
@@ -25,7 +27,7 @@ const Home = () => {
         console.log(error);
         setLoading(false);
       });
-  }, []);
+  }, [userStatus]);
 
   return (
     <div className="p-4 bg-[#343131] flex-grow">
@@ -48,9 +50,11 @@ const Home = () => {
         <h1 className="text-3xl my-8  mx-auto text-white  font-bold">
           Book List
         </h1>
-        <Link to="/books/create">
-          <MdOutlineAddBox className="text-yellow-500 text-4xl hover:scale-110 transition-transform  hover:text-white " />
-        </Link>
+        {userStatus === "admin" ? (
+          <Link to="/books/create">
+            <MdOutlineAddBox className="text-yellow-500 text-4xl hover:scale-110 transition-transform  hover:text-white " />
+          </Link>
+        ) : null}
       </div>
       {loading ? (
         <Spinner />

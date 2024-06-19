@@ -35,14 +35,14 @@ const Auth = () => {
       }
 
       const responseData = await response.json();
-      const { token, name } = responseData; // dont forget to take name too
+      const { token, name, role } = responseData;
 
       localStorage.setItem("token", token);
-      setLoggedIn(true);
-      navigate("/welcome");
-
-      setUserName(name);
       localStorage.setItem("UserName", name);
+      localStorage.setItem("UserRole", role);
+      setLoggedIn(true);
+      setUserName(name);
+      navigate("/welcome");
     } catch (error) {
       console.error(
         isLogin ? "Login error:" : "Registration error:",

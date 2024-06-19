@@ -83,27 +83,33 @@ const ShowBook = () => {
   return (
     <div className="min-h-screen p-2 bg-[#2a2828]  flex flex-col items-center">
       <BackButton />
-      <h1 className="text-xl my-2">Book Details</h1>
+      <h1 className="text-xl my-2 text-white font-mono">Book Info</h1>
       <div className="flex flex-col border-2 border-sky-400 bg-yellow-400 rounded-xl w-full max-w-2xl p-4">
         <div className="flex flex-grow flex-row">
           <div className="flex-grow content-left">
             <div className="my-2">
               <span className="text-lg mr-2 text-gray-600 font-bold">
-                Title
+                Title:
               </span>
-              <span>{book.title}</span>
+              <span className="text-blue-600  font-bold italic text-md">
+                {book.title}
+              </span>
             </div>
             <div className="my-2">
               <span className="text-lg mr-2 text-gray-600 font-bold">
-                Author
+                Author :
               </span>
-              <span>{book.author}</span>
+              <span className="text-blue-600  font-bold italic text-md">
+                {book.author}
+              </span>
             </div>
             <div className="my-2">
               <span className="text-lg mr-2 text-gray-600 font-bold">
                 Publish Year
               </span>
-              <span>{book.publishYear}</span>
+              <span className="text-blue-600  font-bold italic text-md">
+                {book.publishYear}
+              </span>
             </div>
           </div>
           <div className="w-6 icons-right">
@@ -131,13 +137,17 @@ const ShowBook = () => {
           <span className="text-lg mr-2 text-gray-600 font-bold">
             Create Time
           </span>
-          <span>{new Date(book.createdAt).toString()}</span>
+          <span className="text-blue-600  font-bold italic text-md">
+            {new Date(book.createdAt).toString()}
+          </span>
         </div>
         <div className="my-2">
           <span className="text-lg mr-2 text-gray-600 font-bold">
             Last Update Time
           </span>
-          <span>{new Date(book.updatedAt).toString()}</span>
+          <span className="text-blue-600  font-bold italic text-md">
+            {new Date(book.updatedAt).toString()}
+          </span>
         </div>
         <div className="my-2 flex items-center">
           <span className="text-lg mr-2 text-gray-600 font-bold">
