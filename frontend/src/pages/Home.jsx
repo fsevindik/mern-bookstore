@@ -15,7 +15,6 @@ const Home = () => {
   const userStatus = localStorage.getItem("UserRole");
 
   useEffect(() => {
-    console.log("User Role:", userStatus);
     setLoading(true);
     axios
       .get("http://localhost:5555/books")

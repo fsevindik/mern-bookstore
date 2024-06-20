@@ -53,7 +53,7 @@ const UserDropdown = ({ onLogout }) => {
                 onMouseEnter={() => setShowTooltip(true)}
                 onMouseLeave={() => setShowTooltip(false)}
               >
-                <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center hover:text-red-500">
+                <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center text-black font-bold  hover:text-red-500">
                   {userNameFirstChar.toUpperCase()}
                 </div>
                 {showTooltip && (
@@ -63,7 +63,7 @@ const UserDropdown = ({ onLogout }) => {
                 )}
               </Link>
             ) : (
-              <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center">
+              <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center text-black font-bold">
                 {userNameFirstChar}
               </div>
             )}
@@ -74,7 +74,7 @@ const UserDropdown = ({ onLogout }) => {
             {userName !== "Guest" ? (
               <button
                 onClick={handleLogout}
-                className="block w-full text-yellow-500 text-left px-4 py-2 text-sm hover:bg-gray-500 hover:text-white"
+                className="block w-full text-yellow-500 text-left px-4 py-2 text-md rounded-sm hover:bg-red-500 hover:text-white"
               >
                 Logout
               </button>
@@ -82,13 +82,13 @@ const UserDropdown = ({ onLogout }) => {
               <>
                 <Link
                   to="/auth?mode=login"
-                  className="block px-4 py-2 text-sm hover:bg-gray-500"
+                  className="block rounded-md text-yellow-500 px-4 py-2 text-sm font-bold hover:text-black hover:bg-yellow-500"
                 >
                   Login
                 </Link>
                 <Link
                   to="/auth?mode=register"
-                  className="block px-4 py-2 text-sm hover:bg-gray-500"
+                  className="block rounded-md px-4 py-2 text-sm font-bold text-yellow-500 hover:text-black hover:bg-yellow-500"
                 >
                   Register
                 </Link>
