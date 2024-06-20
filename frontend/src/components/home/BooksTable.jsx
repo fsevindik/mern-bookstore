@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { AiOutlineEdit } from "react-icons/ai";
-import { BsInfoCircle } from "react-icons/bs";
-import { MdOutlineDelete } from "react-icons/md";
-import { Link } from "react-router-dom";
+import DeleteButton from "../DeleteButton";
+import DetailsButton from "../DetailsButton";
+import EditButton from "../EditButton";
 
 const BooksTable = ({ books }) => {
   const [showEditTooltip, setShowEditTooltip] = useState(false);
@@ -76,72 +75,21 @@ const BooksTable = ({ books }) => {
             </td>
             <td className="border border-slate-700 rounded-md text-center">
               <div className="flex justify-center gap-x-4">
-                <Link to={`/books/details/${book._id}`}>
-                  <BsInfoCircle className="text-2xl text-green-800 hover:scale-125" />
-                </Link>
-                <div
-                  className="relative"
-                  onMouseEnter={() => handleEditMouseEnter(index)}
-                  onMouseLeave={handleEditMouseLeave}
-                >
-                  <Link
-                    to={`/books/edit/${book._id}`}
-                    className={`text-yellow-600 hover:scale-125 ${
-                      userType === "visitor"
-                        ? "pointer-events-none cursor-not-allowed"
-                        : ""
-                    }`}
-                    onMouseEnter={() => handleEditMouseEnter(index)}
-                    onMouseLeave={handleEditMouseLeave}
-                  >
-                    <AiOutlineEdit
-                      className={`text-2xl ${
-                        userType === "visitor" ? "cursor-not-allowed" : ""
-                      }`}
-                    />
-                    {showEditTooltip &&
-                      editTooltipIndex === index &&
-                      userType === "visitor" && (
-                        <div className="absolute bg-gray-800 text-white text-sm py-2 px-4 rounded-md bottom-full left-0 mb-2">
-                          Only admin can manage
-                        </div>
-                      )}
-                  </Link>
-                </div>
-                <div
-                  className="relative"
-                  onMouseEnter={() => handleDeleteMouseEnter(index)}
-                  onMouseLeave={handleDeleteMouseLeave}
-                >
-                  {userType === "visitor" ? (
-                    <div
-                      className={`relative text-red-600 hover:scale-125 ${
-                        userType === "admin"
-                          ? "pointer-events-none cursor-not-allowed"
-                          : ""
-                      }`}
-                      onMouseEnter={() => handleDeleteMouseEnter(index)}
-                      onMouseLeave={handleDeleteMouseLeave}
-                    >
-                      <MdOutlineDelete
-                        className={`text-2xl cursor-not-allowed`}
-                      />
-                      {showDeleteTooltip &&
-                        deleteTooltipIndex === index &&
-                        userType === "visitor" && (
-                          <div className="absolute bg-gray-800 text-white text-sm py-2 px-4 rounded-md bottom-full left-0 mb-2">
-                            Only admin can delete
-                          </div>
-                        )}
-                    </div>
-                  ) : (
-                    <Link to={`/books/delete/${book._id}`}>
-                      <MdOutlineDelete
-                        className={`text-2xl text-red-500 hover:scale-125`}
-                      />
-                    </Link>
-                  )}
-                </div>
+                <DetailsButton bookId={book._id} />
+                <EditButton
+                  bookId={book._id}
+                  userType={userType}
+                  index={index}
+                  handleMouseEnter={handleEditMouseEnter}
+                  handleMouseLeave={handleEditMouseLeave}
+                />
+                <DeleteButton
+                  bookId={book._id}
+                  userType={userType}
+                  index={index}
+                  handleMouseEnter={handleDeleteMouseEnter}
+                  handleMouseLeave={handleDeleteMouseLeave}
+                />
               </div>
             </td>
           </tr>
