@@ -5,61 +5,41 @@ const CommentSection = ({
   newComment,
   setNewComment,
   handleCommentSubmit,
+  canComment,
 }) => {
-  const charLimit = 200;
-  const charsLeft = charLimit - newComment.length;
-
   return (
-    <div className="my-4">
-      <h2 className="text-md mb-4 text-center font-serif">Some Review</h2>
-      {comments.length === 0 ? (
-        <p className="text-center italic">No comments yet</p>
-      ) : (
-        comments.map((comment) => (
-          <div
-            key={comment._id}
-            className="mb-4 p-4 border rounded bg-gray-100 relative"
-          >
-            <p className="italic">{comment.text}</p>
-            <div className="absolute bottom-2 right-2 text-xs text-gray-600">
-              Posted On:{" "}
-              {new Date(comment.createdAt).toLocaleDateString("en-US", {
-                weekday: "long",
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-                hour: "numeric",
-                minute: "numeric",
-                hour12: true,
-              })}
-            </div>
-          </div>
-        ))
-      )}
-
-      <form onSubmit={handleCommentSubmit} className="mt-4">
+    <div className="my-4 bg-gray-800 p-4 rounded-lg shadow-lg">
+      <h2 className="text-xl font-semibold text-white mb-4">Comments:</h2>
+      {comments.map((comment, index) => (
+        <div
+          key={index}
+          className="my-2 p-3 bg-gray-700 rounded-lg border border-gray-600"
+        >
+          <p className="text-white font-serif">{comment.text}</p>
+        </div>
+      ))}
+      <div className="mt-4 flex">
         <textarea
-          className="w-full p-2 border rounded resize-none"
-          rows="2"
           value={newComment}
           onChange={(e) => setNewComment(e.target.value)}
-          placeholder="Add a comment"
-          maxLength={charLimit}
-        ></textarea>
-        <div className="text-right text-sm mt-1">
-          {charsLeft <= 0 ? (
-            <span className="text-red-600">Character limit reached!</span>
-          ) : (
-            <span>{charsLeft} characters left</span>
-          )}
-        </div>
+          className="flex-1 p-2 border border-gray-600 rounded-md bg-gray-900 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="Write a comment..."
+          disabled={!canComment}
+        />
         <button
           type="submit"
-          className="mt-2 p-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+          className={`ml-3 px-4 py-2 rounded-full ${
+            canComment ? "bg-yellow-600 hover:bg-red-600" : "bg-gray-600"
+          } text-white font-semibold`}
+          disabled={!canComment}
+          onClick={handleCommentSubmit}
         >
           Submit
         </button>
-      </form>
+      </div>
+      {!canComment && (
+        <p className="text-red-500 mt-2">Please log in to add a comment.</p>
+      )}
     </div>
   );
 };

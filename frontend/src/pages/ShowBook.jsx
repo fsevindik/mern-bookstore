@@ -15,6 +15,7 @@ const ShowBook = () => {
   const [dislikeClicked, setDislikeClicked] = useState(false);
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
+  const [canComment, setCanComment] = useState(false);
   const { id } = useParams();
 
   useEffect(() => {
@@ -35,6 +36,12 @@ const ShowBook = () => {
 
     fetchBook();
   }, [id]);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const username = localStorage.getItem("UserName");
+    setCanComment(!!token && !!username);
+  }, []);
 
   const handleLike = async () => {
     setLikeClicked(true);
@@ -81,33 +88,33 @@ const ShowBook = () => {
   }
 
   return (
-    <div className="min-h-screen p-2 bg-[#2a2828]  flex flex-col items-center">
+    <div className="min-h-screen p-2 bg-[#2a2828] flex flex-col items-center">
       <BackButton />
       <h1 className="text-xl my-2 text-white font-mono">Book Info</h1>
-      <div className="flex flex-col border-2 border-sky-400 bg-yellow-400 rounded-xl w-full max-w-2xl p-4">
+      <div className="flex flex-col border-2 border-sky-400 bg-yellow-500 rounded-xl w-full max-w-2xl p-4">
         <div className="flex flex-grow flex-row">
           <div className="flex-grow content-left">
             <div className="my-2">
               <span className="text-lg mr-2 text-gray-600 font-bold">
                 Title:
               </span>
-              <span className="text-blue-600  font-bold italic text-md">
+              <span className="text-blue-600 font-bold italic text-md">
                 {book.title}
               </span>
             </div>
             <div className="my-2">
               <span className="text-lg mr-2 text-gray-600 font-bold">
-                Author :
+                Author:
               </span>
-              <span className="text-blue-600  font-bold italic text-md">
+              <span className="text-blue-600 font-bold italic text-md">
                 {book.author}
               </span>
             </div>
             <div className="my-2">
               <span className="text-lg mr-2 text-gray-600 font-bold">
-                Publish Year
+                Publish Year:
               </span>
-              <span className="text-blue-600  font-bold italic text-md">
+              <span className="text-blue-600 font-bold italic text-md">
                 {book.publishYear}
               </span>
             </div>
@@ -135,23 +142,23 @@ const ShowBook = () => {
         </div>
         <div className="my-2">
           <span className="text-lg mr-2 text-gray-600 font-bold">
-            Create Time
+            Create Time:
           </span>
-          <span className="text-blue-600  font-bold italic text-md">
+          <span className="text-blue-600 font-bold italic text-md">
             {new Date(book.createdAt).toString()}
           </span>
         </div>
         <div className="my-2">
           <span className="text-lg mr-2 text-gray-600 font-bold">
-            Last Update Time
+            Last Update Time:
           </span>
-          <span className="text-blue-600  font-bold italic text-md">
+          <span className="text-blue-600 font-bold italic text-md">
             {new Date(book.updatedAt).toString()}
           </span>
         </div>
         <div className="my-2 flex items-center">
           <span className="text-lg mr-2 text-gray-600 font-bold">
-            How many people like this book
+            How many people like this book:
           </span>
           <HeartIcon likes={likes} />
         </div>
@@ -160,6 +167,7 @@ const ShowBook = () => {
           newComment={newComment}
           setNewComment={setNewComment}
           handleCommentSubmit={handleCommentSubmit}
+          canComment={canComment}
         />
       </div>
     </div>
