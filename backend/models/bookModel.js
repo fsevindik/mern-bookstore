@@ -14,6 +14,14 @@ const bookSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    imageA: {
+      type: String,
+      required: true,
+    },
+    imageB: {
+      type: String,
+      required: true,
+    },
     likes: {
       type: Number,
       default: 0,
