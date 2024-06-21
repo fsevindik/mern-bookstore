@@ -10,6 +10,7 @@ const Auth = () => {
   const [password, setPassword] = useState("");
   const [userName, setUserName] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
+  const [userStatus, setUserStatus] = useState("");
 
   const handleAuth = async (event, isLogin) => {
     event.preventDefault();
@@ -42,7 +43,7 @@ const Auth = () => {
       localStorage.setItem("UserRole", role);
       setLoggedIn(true);
       setUserName(name);
-      navigate("/welcome");
+      setUserStatus(role);
     } catch (error) {
       console.error(
         isLogin ? "Login error:" : "Registration error:",
@@ -53,7 +54,11 @@ const Auth = () => {
   };
 
   if (loggedIn) {
-    return <Navigate to="/welcome" replace />;
+    if (userStatus === "visitor") {
+      return <Navigate to="/welcome" replace />;
+    } else if (userStatus === "admin") {
+      return <Navigate to="/admin" replace />;
+    }
   }
 
   return (
@@ -65,7 +70,6 @@ const Auth = () => {
         {mode === "register" && (
           <p className="font-serif">You may register with a dummy email</p>
         )}
-
         <form onSubmit={(e) => handleAuth(e, mode !== "register")}>
           <div className="mb-4">
             <input

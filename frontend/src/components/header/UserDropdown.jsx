@@ -7,6 +7,7 @@ const UserDropdown = ({ onLogout }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
   const [showTooltip, setShowTooltip] = useState(false);
+  const userRole = localStorage.getItem("UserRole");
 
   const userName = localStorage.getItem("UserName") || "Guest";
   const userNameFirstChar = userName.charAt(0);
@@ -38,7 +39,7 @@ const UserDropdown = ({ onLogout }) => {
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={toggleDropdown}
-        className="flex items-center text-yellow-400 hover:text-gray-200 focus:outline-none "
+        className="flex items-center text-yellow-400 hover:text-gray-200 focus:outline-none"
       >
         <AiOutlineUser className="mr-1" />
         <span>{userName !== "Guest" ? userName : "Profile"}</span>
@@ -48,17 +49,19 @@ const UserDropdown = ({ onLogout }) => {
           <div className="p-4 flex items-center text-white">
             {userName !== "Guest" ? (
               <Link
-                to="/welcome"
-                className="rounded-full  hover:ring-2 hover:ring-red-500"
+                to={userRole === "admin" ? "/admin" : "/welcome"}
+                className="rounded-full hover:ring-2 hover:ring-red-500"
                 onMouseEnter={() => setShowTooltip(true)}
                 onMouseLeave={() => setShowTooltip(false)}
               >
-                <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center text-black font-bold  hover:text-red-500">
+                <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center text-black font-bold hover:text-red-500">
                   {userNameFirstChar.toUpperCase()}
                 </div>
                 {showTooltip && (
-                  <div className="absolute bg-yellow-600 w-full max-w-xs text-white text-md rounded py-1 px-2 top-0 left-0 -translate-x-full transform pointer-events-none">
-                    Go to your welcome page
+                  <div className="absolute bg-red-600 w-full max-w-xs text-white text-md rounded py-1 px-2 top-0 left-0 -translate-x-full transform pointer-events-none">
+                    {userRole === "admin"
+                      ? "Go to admin dashboard"
+                      : "Go to your welcome page"}
                   </div>
                 )}
               </Link>

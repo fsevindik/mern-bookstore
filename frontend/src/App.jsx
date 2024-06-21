@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import Trends from "./components/allBooks/Trends";
 import Footer from "./components/footer/Footer";
 import Header from "./components/header/Header";
+import Admin from "./pages/Admin";
 import Auth from "./pages/Auth";
 import CreateBook from "./pages/CreateBooks";
 import DeleteBook from "./pages/DeleteBook";
@@ -24,6 +25,7 @@ const App = () => {
         <Route path="/books/trends" element={<Trends />} />
         <Route path="/auth" element={<Auth />} />
         <Route path="/welcome" element={<Welcome />} />
+        <Route path="/admin" element={<Admin />} />
       </Routes>
       <Footer />
     </div>
