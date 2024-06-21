@@ -91,7 +91,20 @@ const ShowBook = () => {
     <div className="min-h-screen p-2 bg-[#2a2828] flex flex-col items-center">
       <BackButton />
       <h1 className="text-xl my-2 text-white font-mono">Book Info</h1>
+
       <div className="flex flex-col border-2 border-sky-400 bg-yellow-500 rounded-xl w-full max-w-2xl p-4">
+        <div className="flex flex-wrap justify-center items-center my-4 w-full md:flex-nowrap">
+          <img
+            src="https://upload.wikimedia.org/wikipedia/tr/e/e6/Esaretin-bedeli.jpg"
+            alt="Image 2"
+            className="rounded-lg shadow-lg w-64 h-auto ml-4"
+          />
+          <img
+            src="https://tr.web.img2.acsta.net/pictures/bzp/01/11736.jpg"
+            alt="Image 3"
+            className="rounded-lg shadow-lg w-64 h-auto ml-4"
+          />
+        </div>
         <div className="flex flex-grow flex-row">
           <div className="flex-grow content-left">
             <div className="my-2">
