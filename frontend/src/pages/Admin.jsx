@@ -9,7 +9,7 @@ const Admin = () => {
   };
 
   return (
-    <div className="flex min-h-screen bg-gray-100">
+    <div className="flex min-h-screen bg-gray-700">
       <div className={` ${showDrawer ? "block" : "hidden"}`}>
         <div className="absolute inset-y-0  left-0 bg-gray-800 w-2/5 h-full">
           <div className="flex flex-col h-full ">
@@ -57,16 +57,14 @@ const Admin = () => {
             />
           </div>
           <div className="text-center mb-4">
-            <h1 className="text-3xl font-semibold text-gray-800">
+            <h1 className="text-3xl font-semibold text-yellow-500">
               Welcome, Administrator
             </h1>
-            <p className="text-gray-600 mt-2">
-              You have important tasks ahead.
-            </p>
+            <p className=" mt-2 text-white">You got work to do...</p>
           </div>
           <Link to="/">
             <div className="grid grid-cols-1 gap-">
-              <div className="bg-blue-500 hover:bg-blue-600 text-white py-4 px-6 rounded-lg text-center">
+              <div className="bg-red-600 hover:bg-yellow-600 text-white py-4 px-6 rounded-lg text-center">
                 <p className="text-xl font-semibold">Manage Books</p>
                 <p className="text-sm mt-2">Review and update Book</p>
               </div>

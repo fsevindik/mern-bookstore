@@ -92,7 +92,7 @@ const ShowBook = () => {
       <BackButton />
       <h1 className="text-xl my-2 text-white font-mono">Book Info</h1>
 
-      <div className="flex flex-col border-2 border-sky-400 bg-yellow-500 rounded-xl w-full max-w-2xl p-4">
+      <div className="flex flex-col border-2 border-black bg-yellow-500 rounded-xl w-full max-w-2xl p-4">
         <div className="flex flex-wrap justify-center items-center my-4 w-full md:flex-nowrap">
           <img
             src="https://upload.wikimedia.org/wikipedia/tr/e/e6/Esaretin-bedeli.jpg"

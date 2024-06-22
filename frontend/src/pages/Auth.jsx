@@ -62,7 +62,7 @@ const Auth = () => {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-[#808076ce]">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-[#3c3c35ce]">
       <div className="bg-white p-6 rounded-md shadow-md w-full max-w-md text-center">
         <h2 className="text-2xl font-semibold m-1">
           {mode === "register" ? "Register" : "Login"}
