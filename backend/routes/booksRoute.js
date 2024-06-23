@@ -3,22 +3,24 @@ import { Book } from "../models/bookModel.js";
 
 const router = express.Router();
 
-//Rute to save a new book
+// Route to create a new book
 router.post("/", async (request, response) => {
   try {
-    if (
-      !request.body.title ||
-      !request.body.author ||
-      !request.body.publishYear
-    ) {
+    const { title, author, publishYear, imageA, imageB } = request.body;
+
+    if (!title || !author || !publishYear || !imageA || !imageB) {
       return response.status(400).send({
-        message: "Send all required fields: title, author, publishYear",
+        message:
+          "Send all required fields: title, author, publishYear, imageA, imageB",
       });
     }
+
     const newBook = {
-      title: request.body.title,
-      author: request.body.author,
-      publishYear: request.body.publishYear,
+      title,
+      author,
+      publishYear,
+      imageA,
+      imageB,
       comments: [],
     };
 
@@ -31,7 +33,7 @@ router.post("/", async (request, response) => {
   }
 });
 
-//Route get all books
+// Route to get all books
 router.get("/", async (request, response) => {
   try {
     const books = await Book.find({});
@@ -46,7 +48,7 @@ router.get("/", async (request, response) => {
   }
 });
 
-//Route for get one specific book from database by Id
+// Route to get one specific book from the database by Id
 router.get("/:id", async (request, response) => {
   try {
     const { id } = request.params;
@@ -60,35 +62,38 @@ router.get("/:id", async (request, response) => {
   }
 });
 
-//Route to update
+// Route to update a book
 router.put("/:id", async (request, response) => {
   try {
-    if (
-      !request.body.title ||
-      !request.body.author ||
-      !request.body.publishYear
-    ) {
+    const { title, author, publishYear, imageA, imageB } = request.body;
+
+    if (!title || !author || !publishYear || !imageA || !imageB) {
       return response.status(400).send({
-        message: "Send all required fields: title, author, publishYear",
+        message:
+          "Send all required fields: title, author, publishYear, imageA, imageB",
       });
     }
 
     const { id } = request.params;
 
-    const result = await Book.findByIdAndUpdate(id, request.body);
+    const result = await Book.findByIdAndUpdate(id, request.body, {
+      new: true,
+    });
 
     if (!result) {
       return response.status(404).json({ message: "Book not found" });
     }
 
-    return response.status(200).send({ message: "Book updated successfully" });
+    return response
+      .status(200)
+      .send({ message: "Book updated successfully", book: result });
   } catch (error) {
     console.log(error.message);
     response.status(500).send({ message: error.message });
   }
 });
 
-//Route for delete a book
+// Route to delete a book
 router.delete("/:id", async (request, response) => {
   try {
     const { id } = request.params;
@@ -96,16 +101,16 @@ router.delete("/:id", async (request, response) => {
     const result = await Book.findByIdAndDelete(id);
 
     if (!result) {
-      return response.status(404).json({ message: "Book not found!!!" });
+      return response.status(404).json({ message: "Book not found" });
     }
-    return response.status(200).json({ message: "Book deleted succesfully" });
+    return response.status(200).json({ message: "Book deleted successfully" });
   } catch (error) {
     console.log(error.message);
     response.status(500).send({ message: error.message });
   }
 });
 
-//Route to like a book
+// Route to like a book
 router.put("/:id/like", async (request, response) => {
   try {
     const { id } = request.params;
@@ -114,7 +119,7 @@ router.put("/:id/like", async (request, response) => {
       { $inc: { likes: 1 } },
       { new: true }
     );
-    console.log("likeed");
+    console.log("liked");
     if (!book) {
       return response.status(404).send({ message: "Book not found" });
     }
@@ -164,7 +169,7 @@ router.post("/:id/comments", async (request, response) => {
     book.comments.push({ text });
     await book.save();
 
-    return response.status(201).json(book.comments[book.comments.length - 1]); // Return the newly added comment
+    return response.status(201).json(book.comments[book.comments.length - 1]);
   } catch (error) {
     console.log(error);
     response.status(500).send({ message: error.message });

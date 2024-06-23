@@ -92,55 +92,53 @@ const ShowBook = () => {
       <BackButton />
       <h1 className="text-xl my-2 text-white font-mono">Book Info</h1>
 
-      <div className="flex flex-col border-2 border-black bg-yellow-500 rounded-xl w-full max-w-2xl p-4">
-        <div className="flex flex-wrap justify-center items-center my-4 w-full md:flex-nowrap">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/tr/e/e6/Esaretin-bedeli.jpg"
-            alt="Image 2"
-            className="rounded-lg shadow-lg w-64 h-auto ml-4"
-          />
-          <img
-            src="https://tr.web.img2.acsta.net/pictures/bzp/01/11736.jpg"
-            alt="Image 3"
-            className="rounded-lg shadow-lg w-64 h-auto ml-4"
-          />
-        </div>
-        <div className="flex flex-grow flex-row">
-          <div className="flex-grow content-left">
-            <div className="my-2">
-              <span className="text-lg mr-2 text-gray-600 font-bold">
-                Title:
-              </span>
-              <span className="text-blue-600 font-bold italic text-md">
-                {book.title}
-              </span>
-            </div>
-            <div className="my-2">
-              <span className="text-lg mr-2 text-gray-600 font-bold">
-                Author:
-              </span>
-              <span className="text-blue-600 font-bold italic text-md">
-                {book.author}
-              </span>
-            </div>
-            <div className="my-2">
-              <span className="text-lg mr-2 text-gray-600 font-bold">
-                Publish Year:
-              </span>
-              <span className="text-blue-600 font-bold italic text-md">
-                {book.publishYear}
-              </span>
-            </div>
+      <div className="flex flex-col md:flex-row items-center md:justify-center md:my-4 w-full max-w-2xl border-2 border-black bg-yellow-500 rounded-xl p-4">
+        <img
+          src={book.imageA}
+          alt="Image 1"
+          className="rounded-lg shadow-lg h-auto md:h-80 mb-4 md:mb-0 md:mr-4 md:max-h-80 md:w-auto border-2 border-gray-600"
+        />
+        <img
+          src={book.imageB}
+          alt="Image 2"
+          className="rounded-lg shadow-lg h-auto md:h-80 md:w-auto border-2 border-gray-600"
+        />
+      </div>
+      <div className="flex flex-col md:flex-row mt-4 w-full max-w-2xl border-2 border-black bg-yellow-500 rounded-xl p-4">
+        <div className="flex-grow content-left md:w-2/3">
+          <div className="my-2">
+            <span className="text-lg mr-2 text-gray-600 font-bold">Title:</span>
+            <span className="text-blue-600 font-bold italic text-md">
+              {book.title}
+            </span>
           </div>
-          <div className="w-6 icons-right">
+          <div className="my-2">
+            <span className="text-lg mr-2 text-gray-600 font-bold">
+              Author:
+            </span>
+            <span className="text-blue-600 font-bold italic text-md">
+              {book.author}
+            </span>
+          </div>
+          <div className="my-2">
+            <span className="text-lg mr-2 text-gray-600 font-bold">
+              Publish Year:
+            </span>
+            <span className="text-blue-600 font-bold italic text-md">
+              {book.publishYear}
+            </span>
+          </div>
+        </div>
+        <div className="w-full md:w-1/3 flex items-center justify-center md:justify-end mt-4 md:mt-0">
+          <div className="flex flex-col items-center md:flex-row md:justify-end">
             <div
-              className={`border border-gray-500 bg-slate-200 rounded-md mb-1 ${
+              className={`border border-gray-500 bg-slate-200 rounded-md m-2 ${
                 likeClicked ? "scale-125" : ""
               }`}
               style={{ transition: "transform 200ms" }}
               onClick={handleLike}
             >
-              <AiOutlineLike className="text-2xl text-blue-700 hover:text-green-600 cursor-pointer" />
+              <AiOutlineLike className="text-2xl text-blue-700 hover:text-green-600 cursor-pointer " />
             </div>
             <div
               className={`border border-gray-500 bg-slate-200 rounded-md ${
@@ -153,6 +151,8 @@ const ShowBook = () => {
             </div>
           </div>
         </div>
+      </div>
+      <div className="w-full max-w-2xl border-2 border-black bg-yellow-500 rounded-xl p-4 mt-4">
         <div className="my-2">
           <span className="text-lg mr-2 text-gray-600 font-bold">
             Create Time:

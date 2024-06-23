@@ -2,65 +2,65 @@ import axios from "axios";
 import { useSnackbar } from "notistack";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import BackButton from "../components/BackButton";
 import Spinner from "../components/Spinner";
 
 const EditBook = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
+
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [publishYear, setPublishYear] = useState("");
-  const [relatedImageA, setRelatedImageA] = useState("");
-  const [relatedImageB, setRelatedImageB] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  const { id } = useParams();
-  const { enqueueSnackbar } = useSnackbar();
-  const navigate = useNavigate();
+  const [imageA, setImageA] = useState("");
+  const [imageB, setImageB] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setLoading(true);
-    axios
-      .get(`http://localhost:5555/books/${id}`)
-      .then((response) => {
-        const { author, publishYear, title, imageA, imageB } = response.data;
-        setAuthor(author);
-        setPublishYear(publishYear);
-        setTitle(title);
-        setRelatedImageA(imageA || "");
-        setRelatedImageB(imageB || "");
+    const fetchBook = async () => {
+      try {
+        const response = await axios.get(`http://localhost:5555/books/${id}`);
+        const book = response.data;
+        setTitle(book.title);
+        setAuthor(book.author);
+        setPublishYear(book.publishYear);
+        setImageA(book.imageA);
+        setImageB(book.imageB);
         setLoading(false);
-      })
-      .catch((error) => {
+      } catch (error) {
+        console.error("Error fetching book data:", error);
         setLoading(false);
-        enqueueSnackbar("Failed to fetch book details", { variant: "error" });
-        console.error("Error fetching book:", error);
-      });
-  }, [id, enqueueSnackbar]);
+      }
+    };
 
-  const handleEditBook = () => {
-    const data = { title, author, publishYear, relatedImageA, relatedImageB };
+    fetchBook();
+  }, [id]);
 
-    setLoading(true);
-    axios
-      .put(`http://localhost:5555/books/${id}`, data)
-      .then(() => {
-        setLoading(false);
-        enqueueSnackbar("Book edited successfully", { variant: "success" });
-        navigate("/");
-      })
-      .catch((error) => {
-        setLoading(false);
-        enqueueSnackbar("Failed to edit book", { variant: "error" });
-        console.error("Error editing book:", error);
-      });
+  const handleUpdateBook = async () => {
+    const data = {
+      title,
+      author,
+      publishYear,
+      imageA,
+      imageB,
+    };
+
+    try {
+      await axios.put(`http://localhost:5555/books/${id}`, data);
+      enqueueSnackbar("Book updated successfully", { variant: "success" });
+      navigate("/");
+    } catch (error) {
+      console.error("Error editing book:", error);
+      enqueueSnackbar("Error updating book", { variant: "error" });
+    }
   };
 
+  if (loading) return <Spinner />;
+
   return (
-    <div className="p-4 bg-[#28223180] flex-grow items-center justify-center">
-      <BackButton />
-      <h1 className="text-3xl my-4 text-center font-bold">Edit Book</h1>
-      {loading && <Spinner />}
-      <div className="flex flex-col border-2 bg-slate-100 border-yellow-600 rounded-xl w-[600px] p-4 mx-auto">
+    <div className="p-4 bg-[#F5F5DC]">
+      <h1 className="text-3xl my-4">Edit Book</h1>
+      <div className="flex flex-col border-2 border-sky-400 rounded-xl w-[600px] p-4 mx-auto">
         <div className="my-4">
           <label className="text-xl mr-4 text-gray-500">Title</label>
           <input
@@ -76,7 +76,7 @@ const EditBook = () => {
             type="text"
             value={author}
             onChange={(e) => setAuthor(e.target.value)}
-            className="border-2 border-gray-500 px-4 py-2 w-full"
+            className="border-2 border-gray-500 px-4 py-2  w-full "
           />
         </div>
         <div className="my-4">
@@ -85,37 +85,32 @@ const EditBook = () => {
             type="number"
             value={publishYear}
             onChange={(e) => setPublishYear(e.target.value)}
-            className="border-2 border-gray-500 px-4 py-2 w-full"
+            className="border-2 border-gray-500 px-4 py-2  w-full "
           />
         </div>
         <div className="my-4">
           <label className="text-xl mr-4 text-gray-500">
-            Related Image Address A
+            Enter related image address (initial)
           </label>
           <input
             type="url"
-            value={relatedImageA}
-            placeholder="Enter image address 1"
-            onChange={(e) => setRelatedImageA(e.target.value || "")}
-            className="border-2 border-gray-500 px-4 py-2 w-full"
+            value={imageA}
+            onChange={(e) => setImageA(e.target.value)}
+            className="border-2 border-gray-500 px-4 py-2  w-full "
           />
         </div>
         <div className="my-4">
           <label className="text-xl mr-4 text-gray-500">
-            Related Image Address B
+            Enter related image address (secondary)
           </label>
           <input
             type="url"
-            value={relatedImageB}
-            placeholder="Enter image adress 2"
-            onChange={(e) => setRelatedImageB(e.target.value || "")}
-            className="border-2 border-gray-500 px-4 py-2 w-full"
+            value={imageB}
+            onChange={(e) => setImageB(e.target.value)}
+            className="border-2 border-gray-500 px-4 py-2  w-full "
           />
         </div>
-        <button
-          className="p-2 bg-sky-300 m-8 hover:bg-yellow-500"
-          onClick={handleEditBook}
-        >
+        <button className="p-2 bg-sky-300 m-8" onClick={handleUpdateBook}>
           Save
         </button>
       </div>
