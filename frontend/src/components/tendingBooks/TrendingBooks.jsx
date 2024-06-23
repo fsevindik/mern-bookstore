@@ -28,6 +28,13 @@ const TrendingBooks = ({ sliderSettings }) => {
       });
   }, []);
 
+  const truncateAuthor = (author, maxLength) => {
+    if (author.length > maxLength) {
+      return `${author.substring(0, maxLength)}...`;
+    }
+    return author;
+  };
+
   return (
     <div className="my-8 mx-auto max-w-3xl">
       <h2 className="text-2xl font-bold text-center mb-4 text-white">
@@ -47,18 +54,16 @@ const TrendingBooks = ({ sliderSettings }) => {
                       alt={book.title}
                       className="w-full h-auto object-cover mb-4 rounded-lg mx-auto"
                     />
-                    <h3 className="font-semibold text-center text-sm">
-                      {book.title}
-                    </h3>
-                    <p className="text-blue-600 mt-2 text-center font-bold text-sm">
+                    <h3 className="font-semibold text-center">{book.title}</h3>
+                    <p className="text-blue-600 mt-2 text-center font-bold">
                       Author:{" "}
-                      <span className="text-white font-serif text-sm">
-                        {book.author}
+                      <span className="text-white font-serif">
+                        {truncateAuthor(book.author, 15)}
                       </span>
                     </p>
-                    <p className="mt-2 text-blue-700 font-bold text-center text-sm">
+                    <p className="mt-2 text-blue-700 font-bold text-center">
                       Rating:{" "}
-                      <span className="text-white font-serif text-sm">
+                      <span className="text-white font-serif">
                         {book.likes}
                       </span>
                     </p>
