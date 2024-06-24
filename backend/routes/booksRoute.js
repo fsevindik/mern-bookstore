@@ -154,9 +154,9 @@ router.put("/:id/unlike", async (request, response) => {
 router.post("/:id/comments", async (request, response) => {
   try {
     const { id } = request.params;
-    const { text } = request.body;
+    const { text, userName } = request.body;
 
-    if (!text) {
+    if (!text || !userName) {
       return response.status(400).send({ message: "Comment text is required" });
     }
 
@@ -166,7 +166,7 @@ router.post("/:id/comments", async (request, response) => {
     }
 
     // Add the new comment to the book's comments array
-    book.comments.push({ text });
+    book.comments.push({ text, userName });
     await book.save();
 
     return response.status(201).json(book.comments[book.comments.length - 1]);

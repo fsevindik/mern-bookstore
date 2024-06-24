@@ -49,11 +49,16 @@ const TrendingBooks = ({ sliderSettings }) => {
               <div className="px-2">
                 <div className="bg-[#f5c518] p-4 rounded-lg shadow-md flex cursor-pointer">
                   <div className="w-full">
-                    <img
-                      src="https://cdn.pixabay.com/photo/2015/11/19/21/10/glasses-1052010_640.jpg"
-                      alt={book.title}
-                      className="w-full h-auto object-cover mb-4 rounded-lg mx-auto"
-                    />
+                    <div
+                      className="relative overflow-hidden rounded-lg"
+                      style={{ paddingTop: "150%" }} // Maintain aspect ratio 2:3 (width:height)
+                    >
+                      <img
+                        src={book.imageA}
+                        alt={book.title}
+                        className="absolute top-0 left-0 w-full h-full object-cover rounded-lg"
+                      />
+                    </div>
                     <h3 className="font-semibold text-center">{book.title}</h3>
                     <p className="text-blue-600 mt-2 text-center font-bold">
                       Author:{" "}

@@ -18,6 +18,8 @@ const ShowBook = () => {
   const [canComment, setCanComment] = useState(false);
   const { id } = useParams();
 
+  const username = localStorage.getItem("UserName");
+
   useEffect(() => {
     const fetchBook = async () => {
       console.log("Fetching book details for id:", id);
@@ -39,9 +41,8 @@ const ShowBook = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    const username = localStorage.getItem("UserName");
     setCanComment(!!token && !!username);
-  }, []);
+  }, [username]);
 
   const handleLike = async () => {
     setLikeClicked(true);

@@ -30,7 +30,9 @@ const Home = () => {
   }, [userStatus]);
 
   //todo
-  const filteredBooks = books.filter((book) => book.title.includes(search));
+  const filteredBooks = books.filter((book) =>
+    book.title.toLowerCase().includes(search.toLowerCase())
+  );
 
   return (
     <div className="p-4 bg-[#343131] flex-grow">
