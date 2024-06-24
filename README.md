@@ -9,7 +9,7 @@ This project implements a simple Bookstore application using the MERN stack (Mon
 - Admin authentication to access CRUD operations.
 - Create, update, and delete books in the bookstore.
 - Any users can search books from the admin's own picks and can rate and leave comments.
-- Search functionality to find books based on specific criteria.
+- Search functionality to find books
 - Displaying data fetched from MongoDB.
 
 ## Setup Instructions
