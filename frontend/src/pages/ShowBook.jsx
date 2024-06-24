@@ -72,15 +72,27 @@ const ShowBook = () => {
 
   const handleCommentSubmit = async (e) => {
     e.preventDefault();
+
+    const userName = localStorage.getItem("UserName");
+
+    if (!userName) {
+      console.error("User is not logged in");
+      alert("Please log in to add a comment.");
+      return;
+    }
+
     try {
       const response = await axios.post(
         `http://localhost:5555/books/${book._id}/comments`,
-        { text: newComment }
+        { text: newComment, userName }
       );
       setComments([...comments, response.data]);
       setNewComment("");
     } catch (error) {
-      console.error("Error adding comment:", error);
+      console.error(
+        "Error adding comment:",
+        error.response ? error.response.data : error.message
+      );
     }
   };
 

@@ -157,7 +157,9 @@ router.post("/:id/comments", async (request, response) => {
     const { text, userName } = request.body;
 
     if (!text || !userName) {
-      return response.status(400).send({ message: "Comment text is required" });
+      return response
+        .status(400)
+        .send({ message: "Comment text and username are required" });
     }
 
     const book = await Book.findById(id);
@@ -165,13 +167,13 @@ router.post("/:id/comments", async (request, response) => {
       return response.status(404).send({ message: "Book not found" });
     }
 
-    // Add the new comment to the book's comments array
+    // Add  comment to the book's comments array
     book.comments.push({ text, userName });
     await book.save();
 
     return response.status(201).json(book.comments[book.comments.length - 1]);
   } catch (error) {
-    console.log(error);
+    console.error("Error in comment addition:", error);
     response.status(500).send({ message: error.message });
   }
 });

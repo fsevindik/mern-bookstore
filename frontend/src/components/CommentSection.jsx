@@ -6,6 +6,7 @@ const CommentSection = ({
   setNewComment,
   handleCommentSubmit,
   canComment,
+  username,
 }) => {
   return (
     <div className="my-4 bg-gray-800 p-4 rounded-lg shadow-lg w-full flex flex-col items-center">
@@ -23,8 +24,10 @@ const CommentSection = ({
             />
             <div className="flex-1">
               <p className="text-white font-serif">
-                <span className="font-semibold text-blue-500">Username : </span>
-                {comment.username}
+                <span className="font-semibold text-blue-500">
+                  {comment.userName}{" "}
+                </span>
+                says that
               </p>
               <div className="border border-cyan-400 rounded-md ml-4 bg-slate-300 max-w-full">
                 <p className="text-gray-800 font-mono ml-2 break-all whitespace-normal overflow-wrap-anywhere word-break-break-word hyphens-auto max-h-32 overflow-y-auto p-2">
