@@ -1,9 +1,10 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { MdOutlineAddBox } from "react-icons/md";
 import { Link } from "react-router-dom";
 import BooksTable from "../components/home/BooksTable";
 import TrendingBooks from "../components/tendingBooks/TrendingBooks";
+import BooksContext from "../context/BookDb.jsx";
 import sliderSettings from "../utils/sliderSettings";
 
 const Home = () => {
@@ -11,6 +12,8 @@ const Home = () => {
   const [loading, setLoading] = useState(false);
   const [showType, setShowType] = useState("table");
   const userStatus = localStorage.getItem("UserRole");
+
+  const { search } = useContext(BooksContext);
 
   useEffect(() => {
     setLoading(true);
@@ -26,6 +29,9 @@ const Home = () => {
       });
   }, [userStatus]);
 
+  //todo
+  const filteredBooks = books.filter((book) => book.title.includes(search));
+
   return (
     <div className="p-4 bg-[#343131] flex-grow">
       <TrendingBooks sliderSettings={sliderSettings} />
@@ -40,7 +46,7 @@ const Home = () => {
           </Link>
         ) : null}
       </div>
-      <BooksTable books={books} />
+      <BooksTable books={filteredBooks} />
     </div>
   );
 };

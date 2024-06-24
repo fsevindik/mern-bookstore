@@ -47,10 +47,7 @@ const BooksTable = ({ books }) => {
           <th className="border border-slate-600 rounded-md bg-slate-500">
             Title
           </th>
-          <th className="border border-slate-600 rounded-md max-md:hidden bg-slate-500">
-            Author
-          </th>
-          <th className="border border-slate-600 rounded-md max-md:hidden bg-slate-500">
+          <th className="border border-slate-600 rounded-md bg-slate-500 hidden md:table-cell">
             Publish Year
           </th>
           <th className="border border-slate-600 rounded-md bg-slate-500">
@@ -61,16 +58,18 @@ const BooksTable = ({ books }) => {
       <tbody>
         {books.map((book, index) => (
           <tr key={book._id} className="h-8 bg-gray-300">
-            <td className="border border-slate-700 rounded-md text-center">
+            <td className="border border-slate-700 rounded-md text-center ">
               {index + 1}
             </td>
-            <td className="border border-slate-700 rounded-md text-center">
+            <td className="border border-slate-700 rounded-md text-left flex items-center p-2 font-serify">
+              <img
+                src={book.imageA}
+                alt={book.title}
+                className="h-12 w-12 object-cover mr-2"
+              />
               {book.title}
             </td>
-            <td className="border border-slate-700 rounded-md text-center max-md:hidden">
-              {book.author}
-            </td>
-            <td className="border border-slate-700 rounded-md text-center max-md:hidden">
+            <td className="border border-slate-700 rounded-md text-center hidden md:table-cell">
               {book.publishYear}
             </td>
             <td className="border border-slate-700 rounded-md text-center">

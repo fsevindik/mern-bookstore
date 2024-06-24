@@ -25,8 +25,10 @@ const EditButton = ({
     >
       <Link
         to={`/books/edit/${bookId}`}
-        className={`text-yellow-600 hover:scale-125 ${
-          userType === "visitor" ? "pointer-events-none cursor-not-allowed" : ""
+        className={`text-yellow-600 transform transition-transform duration-300 ${
+          userType === "visitor"
+            ? "pointer-events-none cursor-not-allowed"
+            : "hover:scale-125"
         }`}
       >
         <AiOutlineEdit
@@ -34,12 +36,12 @@ const EditButton = ({
             userType === "visitor" ? "cursor-not-allowed" : ""
           }`}
         />
-        {showTooltip && userType === "visitor" && (
-          <div className="absolute bg-gray-800 text-white text-sm py-2 px-4 rounded-md bottom-full left-0 mb-2">
-            Only admin can manage
-          </div>
-        )}
       </Link>
+      {showTooltip && userType === "visitor" && (
+        <div className="absolute bg-gray-800 text-white text-sm py-2 px-4 rounded-md bottom-full left-0 mb-2">
+          Only admin can manage
+        </div>
+      )}
     </div>
   );
 };

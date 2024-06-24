@@ -32,6 +32,7 @@ const UserDropdown = ({ onLogout }) => {
   const handleLogout = () => {
     localStorage.clear();
     navigate("/");
+    window.location.reload();
     if (onLogout) onLogout();
   };
 
