@@ -27,3 +27,6 @@ To run this project locally, follow these steps:
 - useEffect Hook
 - Tailwind CSS
 - Axios
+
+![Bookstore Screenshot](Screenshot 2024-06-24 190524.png)
+
