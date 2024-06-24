@@ -51,7 +51,7 @@ const TrendingBooks = ({ sliderSettings }) => {
                   <div className="w-full">
                     <div
                       className="relative overflow-hidden rounded-lg"
-                      style={{ paddingTop: "150%" }} // Maintain aspect ratio 2:3 (width:height)
+                      style={{ paddingTop: "150%" }}
                     >
                       <img
                         src={book.imageA}

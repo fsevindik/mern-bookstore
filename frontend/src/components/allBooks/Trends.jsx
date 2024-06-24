@@ -27,6 +27,13 @@ const Trends = () => {
       });
   }, []);
 
+  const truncateAuthor = (author, maxLength) => {
+    if (author.length > maxLength) {
+      return `${author.substring(0, maxLength)}...`;
+    }
+    return author;
+  };
+
   return (
     <div className="bg-[#2a2828]  flex flex-grow flex-col items-center justify-center">
       <div className="mx-auto mt-5">
@@ -46,9 +53,7 @@ const Trends = () => {
                 className="bg-yellow-400 p-4 rounded-lg shadow-md flex flex-col sm:flex-row relative"
               >
                 <img
-                  src={
-                    "https://assets-prd.ignimgs.com/2023/05/06/the-best-selling-books-of-all-time-1-1683340164219.jpg"
-                  }
+                  src={book.imageA}
                   alt={book.title}
                   className="w-full sm:w-1/2 h-40 object-cover mb-4 sm:mb-0 rounded-lg"
                 />
@@ -56,7 +61,9 @@ const Trends = () => {
                   <h3 className="text-xl font-semibold mb-2">{book.title}</h3>
                   <p className="text-blue-600  mt-2 text-left font-bold ">
                     Author:{" "}
-                    <span className="text-white font-serif">{book.author}</span>
+                    <span className="text-white font-serif">
+                      {truncateAuthor(book.author, 15)}
+                    </span>
                   </p>
                   <p className="text-blue-600 mt-2  text-left font-bold">
                     Rating:{" "}
