@@ -9,7 +9,7 @@ This project implements a simple Bookstore application using the MERN stack (Mon
 - Admin authentication to access CRUD operations.
 - Create, update, and delete books in the bookstore.
 - Any users can search books from the admin's own picks and can rate and leave comments.
-- Search functionality to find books based on specific criteria.
+- Search functionality to find books
 - Displaying data fetched from MongoDB.
 
 ## Setup Instructions
@@ -17,6 +17,11 @@ This project implements a simple Bookstore application using the MERN stack (Mon
 To run this project locally, follow these steps:
 
 1. Clone the repository: But do not forget to set ur own mongoDbUrl/..pass..
+
+![Bookstore Screenshot](frontend/src/assets/Screenshot%202024-06-24%20190524.png)
+![Bookstore Screenshot](frontend/src/assets/Screenshot%202024-06-24%20190548.png)
+![Screenshot](frontend/src/assets/Screenshot%202024-06-24%20200957.png)
+
 
 
 ## Used Tools
@@ -28,6 +33,6 @@ To run this project locally, follow these steps:
 - Tailwind CSS
 - Axios
 
-![Bookstore Screenshot](frontend/src/assets/Screenshot%202024-06-24%20190524.png)
+
 
 
