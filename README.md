@@ -28,5 +28,6 @@ To run this project locally, follow these steps:
 - Tailwind CSS
 - Axios
 
-![Bookstore Screenshot](Screenshot 2024-06-24 190524.png)
+![Bookstore Screenshot](frontend/src/assets/Screenshot%202024-06-24%20190524.png)
+
 
