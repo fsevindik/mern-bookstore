@@ -22,7 +22,7 @@ To run this project locally, follow these steps:
 ![Bookstore Screenshot](frontend/src/assets/Screenshot%202024-06-24%20190548.png)
 
 ![Bookstore Screenshot](frontend/src/assets/Screenshot 2024-06-24 190559.png)
-![Bookstore Screenshot](frontend/src/assets/Screenshot 2024-06-24 190610.png)
+![Bookstore Screenshot](frontend/src/assets/Screenshot 2024-06-24 190723.png)
 ![Bookstore Screenshot](frontend/src/assets/Screenshot 2024-06-24 200957.png)
 
 
