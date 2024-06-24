@@ -18,6 +18,13 @@ To run this project locally, follow these steps:
 
 1. Clone the repository: But do not forget to set ur own mongoDbUrl/..pass..
 
+![Bookstore Screenshot](frontend/src/assets/Screenshot%202024-06-24%20190524.png)
+![Bookstore Screenshot](frontend\src\assets\Screenshot 2024-06-24 190548.png)
+![Bookstore Screenshot](frontend\src\assets\Screenshot 2024-06-24 190559.png)
+![Bookstore Screenshot](frontend\src\assets\Screenshot 2024-06-24 190610.png)
+![Bookstore Screenshot](frontend\src\assets\Screenshot 2024-06-24 200957.png)
+
+
 
 ## Used Tools
 - React Components and Props
@@ -28,6 +35,6 @@ To run this project locally, follow these steps:
 - Tailwind CSS
 - Axios
 
-![Bookstore Screenshot](frontend/src/assets/Screenshot%202024-06-24%20190524.png)
+
 
 
