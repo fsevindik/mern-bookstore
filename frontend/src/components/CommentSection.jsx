@@ -23,8 +23,8 @@ const CommentSection = ({
               className="w-10 h-10 rounded-full mr-2"
             />
             <div className="flex-1">
-              <p className="text-white font-serif">
-                <span className="font-semibold text-blue-500">
+              <p className="text-white font-serif text-sm">
+                <span className="font-semibold text-blue-500 text-sm">
                   {comment.userName}{" "}
                 </span>
                 says that

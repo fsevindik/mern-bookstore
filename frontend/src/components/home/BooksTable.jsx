@@ -61,7 +61,7 @@ const BooksTable = ({ books }) => {
             <td className="border border-slate-700 rounded-md text-center ">
               {index + 1}
             </td>
-            <td className="border border-slate-700 rounded-md text-left flex items-center p-2 font-serify">
+            <td className="border border-slate-700 rounded-md text-left flex items-center p-2 font-serify font-semibold">
               <img
                 src={book.imageA}
                 alt={book.title}
@@ -69,7 +69,7 @@ const BooksTable = ({ books }) => {
               />
               {book.title}
             </td>
-            <td className="border border-slate-700 rounded-md text-center hidden md:table-cell">
+            <td className="border border-slate-700 rounded-md text-center font-semibold hidden md:table-cell">
               {book.publishYear}
             </td>
             <td className="border border-slate-700 rounded-md text-center">

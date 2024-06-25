@@ -29,7 +29,6 @@ const Home = () => {
       });
   }, [userStatus]);
 
-  //todo
   const filteredBooks = books.filter((book) =>
     book.title.toLowerCase().includes(search.toLowerCase())
   );
@@ -44,7 +43,7 @@ const Home = () => {
         </h1>
         {userStatus === "admin" ? (
           <Link to="/books/create">
-            <MdOutlineAddBox className="text-yellow-500 text-4xl hover:scale-110 transition-transform  hover:text-white " />
+            <MdOutlineAddBox className="text-yellow-500 text-4xl animate-bounce  hover:scale-110 transition-transform  hover:text-white  mr-4" />
           </Link>
         ) : null}
       </div>
