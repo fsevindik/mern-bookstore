@@ -4,6 +4,7 @@ import { AiOutlineDislike, AiOutlineLike } from "react-icons/ai";
 import { useParams } from "react-router-dom";
 import BackButton from "../components/BackButton";
 import CommentSection from "../components/CommentSection";
+import RateModal from "../components/RateModal";
 import Spinner from "../components/Spinner";
 import HeartIcon from "../components/icons/HeartIcon ";
 
@@ -117,6 +118,7 @@ const ShowBook = () => {
           className="rounded-lg shadow-lg h-auto md:h-80 md:w-auto border-2 border-gray-600"
         />
       </div>
+
       <div className="flex flex-col md:flex-row mt-4 w-full max-w-2xl border-2 border-black bg-yellow-500 rounded-xl p-4">
         <div className="flex-grow content-left md:w-2/3">
           <div className="my-2">
@@ -164,6 +166,7 @@ const ShowBook = () => {
             </div>
           </div>
         </div>
+        <RateModal />
       </div>
       <div className="w-full max-w-2xl border-2 border-black bg-yellow-500 rounded-xl p-4 mt-4">
         <div className="my-2">
@@ -182,6 +185,7 @@ const ShowBook = () => {
             {new Date(book.updatedAt).toString()}
           </span>
         </div>
+
         <div className="my-2 flex items-center">
           <span className="text-lg mr-2 text-gray-600 font-bold">
             How many people like this book:
