@@ -12,11 +12,11 @@ This project implements a simple Bookstore application using the MERN stack (Mon
 - Search functionality to find books
 - Displaying data fetched from MongoDB.
 
-## Setup Instructions
+##
 
-To run this project locally, follow these steps:
+To run this project locally =>
 
-1. Clone the repository: But do not forget to set ur own mongoDbUrl/..pass..
+-Clone the repository: But do not forget to set ur own mongoDbUrl/..pass..
 
 ![Bookstore Screenshot](frontend/src/assets/Screenshot%202024-06-24%20190524.png)
 ![Bookstore Screenshot](frontend/src/assets/Screenshot%202024-06-24%20190548.png)
