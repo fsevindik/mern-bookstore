@@ -1,6 +1,5 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { AiOutlineDislike, AiOutlineLike } from "react-icons/ai";
 import { useParams } from "react-router-dom";
 import BackButton from "../components/BackButton";
 import CommentSection from "../components/CommentSection";
@@ -10,10 +9,7 @@ import HeartIcon from "../components/icons/HeartIcon ";
 
 const ShowBook = () => {
   const [book, setBook] = useState(null);
-  const [likes, setLikes] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [likeClicked, setLikeClicked] = useState(false);
-  const [dislikeClicked, setDislikeClicked] = useState(false);
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
   const [canComment, setCanComment] = useState(false);
@@ -28,7 +24,6 @@ const ShowBook = () => {
         const response = await axios.get(`http://localhost:5555/books/${id}`);
         console.log("Book data fetched:", response.data);
         setBook(response.data);
-        setLikes(response.data.likes);
         setComments(response.data.comments || []);
       } catch (error) {
         console.error("Error fetching book details:", error);
@@ -44,32 +39,6 @@ const ShowBook = () => {
     const token = localStorage.getItem("token");
     setCanComment(!!token && !!username);
   }, [username]);
-
-  const handleLike = async () => {
-    setLikeClicked(true);
-    try {
-      const response = await axios.put(
-        `http://localhost:5555/books/${book._id}/like`
-      );
-      setLikes(response.data.likes);
-    } catch (error) {
-      console.error("Error liking the book:", error);
-    }
-    setTimeout(() => setLikeClicked(false), 200);
-  };
-
-  const handleDislike = async () => {
-    setDislikeClicked(true);
-    try {
-      const response = await axios.put(
-        `http://localhost:5555/books/${book._id}/unlike`
-      );
-      setLikes(response.data.likes);
-    } catch (error) {
-      console.error("Error disliking the book:", error);
-    }
-    setTimeout(() => setDislikeClicked(false), 200);
-  };
 
   const handleCommentSubmit = async (e) => {
     e.preventDefault();
@@ -145,26 +114,7 @@ const ShowBook = () => {
           </div>
         </div>
         <div className="w-full md:w-1/3 flex items-center justify-center md:justify-end mt-4 md:mt-0">
-          <div className="flex flex-col items-center md:flex-row md:justify-end">
-            <div
-              className={`border border-gray-500 bg-slate-200 rounded-md m-2 ${
-                likeClicked ? "scale-125" : ""
-              }`}
-              style={{ transition: "transform 200ms" }}
-              onClick={handleLike}
-            >
-              <AiOutlineLike className="text-2xl text-blue-700 hover:text-green-600 cursor-pointer " />
-            </div>
-            <div
-              className={`border border-gray-500 bg-slate-200 rounded-md ${
-                dislikeClicked ? "scale-125" : ""
-              }`}
-              style={{ transition: "transform 200ms" }}
-              onClick={handleDislike}
-            >
-              <AiOutlineDislike className="text-2xl text-red-900 hover:text-red-600 cursor-pointer" />
-            </div>
-          </div>
+          {/* Optional: Any other content or components */}
         </div>
         <RateModal />
       </div>
@@ -190,7 +140,7 @@ const ShowBook = () => {
           <span className="text-lg mr-2 text-gray-600 font-bold">
             How many people like this book:
           </span>
-          <HeartIcon likes={likes} />
+          <HeartIcon likes={book.likes} />
         </div>
         <CommentSection
           comments={comments}
