@@ -33,6 +33,7 @@ To run this project locally =>
 - Tailwind CSS
 - Axios
 
+## Dont worry guys I already hashed🛡️ your passwords with bcrpyte🔒. 
 
 
 
