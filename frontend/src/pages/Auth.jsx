@@ -41,7 +41,7 @@ const Auth = () => {
       localStorage.setItem("token", token);
       localStorage.setItem("UserName", name);
       localStorage.setItem("UserRole", role);
-      localStorage.setItem("UserId", responseData._id);
+      localStorage.setItem("userId", responseData._id);
       setLoggedIn(true);
       setUserName(name);
       setUserStatus(role);

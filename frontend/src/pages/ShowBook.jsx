@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import BackButton from "../components/BackButton";
+import BookInfo from "../components/BookInfo";
 import CommentSection from "../components/CommentSection";
 import RateModal from "../components/RateModal";
 import Spinner from "../components/Spinner";
@@ -75,72 +76,15 @@ const ShowBook = () => {
       <BackButton />
       <h1 className="text-xl my-2 text-white font-mono">Book Info</h1>
 
-      <div className="flex flex-col md:flex-row items-center md:justify-center md:my-4 w-full max-w-2xl border-2 border-black bg-yellow-500 rounded-xl p-4">
-        <img
-          src={book.imageA}
-          alt="Image 1"
-          className="rounded-lg shadow-lg h-auto md:h-80 mb-4 md:mb-0 md:mr-4 md:max-h-80 md:w-auto border-2 border-gray-600"
-        />
-        <img
-          src={book.imageB}
-          alt="Image 2"
-          className="rounded-lg shadow-lg h-auto md:h-80 md:w-auto border-2 border-gray-600"
-        />
-      </div>
+      {book && <BookInfo book={book} />}
 
-      <div className="flex flex-col md:flex-row mt-4 w-full max-w-2xl border-2 border-black bg-yellow-500 rounded-xl p-4">
-        <div className="flex-grow content-left md:w-2/3">
-          <div className="my-2">
-            <span className="text-lg mr-2 text-gray-600 font-bold">Title:</span>
-            <span className="text-blue-600 font-bold italic text-md">
-              {book.title}
-            </span>
-          </div>
-          <div className="my-2">
-            <span className="text-lg mr-2 text-gray-600 font-bold">
-              Author:
-            </span>
-            <span className="text-blue-600 font-bold italic text-md">
-              {book.author}
-            </span>
-          </div>
-          <div className="my-2">
-            <span className="text-lg mr-2 text-gray-600 font-bold">
-              Publish Year:
-            </span>
-            <span className="text-blue-600 font-bold italic text-md">
-              {book.publishYear}
-            </span>
-          </div>
-        </div>
-        <div className="w-full md:w-1/3 flex items-center justify-center md:justify-end mt-4 md:mt-0">
-          {/* Optional: Any other content or components */}
-        </div>
-        <RateModal />
-      </div>
       <div className="w-full max-w-2xl border-2 border-black bg-yellow-500 rounded-xl p-4 mt-4">
-        <div className="my-2">
-          <span className="text-lg mr-2 text-gray-600 font-bold">
-            Create Time:
-          </span>
-          <span className="text-blue-600 font-bold italic text-md">
-            {new Date(book.createdAt).toString()}
-          </span>
-        </div>
-        <div className="my-2">
-          <span className="text-lg mr-2 text-gray-600 font-bold">
-            Last Update Time:
-          </span>
-          <span className="text-blue-600 font-bold italic text-md">
-            {new Date(book.updatedAt).toString()}
-          </span>
-        </div>
-
         <div className="my-2 flex items-center">
           <span className="text-lg mr-2 text-gray-600 font-bold">
             How many people like this book:
           </span>
           <HeartIcon likes={book.likes} />
+          <RateModal />
         </div>
         <CommentSection
           comments={comments}

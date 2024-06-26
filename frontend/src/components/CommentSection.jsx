@@ -24,7 +24,7 @@ const CommentSection = ({
             <div className="flex-1">
               <p className="text-white font-serif text-sm">
                 <span className="font-semibold text-blue-500 text-sm">
-                  {comment.userName} {/* userName burada kullanılıyor */}
+                  {comment.userName}
                 </span>
                 says that
               </p>

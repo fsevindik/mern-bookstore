@@ -41,7 +41,9 @@ const BookInfo = ({ book }) => {
               </span>
             </div>
             <div>
-              <span className="font-bold text-lg ">Create Time :</span>
+              <span className="font-bold text-lg text-blue-600 ">
+                Create Time :
+              </span>
               <span className="ml-2 font-bold text-gray-800">
                 {new Date(book.createdAt).toLocaleString()}
               </span>
