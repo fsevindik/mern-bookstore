@@ -6,7 +6,6 @@ const CommentSection = ({
   setNewComment,
   handleCommentSubmit,
   canComment,
-  username,
 }) => {
   return (
     <div className="my-4 bg-gray-800 p-4 rounded-lg shadow-lg w-full flex flex-col items-center">
@@ -25,7 +24,7 @@ const CommentSection = ({
             <div className="flex-1">
               <p className="text-white font-serif text-sm">
                 <span className="font-semibold text-blue-500 text-sm">
-                  {comment.userName}{" "}
+                  {comment.userName} {/* userName burada kullanılıyor */}
                 </span>
                 says that
               </p>
@@ -58,7 +57,7 @@ const CommentSection = ({
         </button>
       </div>
       {!canComment && (
-        <p className="text-red-500 mt-2">Please log in to add a comment.</p>
+        <p className="text-red-500 mt-2">You need to log in to comment.</p>
       )}
     </div>
   );

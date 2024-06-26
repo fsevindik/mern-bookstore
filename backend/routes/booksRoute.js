@@ -110,56 +110,16 @@ router.delete("/:id", async (request, response) => {
   }
 });
 
-// Route to like a book
-router.put("/:id/like", async (request, response) => {
-  try {
-    const { id } = request.params;
-    const book = await Book.findByIdAndUpdate(
-      id,
-      { $inc: { likes: 1 } },
-      { new: true }
-    );
-    console.log("liked");
-    if (!book) {
-      return response.status(404).send({ message: "Book not found" });
-    }
-    return response.status(200).json(book);
-  } catch (error) {
-    console.log(error);
-    response.status(500).send({ message: error.message });
-  }
-});
-
-// Route to dislike a book
-router.put("/:id/unlike", async (request, response) => {
-  try {
-    const { id } = request.params;
-    const book = await Book.findByIdAndUpdate(
-      id,
-      { $inc: { likes: -1 } },
-      { new: true }
-    );
-    console.log("disliked");
-    if (!book) {
-      return response.status(404).send({ message: "Book not found" });
-    }
-    return response.status(200).json(book);
-  } catch (error) {
-    console.log(error);
-    response.status(500).send({ message: error.message });
-  }
-});
-
 // Route to add a comment to a book
 router.post("/:id/comments", async (request, response) => {
   try {
     const { id } = request.params;
-    const { text, userName } = request.body;
+    const { text, userId } = request.body;
 
-    if (!text || !userName) {
+    if (!text || !userId) {
       return response
         .status(400)
-        .send({ message: "Comment text and username are required" });
+        .send({ message: "Comment text and userId are required" });
     }
 
     const book = await Book.findById(id);
@@ -167,11 +127,22 @@ router.post("/:id/comments", async (request, response) => {
       return response.status(404).send({ message: "Book not found" });
     }
 
-    // Add  comment to the book's comments array
-    book.comments.push({ text, userName });
+    const user = await User.findById(userId);
+    if (!user) {
+      return response.status(404).send({ message: "User not found" });
+    }
+
+    // Add comment to the book's comments array
+    const newComment = {
+      text,
+      userName: user.name,
+      userId: user._id,
+    };
+
+    book.comments.push(newComment);
     await book.save();
 
-    return response.status(201).json(book.comments[book.comments.length - 1]);
+    return response.status(201).json(newComment);
   } catch (error) {
     console.error("Error in comment addition:", error);
     response.status(500).send({ message: error.message });
