@@ -59,7 +59,7 @@ const UserDropdown = ({ onLogout }) => {
                   {userNameFirstChar.toUpperCase()}
                 </div>
                 {showTooltip && (
-                  <div className="absolute bg-red-600 w-full max-w-xs text-white text-md rounded py-1 px-2 top-0 left-0 -translate-x-full transform pointer-events-none">
+                  <div className="absolute bg-red-600 w-full max-w-xs text-white text-md  py-1 px-2 top-0 left-0 -translate-x-full transform pointer-events-none">
                     {userRole === "admin"
                       ? "Go to admin dashboard"
                       : "Go to your welcome page"}
@@ -78,7 +78,7 @@ const UserDropdown = ({ onLogout }) => {
             {userName !== "Guest" ? (
               <button
                 onClick={handleLogout}
-                className="block w-full text-yellow-500 text-left px-4 py-2 text-md rounded-sm hover:bg-red-500 hover:text-white"
+                className="block w-full text-yellow-500 text-left px-4 py-2 text-md rounded-md hover:bg-red-500 hover:text-white"
               >
                 Logout
               </button>

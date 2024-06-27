@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import DeleteButton from "../DeleteButton";
 import DetailsButton from "../DetailsButton";
 import EditButton from "../EditButton";
@@ -61,14 +62,16 @@ const BooksTable = ({ books }) => {
             <td className="border border-slate-700 rounded-md text-center ">
               {index + 1}
             </td>
-            <td className="border border-slate-700 rounded-md text-left flex items-center p-2 font-serify font-semibold">
-              <img
-                src={book.imageA}
-                alt={book.title}
-                className="h-12 w-12 object-cover mr-2"
-              />
-              {book.title}
-            </td>
+            <Link key={book._id} to={`/books/details/${book._id}`}>
+              <td className="border border-slate-700 cursor-pointer rounded-md text-left flex items-center p-2 font-serify font-semibold">
+                <img
+                  src={book.imageA}
+                  alt={book.title}
+                  className="h-12 w-12 object-cover mr-2 "
+                />
+                {book.title}
+              </td>
+            </Link>
             <td className="border border-slate-700 rounded-md text-center font-semibold hidden md:table-cell">
               {book.publishYear}
             </td>
