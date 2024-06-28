@@ -37,7 +37,7 @@ const UserDropdown = ({ onLogout }) => {
   };
 
   return (
-    <div className="relative" ref={dropdownRef}>
+    <div className="relative z-50" ref={dropdownRef}>
       <button
         onClick={toggleDropdown}
         className="flex items-center text-yellow-400 hover:text-gray-200 focus:outline-none"

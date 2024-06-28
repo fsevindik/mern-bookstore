@@ -44,9 +44,9 @@ const ShowBook = () => {
   const handleCommentSubmit = async (e) => {
     e.preventDefault();
 
-    const userName = localStorage.getItem("UserName");
+    const userId = localStorage.getItem("userId");
 
-    if (!userName) {
+    if (!userId) {
       console.error("User is not logged in");
       alert("Please log in to add a comment.");
       return;
@@ -55,7 +55,7 @@ const ShowBook = () => {
     try {
       const response = await axios.post(
         `http://localhost:5555/books/${book._id}/comments`,
-        { text: newComment, userName }
+        { text: newComment, userId }
       );
       setComments([...comments, response.data]);
       setNewComment("");
