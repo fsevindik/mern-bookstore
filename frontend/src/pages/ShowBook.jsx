@@ -80,11 +80,11 @@ const ShowBook = () => {
 
       <div className="w-full max-w-2xl border-2 border-black bg-yellow-500 rounded-xl p-4 mt-4">
         <div className="my-2 flex items-center">
-          <span className="text-lg mr-2 text-gray-600 font-bold">
+          <span className="text-lg mr-2 text-gray-600 font-bold ">
             How many people like this book:
           </span>
           <HeartIcon likes={book.likes} />
-          <RateModal />
+          <RateModal book={book} />
         </div>
         <CommentSection
           comments={comments}

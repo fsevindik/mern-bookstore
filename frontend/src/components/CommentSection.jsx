@@ -19,12 +19,12 @@ const CommentSection = ({
             <img
               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGNwF755s1ARjqzzzBTcXBQtZUOKi_-_6RKj9sgvsY4J9CBw1Zzy6eTkVezzQ_9ivhDvc&usqp=CAU"
               alt="Avatar"
-              className="w-10 h-10 rounded-full mr-2"
+              className="w-6 h-6 rounded-full mr-2"
             />
             <div className="flex-1">
-              <p className="text-white font-serif text-sm">
+              <p className="text-white font-serif text-xs">
                 <span className="font-semibold text-blue-500 text-sm">
-                  {comment.userName}
+                  {comment.userName}{" "}
                 </span>
                 says that
               </p>
