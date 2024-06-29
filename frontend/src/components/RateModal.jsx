@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import StarIcon from "./icons/StarIcon";
 
 const RateModal = ({ book }) => {
@@ -6,6 +6,20 @@ const RateModal = ({ book }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [rating, setRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
+  const modalRef = useRef(null);
+
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, []);
 
   const handleHover = () => {
     setIsHovered(true);
@@ -34,12 +48,12 @@ const RateModal = ({ book }) => {
   };
 
   return (
-    <div className="relative">
+    <div className="relative ml-auto">
       <div
         className={`flex border-4 border-gray-700 ml-auto animate-pulse items-center rounded-lg sm:rounded-xl h-10 sm:h-12 lg:h-14 xl:h-16 w-20 sm:w-24 lg:w-28 xl:w-32 bg-yellow-500 text-blue-600 p-2 cursor-pointer transition duration-300 ${
           isHovered
             ? "hover:bg-blue-500 hover:animate-none"
-            : "hover:bg-yellow-500 "
+            : "hover:bg-yellow-500"
         }`}
         onMouseEnter={handleHover}
         onMouseLeave={handleMouseLeave}
@@ -57,32 +71,43 @@ const RateModal = ({ book }) => {
       </div>
 
       {isOpen && (
-        <div className="fixed inset-x-0 bottom-0 h-1/2 bg-gray-800 p-6 sm:p-10 z-20">
-          <div className="flex justify-end mb-4">
-            <button
-              className="text-white text-2xl"
-              onClick={() => setIsOpen(false)}
-            >
-              &times;
-            </button>
-          </div>
-          <h3 className="text-2xl sm:text-3xl lg:text-4xl text-white mb-4">
-            <span className="text-yellow-500">Your Rate for:</span> {book.title}
-          </h3>
-          <div className="flex justify-center space-x-2">
-            {[...Array(10)].map((_, index) => (
-              <StarIcon
-                key={index}
-                className={`cursor-pointer w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 ${
-                  index + 1 <= (hoverRating || rating)
-                    ? "text-yellow-500"
-                    : "text-gray-400"
-                }`}
-                onClick={() => handleRating(index + 1)}
-                onMouseEnter={() => handleHoverRating(index + 1)}
-                onMouseLeave={handleLeaveRating}
-              />
-            ))}
+        <div
+          ref={modalRef}
+          className="fixed inset-0 bg-gray-800 bg-opacity-75 flex justify-center items-center z-20"
+        >
+          <div className="bg-gray-900 rounded-lg shadow-lg p-6 sm:p-8 w-full sm:max-w-lg">
+            <div className="flex justify-end">
+              <button
+                className="text-white text-3xl hover:text-yellow-400 hover:scale-125"
+                onClick={() => setIsOpen(false)}
+              >
+                &times;
+              </button>
+            </div>
+            <div className="flex flex-col items-center mb-2 ">
+              <h3 className="text-2xl sm:text-3xl lg:text-4xl text-white mb-1 text-center ">
+                <span className="text-yellow-500">Your Rate for</span>{" "}
+                {book.title}
+              </h3>
+              <h3 className="font-bold text-2xl sm:text-3xl lg:text-4xl text-blue-500 text-center">
+                {rating}
+              </h3>
+            </div>
+            <div className="flex justify-center space-x-1 sm:space-x-1 md:space-x-4 lg:space-x-6">
+              {[...Array(10)].map((_, index) => (
+                <StarIcon
+                  key={index}
+                  className={`cursor-pointer w-10 h-10 sm:w-12 sm:h-12 lg:w-16 lg:h-16 hover:scale-110 ${
+                    index + 1 <= (hoverRating || rating)
+                      ? "text-yellow-500"
+                      : "text-gray-400"
+                  }`}
+                  onClick={() => handleRating(index + 1)}
+                  onMouseEnter={() => handleHoverRating(index + 1)}
+                  onMouseLeave={handleLeaveRating}
+                />
+              ))}
+            </div>
           </div>
         </div>
       )}
