@@ -1,5 +1,21 @@
+import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import StarIcon from "./icons/StarIcon";
+
+const useOutsideClick = (ref, handler) => {
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (ref.current && !ref.current.contains(event.target)) {
+        handler();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [ref, handler]);
+};
 
 const RateModal = ({ book }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -8,44 +24,34 @@ const RateModal = ({ book }) => {
   const [hoverRating, setHoverRating] = useState(0);
   const modalRef = useRef(null);
 
-  useEffect(() => {
-    const handleOutsideClick = (event) => {
-      if (modalRef.current && !modalRef.current.contains(event.target)) {
-        setIsOpen(false);
+  useOutsideClick(modalRef, () => setIsOpen(false));
+
+  const handleHover = () => setIsHovered(true);
+  const handleMouseLeave = () => setIsHovered(false);
+  const handleClick = () => setIsOpen(!isOpen);
+
+  const handleRating = async (rate) => {
+    try {
+      const response = await axios.post(`/api/books/${book._id}/rate`, {
+        userId: localStorage.getItem("userId"),
+        rating: rate,
+      });
+
+      if (!response.data.success) {
+        throw new Error("Failed to rate the book.");
       }
-    };
 
-    document.addEventListener("mousedown", handleOutsideClick);
-    return () => {
-      document.removeEventListener("mousedown", handleOutsideClick);
-    };
-  }, []);
-
-  const handleHover = () => {
-    setIsHovered(true);
+      setRating(response.data.book.averageRating);
+      setIsOpen(false);
+      alert(`Rated ${rate} stars`);
+    } catch (error) {
+      console.error("Error rating the book:", error);
+      // Handle error
+    }
   };
 
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-  };
-
-  const handleClick = () => {
-    setIsOpen(!isOpen);
-  };
-
-  const handleRating = (rate) => {
-    setRating(rate);
-    setIsOpen(false);
-    alert(`Rated ${rate} stars`);
-  };
-
-  const handleHoverRating = (rate) => {
-    setHoverRating(rate);
-  };
-
-  const handleLeaveRating = () => {
-    setHoverRating(0);
-  };
+  const handleHoverRating = (rate) => setHoverRating(rate);
+  const handleLeaveRating = () => setHoverRating(0);
 
   return (
     <div className="relative ml-auto">
@@ -71,11 +77,11 @@ const RateModal = ({ book }) => {
       </div>
 
       {isOpen && (
-        <div
-          ref={modalRef}
-          className="fixed inset-0 bg-gray-800 bg-opacity-75 flex justify-center items-center z-20"
-        >
-          <div className="bg-gray-900 rounded-lg shadow-lg p-6 sm:p-8 w-full sm:max-w-lg">
+        <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex justify-center items-center z-20">
+          <div
+            ref={modalRef}
+            className="bg-gray-900 rounded-lg shadow-lg p-6 sm:p-8 w-full sm:max-w-lg"
+          >
             <div className="flex justify-end">
               <button
                 className="text-white text-3xl hover:text-yellow-400 hover:scale-125"
@@ -84,8 +90,8 @@ const RateModal = ({ book }) => {
                 &times;
               </button>
             </div>
-            <div className="flex flex-col items-center mb-2 ">
-              <h3 className="text-2xl sm:text-3xl lg:text-4xl text-white mb-1 text-center ">
+            <div className="flex flex-col items-center mb-2">
+              <h3 className="text-2xl sm:text-3xl lg:text-4xl text-white mb-1 text-center">
                 <span className="text-yellow-500">Your Rate for</span>{" "}
                 {book.title}
               </h3>
