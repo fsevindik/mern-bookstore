@@ -2,14 +2,34 @@ import mongoose from "mongoose";
 
 // Reaction schema
 const reactionSchema = new mongoose.Schema({
+  like: {
+    type: Number,
+    default: 0,
+  },
+  heart: {
+    type: Number,
+    default: 0,
+  },
+  smile: {
+    type: Number,
+    default: 0,
+  },
+  surprise: {
+    type: Number,
+    default: 0,
+  },
+});
+
+const rateSchema = new mongoose.Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "userId", // ref
-    required: false,
+    ref: "User",
+    required: true,
   },
-  type: {
-    type: String,
-    enum: ["like", "heart", "smile", "surprise"],
+  rating: {
+    type: Number,
+    min: 1,
+    max: 10,
     required: false,
   },
 });
@@ -27,7 +47,10 @@ const commentSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  reactions: [reactionSchema],
+  reactions: {
+    type: reactionSchema,
+    default: () => ({}),
+  },
 });
 
 const bookSchema = new mongoose.Schema(
@@ -52,14 +75,17 @@ const bookSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    rate: {
-      type: Number,
-      default: 0,
-    },
+    ratings: [rateSchema],
     comments: [commentSchema],
   },
   { timestamps: true }
 );
+
+bookSchema.methods.calculateAverageRating = function () {
+  if (this.ratings.length === 0) return 0;
+  const total = this.ratings.reduce((sum, rating) => sum + rating.rating, 0);
+  return total / this.ratings.length;
+};
 
 const Book = mongoose.model("Book", bookSchema);
 

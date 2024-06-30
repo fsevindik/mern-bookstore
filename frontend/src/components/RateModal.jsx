@@ -30,23 +30,43 @@ const RateModal = ({ book }) => {
   const handleMouseLeave = () => setIsHovered(false);
   const handleClick = () => setIsOpen(!isOpen);
 
+  useEffect(() => {
+    const fetchUserRating = async () => {
+      try {
+        const userId = localStorage.getItem("userId");
+        const response = await axios.get(
+          `http://localhost:5555/books/${book._id}/user-rating/${userId}`
+        );
+        if (response.status === 200) {
+          setRating(response.data.rating);
+        }
+      } catch (error) {
+        console.error("Error fetching user rating:", error.response || error);
+      }
+    };
+
+    fetchUserRating();
+  }, [book._id]);
+
   const handleRating = async (rate) => {
     try {
-      const response = await axios.post(`/api/books/${book._id}/rate`, {
-        userId: localStorage.getItem("userId"),
-        rating: rate,
-      });
+      const response = await axios.post(
+        `http://localhost:5555/books/${book._id}/rate`,
+        {
+          userId: localStorage.getItem("userId"),
+          rating: rate,
+        }
+      );
 
-      if (!response.data.success) {
+      if (response.status === 200) {
+        setRating(response.data.averageRating);
+        setIsOpen(false);
+        alert(`Rated ${rate} stars`);
+      } else {
         throw new Error("Failed to rate the book.");
       }
-
-      setRating(response.data.book.averageRating);
-      setIsOpen(false);
-      alert(`Rated ${rate} stars`);
     } catch (error) {
-      console.error("Error rating the book:", error);
-      // Handle error
+      console.error("Error rating the book:", error.response || error);
     }
   };
 

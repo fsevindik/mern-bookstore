@@ -19,14 +19,13 @@ const CommentSection = ({
             <img
               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGNwF755s1ARjqzzzBTcXBQtZUOKi_-_6RKj9sgvsY4J9CBw1Zzy6eTkVezzQ_9ivhDvc&usqp=CAU"
               alt="Avatar"
-              className="w-6 h-6 rounded-full mr-2"
+              className="w-6 h-6 rounded-full mr-1 p-0.5"
             />
             <div className="flex-1">
               <p className="text-white font-serif text-xs">
                 <span className="font-semibold text-blue-500 text-sm">
                   {comment.userName}{" "}
                 </span>
-                says that
               </p>
               <div className="border border-cyan-400 rounded-md ml-4 bg-slate-300 max-w-full">
                 <p className="text-gray-800 font-mono ml-2 break-all whitespace-normal overflow-wrap-anywhere word-break-break-word hyphens-auto max-h-32 overflow-y-auto p-2">
