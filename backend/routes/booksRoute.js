@@ -153,6 +153,23 @@ router.post("/:id/rate", async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 });
+// Route to get average rating of a book
+router.get("/:id/averageRating", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const book = await Book.findById(id);
+
+    if (!book) {
+      return res.status(404).json({ message: "Book not found" });
+    }
+
+    const averageRating = book.calculateAverageRating();
+    res.json({ averageRating });
+  } catch (error) {
+    console.error("Error getting average rating:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
 
 // Route to  reaction for a comment
 router.post(

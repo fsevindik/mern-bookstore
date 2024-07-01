@@ -6,7 +6,7 @@ import BookInfo from "../components/BookInfo";
 import CommentSection from "../components/CommentSection";
 import RateModal from "../components/RateModal";
 import Spinner from "../components/Spinner";
-import HeartIcon from "../components/icons/HeartIcon ";
+import AverageIcon from "../components/icons/AverageIcon";
 
 const ShowBook = () => {
   const [book, setBook] = useState(null);
@@ -14,6 +14,7 @@ const ShowBook = () => {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
   const [canComment, setCanComment] = useState(false);
+  const [averageRating, setAverageRating] = useState(0);
   const { id } = useParams();
 
   const username = localStorage.getItem("UserName");
@@ -33,7 +34,20 @@ const ShowBook = () => {
       }
     };
 
+    const fetchAverageRating = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:5555/books/${id}/averageRating`
+        );
+        console.log("Average rating fetched:", response.data.averageRating);
+        setAverageRating(response.data.averageRating);
+      } catch (error) {
+        console.error("Error fetching average rating:", error);
+      }
+    };
+
     fetchBook();
+    fetchAverageRating();
   }, [id]);
 
   useEffect(() => {
@@ -80,10 +94,10 @@ const ShowBook = () => {
 
       <div className="w-full max-w-2xl border-2 border-black bg-yellow-500 rounded-xl p-4 mt-4">
         <div className="my-2 flex items-center">
-          <span className="text-lg mr-2 text-gray-600 font-bold ">
-            How many people like this book:
+          <span className=" mr-2 text-gray-900 font-bold sm:text-sm md:text-md ">
+            USERS RATING:
           </span>
-          <HeartIcon likes={book.likes} />
+          <AverageIcon rating={averageRating} />
           <RateModal book={book} />
         </div>
         <CommentSection

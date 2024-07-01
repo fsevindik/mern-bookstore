@@ -34,11 +34,22 @@ const RateModal = ({ book }) => {
     const fetchUserRating = async () => {
       try {
         const userId = localStorage.getItem("userId");
-        const response = await axios.get(
-          `http://localhost:5555/books/${book._id}/user-rating/${userId}`
+        const savedRating = localStorage.getItem(
+          `rating_${book._id}_${userId}`
         );
-        if (response.status === 200) {
-          setRating(response.data.rating);
+        if (savedRating) {
+          setRating(Number(savedRating));
+        } else {
+          const response = await axios.get(
+            `http://localhost:5555/books/${book._id}/user-rating/${userId}`
+          );
+          if (response.status === 200) {
+            setRating(response.data.rating);
+            localStorage.setItem(
+              `rating_${book._id}_${userId}`,
+              response.data.rating
+            );
+          }
         }
       } catch (error) {
         console.error("Error fetching user rating:", error.response || error);
@@ -50,16 +61,18 @@ const RateModal = ({ book }) => {
 
   const handleRating = async (rate) => {
     try {
+      const userId = localStorage.getItem("userId");
       const response = await axios.post(
         `http://localhost:5555/books/${book._id}/rate`,
         {
-          userId: localStorage.getItem("userId"),
+          userId,
           rating: rate,
         }
       );
 
       if (response.status === 200) {
-        setRating(response.data.averageRating);
+        setRating(rate);
+        localStorage.setItem(`rating_${book._id}_${userId}`, rate);
         setIsOpen(false);
         alert(`Rated ${rate} stars`);
       } else {
@@ -112,8 +125,7 @@ const RateModal = ({ book }) => {
             </div>
             <div className="flex flex-col items-center mb-2">
               <h3 className="text-2xl sm:text-3xl lg:text-4xl text-white mb-1 text-center">
-                <span className="text-yellow-500">Your Rate for</span>{" "}
-                {book.title}
+                <span className="text-yellow-500">Rate for</span> {book.title}
               </h3>
               <h3 className="font-bold text-2xl sm:text-3xl lg:text-4xl text-blue-500 text-center">
                 {rating}
