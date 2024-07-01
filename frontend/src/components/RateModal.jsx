@@ -125,7 +125,8 @@ const RateModal = ({ book }) => {
             </div>
             <div className="flex flex-col items-center mb-2">
               <h3 className="text-2xl sm:text-3xl lg:text-4xl text-white mb-1 text-center">
-                <span className="text-yellow-500">Rate for</span> {book.title}
+                <span className="text-yellow-500">Your Rate for</span>{" "}
+                {book.title}
               </h3>
               <h3 className="font-bold text-2xl sm:text-3xl lg:text-4xl text-blue-500 text-center">
                 {rating}
