@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import MessageButton from "../components/messageButton";
 
 const Welcome = () => {
   const userName = localStorage.getItem("UserName") || "Guest";
@@ -32,7 +33,8 @@ const Welcome = () => {
             Explore Books
           </Link>
         </button>
-      </div>
+      </div>{" "}
+      <MessageButton />
     </div>
   );
 };

@@ -35,7 +35,7 @@ const Trends = () => {
   };
 
   return (
-    <div className="bg-[#2a2828]  flex flex-grow flex-col items-center justify-center">
+    <div className="bg-[#1c1a1a]  flex flex-grow flex-col items-center justify-center">
       <div className="mx-auto mt-5">
         <BackButton />
       </div>

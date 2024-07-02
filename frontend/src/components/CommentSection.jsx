@@ -35,12 +35,12 @@ const CommentSection = ({
 
   return (
     <div className="my-4 bg-gray-800 p-4 rounded-lg shadow-lg w-full flex flex-col items-center">
-      <h2 className="text-xl font-semibold text-white mb-4">Comments:</h2>
+      <h2 className="text-xl font-semibold text-white mb-4">User Opinions:</h2>
       <div className="w-full">
         {comments.map((comment, index) => (
           <div
             key={index}
-            className="my-2 p-3 bg-gray-700 rounded-lg border border-gray-600 w-full flex items-start"
+            className=" p-2 bg-gray-700 rounded-lg border border-gray-600 w-full flex items-start"
           >
             <img
               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGNwF755s1ARjqzzzBTcXBQtZUOKi_-_6RKj9sgvsY4J9CBw1Zzy6eTkVezzQ_9ivhDvc&usqp=CAU"

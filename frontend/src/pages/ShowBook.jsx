@@ -86,7 +86,7 @@ const ShowBook = () => {
     return <Spinner />;
   }
   return (
-    <div className="min-h-screen p-2 bg-[#2a2828] flex flex-col items-center">
+    <div className="min-h-screen p-2 bg-[#1c1a1a] flex flex-col items-center">
       <BackButton />
       <h1 className="text-xl my-2 text-white font-mono">Book Info</h1>
 
