@@ -17,74 +17,74 @@ const ShowBook = () => {
   const [averageRating, setAverageRating] = useState(0);
   const { id } = useParams();
 
-  const username = localStorage.getItem("UserName");
+  const PORT = "http://localhost:5555"; // this is saved in config file
+  const userId = localStorage.getItem("userId");
 
   useEffect(() => {
-    const fetchBook = async () => {
-      console.log("Fetching book details for id:", id);
+    const fetchBookData = async () => {
+      setLoading(true);
       try {
-        const response = await axios.get(`http://localhost:5555/books/${id}`);
-        console.log("Book data fetched:", response.data);
-        setBook(response.data);
-        setComments(response.data.comments || []);
+        const [bookResponse, ratingResponse] = await Promise.all([
+          axios.get(`${PORT}/books/${id}`),
+          axios.get(`${PORT}/books/${id}/averageRating`),
+        ]);
+
+        setBook(bookResponse.data);
+        setComments(bookResponse.data.comments || []);
+        setAverageRating(ratingResponse.data.averageRating);
       } catch (error) {
-        console.error("Error fetching book details:", error);
+        console.error("Error fetching book data:", error);
+        alert("Failed to load book data. Please try again.");
       } finally {
         setLoading(false);
       }
     };
 
-    const fetchAverageRating = async () => {
-      try {
-        const response = await axios.get(
-          `http://localhost:5555/books/${id}/averageRating`
-        );
-        console.log("Average rating fetched:", response.data.averageRating);
-        setAverageRating(response.data.averageRating);
-      } catch (error) {
-        console.error("Error fetching average rating:", error);
-      }
-    };
-
-    fetchBook();
-    fetchAverageRating();
+    fetchBookData();
   }, [id]);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    setCanComment(!!token && !!username);
-  }, [username]);
+    setCanComment(!!userId);
+  }, [userId]);
 
   const handleCommentSubmit = async (e) => {
     e.preventDefault();
 
-    const userId = localStorage.getItem("userId");
-
     if (!userId) {
-      console.error("User is not logged in");
       alert("Please log in to add a comment.");
       return;
     }
-
     try {
-      const response = await axios.post(
-        `http://localhost:5555/books/${book._id}/comments`,
-        { text: newComment, userId }
-      );
+      const response = await axios.post(`${PORT}/books/${id}/comments`, {
+        content: newComment,
+        userId,
+      });
       setComments([...comments, response.data]);
       setNewComment("");
     } catch (error) {
-      console.error(
-        "Error adding comment:",
-        error.response ? error.response.data : error.message
-      );
+      console.error("Error adding comment:", error);
+      alert("Error adding comment. Please try again.");
     }
   };
-
+  const handleRating = async (rating) => {
+    if (!userId) {
+      alert("Please log in to rate the book.");
+      return;
+    }
+    try {
+      const response = await axios.post(`${PORT}/${id}/rate`, {
+        userId,
+        rating,
+      });
+      setAverageRating(response.data.averageRating);
+    } catch (error) {
+      console.error("Error rating book:", error);
+      alert("Error rating book. Please try again.");
+    }
+  };
   if (loading) {
     return <Spinner />;
   }
-
   return (
     <div className="min-h-screen p-2 bg-[#2a2828] flex flex-col items-center">
       <BackButton />
@@ -93,12 +93,12 @@ const ShowBook = () => {
       {book && <BookInfo book={book} />}
 
       <div className="w-full max-w-2xl border-2 border-black bg-yellow-500 rounded-xl p-4 mt-4">
-        <div className="my-2 flex items-center  ">
-          <span className=" mr-2 text-gray-900 font-bold sm:text-xs md:text-sm lg:text-md ">
+        <div className="my-2 flex items-center">
+          <span className="mr-2 text-gray-900 font-bold sm:text-xs md:text-sm lg:text-md">
             USERS RATING:
           </span>
           <AverageIcon rating={averageRating} />
-          <RateModal book={book} />
+          <RateModal book={book} onRate={handleRating} />
         </div>
         <CommentSection
           comments={comments}

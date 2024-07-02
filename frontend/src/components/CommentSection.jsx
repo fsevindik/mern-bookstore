@@ -1,4 +1,6 @@
-import React from "react";
+import axios from "axios";
+import React, { useState } from "react";
+import ReactionIcons from "./icons/ReactionIcons";
 
 const CommentSection = ({
   comments,
@@ -7,6 +9,30 @@ const CommentSection = ({
   handleCommentSubmit,
   canComment,
 }) => {
+  const PORT = "http://localhost:5555"; // this is saved in config file
+  const userId = localStorage.getItem("userId");
+  const [reactions, setReactions] = useState([]);
+
+  const handleReaction = async (bookId, commentId, reactionType) => {
+    if (!userId) {
+      alert("Please log in to react.");
+      return;
+    }
+    try {
+      const response = await axios.post(
+        `${PORT}/books/${bookId}/comments/${commentId}/reactions`,
+        {
+          userId,
+          reactionType,
+        }
+      );
+      setReactions([...reactions, response.data]);
+    } catch (error) {
+      console.error("Error adding reaction:", error);
+      alert("Error adding reaction. Please try again.");
+    }
+  };
+
   return (
     <div className="my-4 bg-gray-800 p-4 rounded-lg shadow-lg w-full flex flex-col items-center">
       <h2 className="text-xl font-semibold text-white mb-4">Comments:</h2>
@@ -32,6 +58,7 @@ const CommentSection = ({
                   {comment.text}
                 </p>
               </div>
+              <ReactionIcons />
             </div>
           </div>
         ))}

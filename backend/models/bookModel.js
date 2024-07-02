@@ -14,26 +14,13 @@ const reactionSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
-  surprise: {
+  applaud: {
     type: Number,
     default: 0,
   },
 });
 
-const rateSchema = new mongoose.Schema({
-  userId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
-  },
-  rating: {
-    type: Number,
-    min: 1,
-    max: 10,
-    required: false,
-  },
-});
-
+// Comment schema
 const commentSchema = new mongoose.Schema({
   text: {
     type: String,
@@ -50,9 +37,26 @@ const commentSchema = new mongoose.Schema({
   reactions: {
     type: reactionSchema,
     default: () => ({}),
+    required: false,
   },
 });
 
+// Rate schema
+const rateSchema = new mongoose.Schema({
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
+  rating: {
+    type: Number,
+    min: 1,
+    max: 10,
+    required: true,
+  },
+});
+
+// Book schema
 const bookSchema = new mongoose.Schema(
   {
     title: {

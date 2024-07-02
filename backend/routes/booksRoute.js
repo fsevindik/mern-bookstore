@@ -1,20 +1,48 @@
 import express from "express";
 import { Book } from "../models/bookModel.js";
+import User from "../models/userModel.js";
 
 const router = express.Router();
 
-// Route to create a new book
+// get all boooks
+router.get("/", async (request, response) => {
+  try {
+    const books = await Book.find({});
+    return response.status(200).json({
+      count: books.length,
+      data: books,
+    });
+  } catch (error) {
+    console.log(error.message);
+    response.status(500).send({ message: error.message });
+  }
+});
+
+// get specific book
+router.get("/:id", async (request, response) => {
+  try {
+    const { id } = request.params;
+    const book = await Book.findById(id);
+    if (!book) {
+      return response.status(404).json({ message: "Book not found" });
+    }
+    return response.status(200).json(book);
+  } catch (error) {
+    console.log(error.message);
+    response.status(500).send({ message: error.message });
+  }
+});
+
+// create book
 router.post("/", async (request, response) => {
   try {
     const { title, author, publishYear, imageA, imageB } = request.body;
-
     if (!title || !author || !publishYear || !imageA || !imageB) {
       return response.status(400).send({
         message:
           "Send all required fields: title, author, publishYear, imageA, imageB",
       });
     }
-
     const newBook = {
       title,
       author,
@@ -24,106 +52,85 @@ router.post("/", async (request, response) => {
       comments: [],
       ratings: [],
     };
-
     const book = await Book.create(newBook);
-
     return response.status(201).send(book);
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
     response.status(500).send({ message: error.message });
   }
 });
 
-// Route to get all books
-router.get("/", async (request, response) => {
-  try {
-    const books = await Book.find({});
-
-    return response.status(200).json({
-      count: books.length,
-      data: books,
-    });
-  } catch (error) {
-    console.log(error);
-    response.status(500).send({ message: error.message });
-  }
-});
-
-// Route to get one specific book from the database by Id
-router.get("/:id", async (request, response) => {
-  try {
-    const { id } = request.params;
-
-    const book = await Book.findById(id);
-
-    if (!book) {
-      return response.status(404).json({ message: "Book not found" });
-    }
-
-    return response.status(200).json(book);
-  } catch (error) {
-    console.log(error);
-    response.status(500).send({ message: error.message });
-  }
-});
-
-// Route to update a book
+// update book
 router.put("/:id", async (request, response) => {
   try {
     const { id } = request.params;
     const { title, author, publishYear, imageA, imageB } = request.body;
-
     if (!title || !author || !publishYear || !imageA || !imageB) {
       return response.status(400).send({
         message:
           "Send all required fields: title, author, publishYear, imageA, imageB",
       });
     }
-
-    const updatedBook = {
-      title,
-      author,
-      publishYear,
-      imageA,
-      imageB,
-    };
-
-    const book = await Book.findByIdAndUpdate(id, updatedBook, {
-      new: true,
-    });
-
-    if (!book) {
+    const result = await Book.findByIdAndUpdate(id, request.body);
+    if (!result) {
       return response.status(404).json({ message: "Book not found" });
     }
-
-    return response
-      .status(200)
-      .send({ message: "Book updated successfully", book });
+    return response.status(200).send({ message: "Book updated successfully" });
   } catch (error) {
     console.log(error.message);
     response.status(500).send({ message: error.message });
   }
 });
 
-// Route to delete a book
+// delete book
 router.delete("/:id", async (request, response) => {
   try {
     const { id } = request.params;
-
-    const book = await Book.findByIdAndDelete(id);
-
-    if (!book) {
+    const result = await Book.findByIdAndDelete(id);
+    if (!result) {
       return response.status(404).json({ message: "Book not found" });
     }
-
-    return response.status(200).json({ message: "Book deleted successfully" });
+    return response.status(200).send({ message: "Book deleted successfully" });
   } catch (error) {
     console.log(error.message);
     response.status(500).send({ message: error.message });
   }
 });
 
-// Route to rate
+// add comments
+router.post("/:id/comments", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { content, userId } = req.body;
+
+    const book = await Book.findById(id);
+    if (!book) {
+      return res.status(404).json({ message: "Book not found" });
+    }
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const newComment = {
+      text: content,
+      userName: user.name,
+      userId: user._id,
+      createdAt: new Date(),
+    };
+
+    book.comments.push(newComment);
+    await book.save();
+
+    res.status(201).json(newComment);
+  } catch (error) {
+    console.error("Error adding comment:", error);
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+});
+
+// rate for book
 router.post("/:id/rate", async (req, res) => {
   try {
     const { id } = req.params;
@@ -134,7 +141,6 @@ router.post("/:id/rate", async (req, res) => {
       return res.status(404).json({ message: "Book not found" });
     }
 
-    //
     const existingRatingIndex = book.ratings.findIndex(
       (r) => r.userId.toString() === userId
     );
@@ -153,7 +159,8 @@ router.post("/:id/rate", async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 });
-// Route to get average rating of a book
+
+// get average of book
 router.get("/:id/averageRating", async (req, res) => {
   try {
     const { id } = req.params;
@@ -171,49 +178,70 @@ router.get("/:id/averageRating", async (req, res) => {
   }
 });
 
-// Route to  reaction for a comment
-router.post(
-  "/:bookId/comments/:commentId/reactions",
-  async (request, response) => {
-    try {
-      const { bookId, commentId } = request.params;
-      const { reactionType, increment = true } = request.body;
+// Add reaction to comment
+router.post("/:bookId/comments/:commentId/reactions", async (req, res) => {
+  try {
+    const { bookId, commentId } = req.params;
+    const { userId, reactionType } = req.body;
 
-      const book = await Book.findOne({ "comments._id": commentId });
-      if (!book) {
-        return response.status(404).send({ message: "Comment not found" });
-      }
-
-      const comment = book.comments.id(commentId);
-
-      if (
-        !comment.reactions[reactionType] &&
-        comment.reactions[reactionType] !== 0
-      ) {
-        return response.status(400).send({ message: "Invalid reaction type" });
-      }
-
-      // Increment or decrement reaction count
-      if (increment) {
-        comment.reactions[reactionType] += 1;
-      } else {
-        comment.reactions[reactionType] = Math.max(
-          comment.reactions[reactionType] - 1,
-          0
-        );
-      }
-
-      await book.save();
-
-      return response.status(200).send({
-        reactions: comment.reactions,
-        message: "Reaction updated successfully",
-      });
-    } catch (error) {
-      console.log("Error in reaction update:", error);
-      response.status(500).send({ message: error.message });
+    //
+    const book = await Book.findById(bookId);
+    if (!book) {
+      return res.status(404).json({ message: "Book not found" });
     }
+
+    const comment = book.comments.id(commentId);
+    if (!comment) {
+      return res.status(404).json({ message: "Comment not found" });
+    }
+
+    // do the math in db
+    switch (reactionType) {
+      case "like":
+        comment.reactions.like++;
+        break;
+      case "heart":
+        comment.reactions.heart++;
+        break;
+      case "smile":
+        comment.reactions.smile++;
+        break;
+      case "applaud":
+        comment.reactions.applaud++;
+        break;
+      default:
+        return res.status(400).json({ message: "Invalid reaction type" });
+    }
+
+    await book.save();
+
+    res.status(201).json({ message: "Reaction added successfully" });
+  } catch (error) {
+    console.error("Error adding reaction:", error);
+    res.status(500).json({ message: "Server error" });
   }
-);
+});
+
+// Get reactions for a comment
+router.get("/:bookId/comments/:commentId/reactions", async (req, res) => {
+  try {
+    const { bookId, commentId } = req.params;
+
+    const book = await Book.findById(bookId);
+    if (!book) {
+      return res.status(404).json({ message: "Book not found" });
+    }
+
+    const comment = book.comments.id(commentId);
+    if (!comment) {
+      return res.status(404).json({ message: "Comment not found" });
+    }
+
+    res.status(200).json(comment.reactions);
+  } catch (error) {
+    console.error("Error getting reactions:", error);
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+});
 
 export default router;
