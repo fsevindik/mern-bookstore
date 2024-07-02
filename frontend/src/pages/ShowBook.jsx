@@ -93,8 +93,8 @@ const ShowBook = () => {
       {book && <BookInfo book={book} />}
 
       <div className="w-full max-w-2xl border-2 border-black bg-yellow-500 rounded-xl p-4 mt-4">
-        <div className="my-2 flex items-center">
-          <span className=" mr-2 text-gray-900 font-bold sm:text-sm md:text-md ">
+        <div className="my-2 flex items-center  ">
+          <span className=" mr-2 text-gray-900 font-bold sm:text-xs md:text-sm lg:text-md ">
             USERS RATING:
           </span>
           <AverageIcon rating={averageRating} />
