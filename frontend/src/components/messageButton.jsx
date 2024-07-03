@@ -25,9 +25,12 @@ const MessageButton = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSending(true);
+    const recipient = localStorage.getItem("UserName");
+
     try {
       const response = await axios.post("http://localhost:5555/messages/send", {
         sender,
+        recipient,
         content,
       });
       console.log("Message sent:", response.data);
@@ -35,8 +38,15 @@ const MessageButton = () => {
       setContent("");
       setIsOpen(false);
     } catch (error) {
-      console.error("Error sending message:", error);
-      alert("Failed to send message. Please try again.");
+      console.error(
+        "Error sending message:",
+        error.response?.data || error.message
+      );
+      alert(
+        `Failed to send message: ${
+          error.response?.data?.message || error.message
+        }`
+      );
     } finally {
       setSending(false);
     }

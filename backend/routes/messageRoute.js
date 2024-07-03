@@ -15,15 +15,24 @@ router.get("/messages", async (req, res) => {
 });
 
 // Send a message
-router.post("/messages/send", async (req, res) => {
-  const { sender, content } = req.body;
+
+router.post("/send", async (req, res) => {
+  const { sender, recipient, content } = req.body;
+
   try {
-    const newMessage = new Message({ sender, content });
-    await newMessage.save();
-    res.status(201).json(newMessage);
+    const message = new Message({
+      sender,
+      recipient,
+      content,
+    });
+
+    await message.save();
+    console.log("Message sent successfully");
+
+    res.status(201).json(message);
   } catch (error) {
-    console.error("Error sending message:", error);
-    res.status(500).json({ message: "Server error" });
+    console.log(error.message);
+    res.status(500).json({ message: error.message });
   }
 });
 
