@@ -28,11 +28,14 @@ const MessageButton = () => {
     const recipient = localStorage.getItem("UserName");
 
     try {
-      const response = await axios.post("http://localhost:5555/messages/send", {
-        sender,
-        recipient,
-        content,
-      });
+      const response = await axios.post(
+        "http://localhost:5555/messages/sendmessage",
+        {
+          sender,
+          recipient,
+          content,
+        }
+      );
       console.log("Message sent:", response.data);
       alert("Message sent successfully!");
       setContent("");

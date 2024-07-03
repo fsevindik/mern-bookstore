@@ -1,96 +1,102 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
-const MessageList = ({ onClose }) => {
+const MessageList = () => {
   const [messages, setMessages] = useState([]);
-  const [showMessages, setShowMessages] = useState(true);
 
   useEffect(() => {
-    const fetchMessages = async () => {
-      try {
-        const response = await axios.get("http://localhost:5555/messages");
-        setMessages(response.data);
-      } catch (error) {
-        console.error("Error fetching messages:", error);
-      }
-    };
-
     fetchMessages();
   }, []);
 
-  const handleDeleteMessage = async (messageId) => {
+  const fetchMessages = async () => {
     try {
-      await axios.delete(
-        `http://localhost:5555/messages/deletemessage/${messageId}`
+      const response = await axios.get(
+        "http://localhost:5555/messages/getmessage"
       );
-      setMessages(messages.filter((message) => message._id !== messageId)); // Update local state after deletion
-      console.log(`Message with ID ${messageId} deleted successfully.`);
+      setMessages(response.data);
+    } catch (error) {
+      console.error("Error fetching messages:", error);
+    }
+  };
+
+  const toggleReadStatus = async (messageId, isRead) => {
+    try {
+      await axios.put(`http://localhost:5555/messages/markread/${messageId}`, {
+        isRead,
+      });
+      setMessages(
+        messages.map((message) => {
+          if (message._id === messageId) {
+            return { ...message, isRead };
+          }
+          return message;
+        })
+      );
+    } catch (error) {
+      console.error("Error toggling read status:", error);
+    }
+  };
+
+  const deleteMessage = async (messageId) => {
+    try {
+      await axios.delete(`http://localhost:5555/messages/delete/${messageId}`);
+      setMessages(messages.filter((message) => message._id !== messageId));
     } catch (error) {
       console.error("Error deleting message:", error);
     }
   };
 
-  const handleClose = () => {
-    setShowMessages(false);
-    onClose();
-  };
-
-  if (!showMessages || messages.length === 0) {
-    return (
-      <div className="flex-1 overflow-y-auto p-4">
-        <p className="text-white">No messages found.</p>
-      </div>
-    );
+  if (messages.length === 0) {
+    return <p className="text-white font-bold">No messages found.</p>;
   }
 
   return (
-    <div
-      className="fixed top-0 right-0 h-full bg-gray-800 w-2/5 transition-transform duration-300 transform translate-x-0"
-      style={{ zIndex: 1000 }}
-    >
-      <div className="flex-1 overflow-y-auto p-4">
-        <div className="flex items-center justify-between p-4">
-          <h3 className="text-lg font-semibold text-white">Messages</h3>
-          <button
-            className="text-white focus:outline-none"
-            onClick={handleClose}
+    <div>
+      <h2 className="text-white text-2xl mb-4 font-bol text-center ">
+        Messages
+      </h2>
+      <ul className="divide-y divide-gray-200">
+        {messages.map((message) => (
+          <li
+            key={message._id}
+            className={`py-4 ${message.isRead ? "bg-gray-100" : "bg-white"}`}
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
-          </button>
-        </div>
-        <div className="flex flex-col space-y-4">
-          {messages.map((message, index) => (
-            <div
-              key={index}
-              className="flex items-center justify-between space-x-2"
-            >
-              <div className="flex items-center space-x-2">
-                <span className="text-white">📩</span>
-                <p className="text-white">{message.content}</p>
+            <div className="flex justify-between items-center p-1 m-2 border-2 border-separate">
+              <div className="text-black">
+                <p>
+                  <strong>Sender(ID): </strong> {message.sender}
+                </p>
+                <p className="bg-yellow-500">
+                  <strong>Name: </strong> {message.recipient}
+                </p>
+                <p className="bg-slate-300">
+                  <strong>Content:</strong> {message.content}
+                </p>
+                <p className="bg-green-400">
+                  <strong>Time:</strong>{" "}
+                  {new Date(message.sentAt).toLocaleString()}
+                </p>
               </div>
-              <button
-                className="text-red-500 hover:text-red-700"
-                onClick={() => handleDeleteMessage(message._id)}
-              >
-                Delete
-              </button>
+              <div className="flex items-center space-x-4">
+                <input
+                  type="checkbox"
+                  checked={message.isRead}
+                  onChange={(e) =>
+                    toggleReadStatus(message._id, e.target.checked)
+                  }
+                  className="form-checkbox h-8 w-8 animate-pulse  text-green-500 focus:outline-none focus:shadow-outline cursor-pointer"
+                />
+                <button
+                  onClick={() => deleteMessage(message._id)}
+                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                >
+                  Delete
+                </button>
+              </div>
             </div>
-          ))}
-        </div>
-      </div>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

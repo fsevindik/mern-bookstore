@@ -4,19 +4,18 @@ import Message from "../models/messageModal.js";
 const router = express.Router();
 
 // Get all messages
-router.get("/messages", async (req, res) => {
+router.get("/getmessage", async (req, res) => {
   try {
-    const messages = await Message.find().populate("sender recipient");
-    res.status(200).json(messages);
+    const messages = await Message.find();
+    res.json(messages);
   } catch (error) {
     console.error("Error fetching messages:", error);
-    res.status(500).json({ message: "Server error" });
+    res.status(500).send("Server error");
   }
 });
 
 // Send a message
-
-router.post("/send", async (req, res) => {
+router.post("/sendmessage", async (req, res) => {
   const { sender, recipient, content } = req.body;
 
   try {
