@@ -1,6 +1,4 @@
-import axios from "axios";
-import React, { useState } from "react";
-import ReactionIcons from "./icons/ReactionIcons";
+import React from "react";
 
 const CommentSection = ({
   comments,
@@ -9,29 +7,7 @@ const CommentSection = ({
   handleCommentSubmit,
   canComment,
 }) => {
-  const PORT = "http://localhost:5555"; // this is saved in config file
   const userId = localStorage.getItem("userId");
-  const [reactions, setReactions] = useState([]);
-
-  const handleReaction = async (bookId, commentId, reactionType) => {
-    if (!userId) {
-      alert("Please log in to react.");
-      return;
-    }
-    try {
-      const response = await axios.post(
-        `${PORT}/books/${bookId}/comments/${commentId}/reactions`,
-        {
-          userId,
-          reactionType,
-        }
-      );
-      setReactions([...reactions, response.data]);
-    } catch (error) {
-      console.error("Error adding reaction:", error);
-      alert("Error adding reaction. Please try again.");
-    }
-  };
 
   return (
     <div className="my-4 bg-gray-800 p-4 rounded-lg shadow-lg w-full flex flex-col items-center">
@@ -40,7 +16,7 @@ const CommentSection = ({
         {comments.map((comment, index) => (
           <div
             key={index}
-            className=" p-2 bg-gray-700 rounded-lg border border-gray-600 w-full flex items-start"
+            className="p-2 bg-gray-700 rounded-lg border border-gray-600 w-full flex items-start"
           >
             <img
               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGNwF755s1ARjqzzzBTcXBQtZUOKi_-_6RKj9sgvsY4J9CBw1Zzy6eTkVezzQ_9ivhDvc&usqp=CAU"
@@ -58,7 +34,6 @@ const CommentSection = ({
                   {comment.text}
                 </p>
               </div>
-              <ReactionIcons />
             </div>
           </div>
         ))}
