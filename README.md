@@ -34,6 +34,7 @@ To run this project locally =>
 - Axios
 
 ## Dont worry guys I will hash🛡️ your passwords with bcrpyte🔒. 
+*last steps i will add pass. validations.
 
 
 
