@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 const CommentSection = ({
   comments,
@@ -7,7 +7,15 @@ const CommentSection = ({
   handleCommentSubmit,
   canComment,
 }) => {
-  const userId = localStorage.getItem("userId");
+  const [charCount, setCharCount] = useState(200);
+
+  const handleCommentChange = (e) => {
+    const value = e.target.value;
+    if (value.length <= 222) {
+      setNewComment(value);
+      setCharCount(200 - value.length);
+    }
+  };
 
   return (
     <div className="my-4 bg-gray-800 p-4 rounded-lg shadow-lg w-full flex flex-col items-center">
@@ -16,46 +24,42 @@ const CommentSection = ({
         {comments.map((comment, index) => (
           <div
             key={index}
-            className="p-2 bg-gray-700 rounded-lg border border-gray-600 w-full flex items-start"
+            className="p-2 bg-gray-700 rounded-lg border border-gray-600 w-full flex flex-col"
           >
-            <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGNwF755s1ARjqzzzBTcXBQtZUOKi_-_6RKj9sgvsY4J9CBw1Zzy6eTkVezzQ_9ivhDvc&usqp=CAU"
-              alt="Avatar"
-              className="w-6 h-6 rounded-full mr-1 p-0.5"
-            />
-            <div className="flex-1">
-              <p className="text-white font-serif text-xs">
-                <span className="font-semibold text-blue-500 text-sm">
-                  {comment.userName}{" "}
-                </span>
+            <div className="border border-yellow-400 rounded-md bg-slate-100 max-w-full p-2 relative">
+              <p className="text-gray-800 font-mono break-all whitespace-normal overflow-wrap-anywhere word-break-break-word hyphens-auto max-h-32 overflow-y-auto">
+                {comment.text}
               </p>
-              <div className="border border-cyan-400 rounded-md ml-4 bg-slate-300 max-w-full">
-                <p className="text-gray-800 font-mono ml-2 break-all whitespace-normal overflow-wrap-anywhere word-break-break-word hyphens-auto max-h-32 overflow-y-auto p-2">
-                  {comment.text}
-                </p>
+              <div className="absolute bottom-0 right-0">
+                <span className="text-blue-600 font-serif text-xs italic">
+                  〰{comment.userName}〰
+                </span>
               </div>
             </div>
           </div>
         ))}
       </div>
-      <div className="mt-4 flex w-full">
+      <div className="mt-4 w-full">
         <textarea
           value={newComment}
-          onChange={(e) => setNewComment(e.target.value)}
-          className="flex-1 p-2 border border-gray-600 rounded-md bg-gray-900 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+          onChange={handleCommentChange}
+          className="w-full p-2 border border-gray-600 rounded-md bg-gray-900 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="Write a comment..."
           disabled={!canComment}
         />
-        <button
-          type="submit"
-          className={`ml-3 px-4 py-2 rounded-full ${
-            canComment ? "bg-yellow-600 hover:bg-red-600" : "bg-gray-600"
-          } text-white font-semibold`}
-          disabled={!canComment}
-          onClick={handleCommentSubmit}
-        >
-          Submit
-        </button>
+        <div className="flex justify-end">
+          <p className="text-gray-400 mt-1 mr-2">{charCount} characters left</p>
+          <button
+            type="submit"
+            className={`px-4 py-2 rounded-full ${
+              canComment ? "bg-yellow-600 hover:bg-red-600" : "bg-gray-600"
+            } text-white font-semibold`}
+            disabled={!canComment || newComment.trim().length === 0}
+            onClick={handleCommentSubmit}
+          >
+            Submit
+          </button>
+        </div>
       </div>
       {!canComment && (
         <p className="text-red-500 mt-2">You need to log in to comment.</p>

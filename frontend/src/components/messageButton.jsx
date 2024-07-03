@@ -7,6 +7,8 @@ const MessageButton = () => {
   const [sending, setSending] = useState(false);
   const ref = useRef(null);
 
+  const sender = localStorage.getItem("userId");
+
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (ref.current && !ref.current.contains(e.target)) {
@@ -25,6 +27,7 @@ const MessageButton = () => {
     setSending(true);
     try {
       const response = await axios.post("http://localhost:5555/messages/send", {
+        sender,
         content,
       });
       console.log("Message sent:", response.data);

@@ -3,8 +3,8 @@ import Message from "../models/messageModal.js";
 
 const router = express.Router();
 
-// get all
-router.get("/", async (req, res) => {
+// Get all messages
+router.get("/messages", async (req, res) => {
   try {
     const messages = await Message.find().populate("sender recipient");
     res.status(200).json(messages);
@@ -14,25 +14,11 @@ router.get("/", async (req, res) => {
   }
 });
 
-// get
-router.get("/user/:userId", async (req, res) => {
-  const { userId } = req.params;
+// Send a message
+router.post("/messages/send", async (req, res) => {
+  const { sender, content } = req.body;
   try {
-    const messages = await Message.find({
-      $or: [{ sender: userId }, { recipient: userId }],
-    }).populate("sender recipient");
-    res.status(200).json(messages);
-  } catch (error) {
-    console.error("Error fetching user messages:", error);
-    res.status(500).json({ message: "Server error" });
-  }
-});
-
-// send
-router.post("/send", async (req, res) => {
-  const { sender, recipient, content } = req.body;
-  try {
-    const newMessage = new Message({ sender, recipient, content });
+    const newMessage = new Message({ sender, content });
     await newMessage.save();
     res.status(201).json(newMessage);
   } catch (error) {
@@ -41,16 +27,19 @@ router.post("/send", async (req, res) => {
   }
 });
 
-// get for admin all of them
-router.get("/admin/messages", async (req, res) => {
-  const adminUserId = "adminUserId";
+// Delete a message by ID
+router.delete("/messages/deletemessage/:messageId", async (req, res) => {
+  const { messageId } = req.params;
   try {
-    const messages = await Message.find({ recipient: adminUserId }).populate(
-      "sender"
-    );
-    res.status(200).json(messages);
+    const deletedMessage = await Message.findByIdAndDelete(messageId);
+    if (!deletedMessage) {
+      return res.status(404).json({ message: "Message not found" });
+    }
+    res
+      .status(200)
+      .json({ message: "Message deleted successfully", deletedMessage });
   } catch (error) {
-    console.error("Error fetching admin messages:", error);
+    console.error("Error deleting message:", error);
     res.status(500).json({ message: "Server error" });
   }
 });
