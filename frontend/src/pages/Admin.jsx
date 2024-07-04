@@ -44,7 +44,6 @@ const Admin = () => {
             <Link to="/">
               <div className="bg-red-600 hover:bg-red-700 text-white py-4 px-6 rounded-lg text-center transition-all duration-300 transform hover:scale-105">
                 <p className="text-xl font-semibold">Manage Books</p>
-                <p className="text-sm mt-2">Review and update books</p>
               </div>
             </Link>
           </div>

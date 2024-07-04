@@ -36,7 +36,7 @@ router.post("/sendmessage", async (req, res) => {
 });
 
 // Delete a message by ID
-router.delete("/messages/deletemessage/:messageId", async (req, res) => {
+router.delete("/deletemessage/:messageId", async (req, res) => {
   const { messageId } = req.params;
   try {
     const deletedMessage = await Message.findByIdAndDelete(messageId);
