@@ -15,7 +15,7 @@ const Admin = () => {
         className={`fixed top-0 right-0 h-full bg-gray-800 w-2/5 transition-transform duration-300 transform ${
           showMessages ? "translate-x-0" : "translate-x-full"
         }`}
-        style={{ zIndex: 1000 }}
+        style={{ zIndex: 100 }}
       >
         <MessageList toggleMessages={toggleMessages} />
       </div>

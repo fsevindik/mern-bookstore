@@ -3,92 +3,87 @@ import React, { useEffect, useState } from "react";
 
 const MessageList = () => {
   const [messages, setMessages] = useState([]);
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+  const PORT = "http://localhost:5555";
 
   useEffect(() => {
     fetchMessages();
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   const fetchMessages = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:5555/messages/getmessage"
-      );
+      const response = await axios.get(`${PORT}/messages/getmessage`);
       setMessages(response.data);
     } catch (error) {
       console.error("Error fetching messages:", error);
     }
   };
 
-  const toggleReadStatus = async (messageId, isRead) => {
-    try {
-      await axios.put(`http://localhost:5555/messages/markread/${messageId}`, {
-        isRead,
-      });
-      setMessages(
-        messages.map((message) => {
-          if (message._id === messageId) {
-            return { ...message, isRead };
-          }
-          return message;
-        })
-      );
-    } catch (error) {
-      console.error("Error toggling read status:", error);
-    }
-  };
-
   const deleteMessage = async (messageId) => {
     try {
-      await axios.delete(`http://localhost:5555/messages/delete/${messageId}`);
+      await axios.delete(`${PORT}/messages/deletemessage/${messageId}`);
       setMessages(messages.filter((message) => message._id !== messageId));
     } catch (error) {
       console.error("Error deleting message:", error);
     }
   };
 
+  const handleResize = () => {
+    setIsSmallScreen(window.innerWidth <= 650);
+  };
+
+  const truncateID = (id, maxLength) => {
+    if (isSmallScreen && id.length > maxLength) {
+      return id.substring(0, maxLength) + "...";
+    }
+    return id;
+  };
+
   if (messages.length === 0) {
-    return <p className="text-white font-bold">No messages found.</p>;
+    return (
+      <p className="text-white font-bold text-center">No messages found.</p>
+    );
   }
 
   return (
-    <div>
-      <h2 className="text-white text-2xl mb-4 font-bol text-center ">
+    <div className="container mx-auto p-4">
+      <h2 className="text-white text-2xl mb-4 font-bold text-center bg-slate-500 py-2 rounded">
         Messages
       </h2>
-      <ul className="divide-y divide-gray-200">
+      <ul className="divide-y divide-gray-800">
         {messages.map((message) => (
           <li
             key={message._id}
-            className={`py-4 ${message.isRead ? "bg-gray-100" : "bg-white"}`}
+            className="bg-slate-600 rounded-lg shadow-md mb-4"
           >
-            <div className="flex justify-between items-center p-1 m-2 border-2 border-separate">
-              <div className="text-black">
-                <p>
-                  <strong>Sender(ID): </strong> {message.sender}
+            <div className="flex flex-col md:flex-row items-start p-4 border-2 border-separate">
+              <div className="text-black flex-1 mb-4 md:mb-0 md:mr-4">
+                <p className="bg-yellow-500 p-2 rounded mb-2">
+                  <strong>Sender(ID):</strong>{" "}
+                  <span className={isSmallScreen ? "truncate-id" : ""}>
+                    {truncateID(message.sender, 10)}
+                  </span>
                 </p>
-                <p className="bg-yellow-500">
-                  <strong>Name: </strong> {message.recipient}
+                <p className="bg-yellow-500 p-2 rounded mb-2">
+                  <strong>Name:</strong> {message.recipient}
                 </p>
-                <p className="bg-slate-300">
+                <p className="bg-slate-300 p-2 rounded mb-2">
                   <strong>Content:</strong> {message.content}
                 </p>
-                <p className="bg-green-400">
+                <p className="bg-green-300 p-2 rounded">
                   <strong>Time:</strong>{" "}
                   {new Date(message.sentAt).toLocaleString()}
                 </p>
               </div>
-              <div className="flex items-center space-x-4">
-                <input
-                  type="checkbox"
-                  checked={message.isRead}
-                  onChange={(e) =>
-                    toggleReadStatus(message._id, e.target.checked)
-                  }
-                  className="form-checkbox h-8 w-8 animate-pulse  text-green-500 focus:outline-none focus:shadow-outline cursor-pointer"
-                />
+              <div className="flex items-center mt-2 md:mt-0">
                 <button
                   onClick={() => deleteMessage(message._id)}
-                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  className="bg-red-600 hover:bg-black text-white font-bold py-2 px-4 rounded"
                 >
                   Delete
                 </button>
