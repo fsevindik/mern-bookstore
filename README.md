@@ -19,8 +19,8 @@ To run this project locally =>
 -Clone the repository: But do not forget to set ur own mongoDbUrl/..pass..
 
 
-![Bookstore Screenshot](frontend/src/assets/Screenshot%2024-07-06%20004008.png)
 
+![Bookstore Screenshot](frontend/src/assets/Screenshot%2024-07-06%20004008.png)
 ![Bookstore Screenshot](frontend/src/assets/Screenshot%202024-06-24%20190548.png)
 ![Screenshot](frontend/src/assets/Screenshot%202024-06-24%20200957.png)
 
