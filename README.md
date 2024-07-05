@@ -14,11 +14,10 @@ This project implements a simple Bookstore application using the MERN stack (Mon
 
 ## Screenshots
 
-### Admin Dashboard
+###  Example of Books
+
 ![Admin Dashboard](frontend/src/assets/Screenshot%202024-07-06%20004008.png)
 
-### Example of Book Listing
-![Book Listing](frontend/src/assets/Screenshot%2024-07-06%20200957.png)
 
 ## To run this project locally
 
