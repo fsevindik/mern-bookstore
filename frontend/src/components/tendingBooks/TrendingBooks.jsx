@@ -18,9 +18,7 @@ const TrendingBooks = () => {
       .get(`${PORT}/books`)
       .then(async (response) => {
         const allBooks = response.data.data;
-        const trendingBooks = allBooks
-          .sort((a, b) => b.likes - a.likes)
-          .slice(0, 10);
+        const trendingBooks = allBooks.slice(0, 10);
 
         const booksWithRatings = await Promise.all(
           trendingBooks.map(async (book) => {
