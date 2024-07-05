@@ -1,25 +1,40 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { FaStar } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 import Spinner from "../Spinner";
 
-const TrendingBooks = ({ sliderSettings }) => {
+const TrendingBooks = () => {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(false);
+  const PORT = "http://localhost:5555";
 
   useEffect(() => {
     setLoading(true);
     axios
-      .get("http://localhost:5555/books")
-      .then((response) => {
+      .get(`${PORT}/books`)
+      .then(async (response) => {
         const allBooks = response.data.data;
         const trendingBooks = allBooks
           .sort((a, b) => b.likes - a.likes)
-          .slice(0, 5);
-        setBooks(trendingBooks);
+          .slice(0, 10);
+
+        const booksWithRatings = await Promise.all(
+          trendingBooks.map(async (book) => {
+            const ratingResponse = await axios.get(
+              `${PORT}/books/${book._id}/averageRating`
+            );
+            return {
+              ...book,
+              averageRating: ratingResponse.data.averageRating,
+            };
+          })
+        );
+
+        setBooks(booksWithRatings);
         setLoading(false);
       })
       .catch((error) => {
@@ -28,15 +43,56 @@ const TrendingBooks = ({ sliderSettings }) => {
       });
   }, []);
 
-  const truncateAuthor = (author, maxLength) => {
-    if (author.length > maxLength) {
-      return `${author.substring(0, maxLength)}...`;
+  const truncateText = (text, maxLength) => {
+    if (text.length > maxLength) {
+      return `${text.substring(0, maxLength)}...`;
     }
-    return author;
+    return text;
+  };
+
+  const sliderSettings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 6,
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 1400,
+        settings: {
+          slidesToShow: 5,
+        },
+      },
+      {
+        breakpoint: 1200,
+        settings: {
+          slidesToShow: 4,
+        },
+      },
+      {
+        breakpoint: 990,
+        settings: {
+          slidesToShow: 3,
+        },
+      },
+      {
+        breakpoint: 765,
+        settings: {
+          slidesToShow: 2,
+        },
+      },
+      {
+        breakpoint: 575,
+        settings: {
+          slidesToShow: 1,
+        },
+      },
+    ],
+    dotsClass: "slick-dots custom-dots",
   };
 
   return (
-    <div className="my-8 mx-auto max-w-3xl">
+    <div className="my-8 mx-auto max-w-[90%] px-4">
       <h2 className="text-2xl font-bold text-center mb-4 text-white">
         Some of Trending Books
       </h2>
@@ -47,31 +103,33 @@ const TrendingBooks = ({ sliderSettings }) => {
           {books.map((book) => (
             <Link key={book._id} to={`/books/details/${book._id}`}>
               <div className="px-2">
-                <div className="bg-[#f5c518] p-4 rounded-lg shadow-md flex cursor-pointer">
-                  <div className="w-full">
-                    <div
-                      className="relative overflow-hidden rounded-lg"
-                      style={{ paddingTop: "150%" }}
-                    >
-                      <img
-                        src={book.imageA}
-                        alt={book.title}
-                        className="absolute top-0 left-0 w-full h-full object-cover rounded-lg"
-                      />
+                <div className="bg-yellow-500 p-3 rounded-lg shadow-md flex flex-col cursor-pointer lg:h-[280px]">
+                  <div className="relative pb-[95%] overflow-hidden rounded-lg">
+                    <img
+                      src={book.imageA}
+                      alt={book.title}
+                      className="absolute top-0 left-0 w-full h-full md:object-cover rounded-lg"
+                    />
+                  </div>
+                  <div className="mt-2 flex flex-col justify-between flex-grow">
+                    <div>
+                      <p className="text-blue-600 text-center font-bold md:text-md  text-sm mb-1">
+                        <span className="text-white font-serif font-bold ">
+                          {truncateText(book.author, 20)}
+                        </span>
+                      </p>
+                      <h3 className="font-semibold text-center md:text-md ">
+                        {truncateText(book.title, 20)}
+                      </h3>
                     </div>
-                    <h3 className="font-semibold text-center">{book.title}</h3>
-                    <p className="text-blue-600 mt-2 text-center font-bold">
-                      Author:{" "}
-                      <span className="text-white font-serif">
-                        {truncateAuthor(book.author, 15)}
+                    <div className="flex items-center justify-center mt-1">
+                      <FaStar className="text-blue-500 mr-1 text-xs" />
+                      <span className="text-white text-xs font-bold">
+                        {book.averageRating
+                          ? book.averageRating.toFixed(1)
+                          : "N/A"}
                       </span>
-                    </p>
-                    <p className="mt-2 text-blue-700 font-bold text-center">
-                      Rating:{" "}
-                      <span className="text-white font-serif">
-                        {book.likes}
-                      </span>
-                    </p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -79,6 +137,14 @@ const TrendingBooks = ({ sliderSettings }) => {
           ))}
         </Slider>
       )}
+      <style jsx>{`
+        .custom-dots li button:before {
+          color: white !important;
+        }
+        .custom-dots li.slick-active button:before {
+          color: white !important;
+        }
+      `}</style>
     </div>
   );
 };

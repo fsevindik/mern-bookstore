@@ -51,9 +51,11 @@ const BooksTable = ({ books }) => {
           <th className="border border-slate-600 rounded-md bg-slate-500 hidden md:table-cell">
             Publish Year
           </th>
-          <th className="border border-slate-600 rounded-md bg-slate-500">
-            Operations
-          </th>
+          {userType === "admin" && (
+            <th className="border border-slate-600 rounded-md bg-slate-500">
+              Operations
+            </th>
+          )}
         </tr>
       </thead>
       <tbody>
@@ -63,7 +65,7 @@ const BooksTable = ({ books }) => {
               {index + 1}
             </td>
             <Link key={book._id} to={`/books/details/${book._id}`}>
-              <td className="border border-slate-700 cursor-pointer rounded-md text-left flex items-center p-2 font-serify font-semibold">
+              <td className="border border-slate-700 hover:bg-yellow-500 hover:scale-105 cursor-pointer rounded-md text-left flex items-center p-2 font-serif font-semibold">
                 <img
                   src={book.imageA}
                   alt={book.title}
@@ -75,25 +77,27 @@ const BooksTable = ({ books }) => {
             <td className="border border-slate-700 rounded-md text-center font-semibold hidden md:table-cell">
               {book.publishYear}
             </td>
-            <td className="border border-slate-700 rounded-md text-center">
-              <div className="flex justify-center gap-x-4">
-                <DetailsButton bookId={book._id} />
-                <EditButton
-                  bookId={book._id}
-                  userType={userType}
-                  index={index}
-                  handleMouseEnter={handleEditMouseEnter}
-                  handleMouseLeave={handleEditMouseLeave}
-                />
-                <DeleteButton
-                  bookId={book._id}
-                  userType={userType}
-                  index={index}
-                  handleMouseEnter={handleDeleteMouseEnter}
-                  handleMouseLeave={handleDeleteMouseLeave}
-                />
-              </div>
-            </td>
+            {userType === "admin" && (
+              <td className="border border-slate-700 rounded-md text-center">
+                <div className="flex justify-center gap-x-4">
+                  <DetailsButton bookId={book._id} />
+                  <EditButton
+                    bookId={book._id}
+                    userType={userType}
+                    index={index}
+                    handleMouseEnter={handleEditMouseEnter}
+                    handleMouseLeave={handleEditMouseLeave}
+                  />
+                  <DeleteButton
+                    bookId={book._id}
+                    userType={userType}
+                    index={index}
+                    handleMouseEnter={handleDeleteMouseEnter}
+                    handleMouseLeave={handleDeleteMouseLeave}
+                  />
+                </div>
+              </td>
+            )}
           </tr>
         ))}
       </tbody>

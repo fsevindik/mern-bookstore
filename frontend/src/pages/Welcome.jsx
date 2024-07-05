@@ -26,10 +26,7 @@ const Welcome = () => {
           </li>
         </ul>
         <button className="bg-black text-white py-2 px-4 rounded-md animate-pulse">
-          <Link
-            to="/books/trends"
-            className="flex items-center hover:text-gray-300"
-          >
+          <Link to="/" className="flex items-center hover:text-gray-300">
             Explore Books
           </Link>
         </button>
