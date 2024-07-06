@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { FaStar } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import BackButton from "../BackButton";
 
 const Trends = () => {
   const [books, setBooks] = useState([]);
@@ -13,12 +14,8 @@ const Trends = () => {
       .get(`${PORT}/books`)
       .then(async (response) => {
         const allBooks = response.data.data;
-        const trendingBooks = allBooks
-          .sort((a, b) => b.averageRating - a.averageRating)
-          .slice(0, 6);
-
         const booksWithRatings = await Promise.all(
-          trendingBooks.map(async (book) => {
+          allBooks.map(async (book) => {
             const ratingResponse = await axios.get(
               `${PORT}/books/${book._id}/averageRating`
             );
@@ -28,8 +25,11 @@ const Trends = () => {
             };
           })
         );
+        const trendingBooks = booksWithRatings
+          .sort((a, b) => b.averageRating - a.averageRating)
+          .slice(0, 8);
 
-        setBooks(booksWithRatings);
+        setBooks(trendingBooks);
         setLoading(false);
       })
       .catch((error) => {
@@ -45,14 +45,19 @@ const Trends = () => {
     return text;
   };
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="bg-[#1c1a1a] flex flex-grow flex-col items-center justify-center">
+      <BackButton />
       <div className="mx-auto mt-5"></div>
       <div className="flex-grow w-full my-8 mx-auto max-w-6xl px-4">
         <h2 className="text-4xl font-bold text-center mb-8 text-white">
           Trending Books
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
           {books.map((book) => (
             <Link key={book._id} to={`/books/details/${book._id}`}>
               <div className="bg-yellow-500 p-4 rounded-lg shadow-md flex flex-col cursor-pointer">
