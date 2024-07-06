@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import { PORT, mongoDBURL } from "./config.js";
 import booksRoute from "./routes/booksRoute.js";
 import messageRoute from "./routes/messageRoute.js";
+import reactionRoute from "./routes/reactionRoute.js";
 import usersRoute from "./routes/usersRoute.js";
 
 const app = express();
@@ -19,6 +20,7 @@ app.get("/", (request, response) => {
 app.use("/books", booksRoute);
 app.use("/users", usersRoute);
 app.use("/messages", messageRoute);
+app.use("/reactions", reactionRoute);
 
 mongoose
   .connect(mongoDBURL)

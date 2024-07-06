@@ -106,6 +106,7 @@ const ShowBook = () => {
           setNewComment={setNewComment}
           handleCommentSubmit={handleCommentSubmit}
           canComment={canComment}
+          bookId={id}
         />
       </div>
     </div>

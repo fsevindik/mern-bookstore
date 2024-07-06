@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { FaThumbsUp } from "react-icons/fa";
 
 const CommentSection = ({
   comments,
@@ -6,14 +8,66 @@ const CommentSection = ({
   setNewComment,
   handleCommentSubmit,
   canComment,
+  bookId,
 }) => {
   const [charCount, setCharCount] = useState(200);
+  const [likedComments, setLikedComments] = useState([]);
+  const [reactionCounts, setReactionCounts] = useState(0);
+
+  useEffect(() => {
+    const fetchReactions = async () => {
+      try {
+        const promises = comments.map((comment) =>
+          axios.get(
+            `http://localhost:5555/${bookId}/comments/${comment._id}/getreactions`
+          )
+        );
+        const responses = await Promise.all(promises);
+        const counts = responses.reduce((acc, response, index) => {
+          acc[comments[index]._id] = response.data;
+          return acc;
+        }, {});
+        setReactionCounts(counts);
+      } catch (error) {
+        console.error("Error fetching reactions:", error);
+      }
+    };
+
+    fetchReactions();
+  }, [comments, bookId]);
 
   const handleCommentChange = (e) => {
     const value = e.target.value;
     if (value.length <= 222) {
       setNewComment(value);
       setCharCount(200 - value.length);
+    }
+  };
+
+  const handleLike = async (commentId) => {
+    try {
+      const userId = localStorage.getItem("userId");
+      const reactionType = "like";
+      const response = await axios.post(
+        `http://localhost:5555/${bookId}/comments/${commentId}/postreactions`,
+        {
+          userId,
+          reactionType,
+        }
+      );
+
+      if (response.status === 201) {
+        setLikedComments([...likedComments, commentId]);
+        setReactionCounts((prevCounts) => ({
+          ...prevCounts,
+          [commentId]: {
+            ...prevCounts[commentId],
+            like: (prevCounts[commentId]?.like || 0) + 1,
+          },
+        }));
+      }
+    } catch (error) {
+      console.error("Error adding reaction:", error);
     }
   };
 
@@ -24,17 +78,35 @@ const CommentSection = ({
         {comments.map((comment, index) => (
           <div
             key={index}
-            className="p-2 bg-gray-700 rounded-lg border border-gray-600 w-full flex flex-col"
+            className=" flexp-2 bg-gray-700 rounded-lg border border-gray-600 w-full flex flex-col"
           >
-            <div className="border border-yellow-400 rounded-md bg-slate-100 max-w-full p-2 relative">
-              <p className="text-gray-800 font-mono break-all whitespace-normal overflow-wrap-anywhere word-break-break-word hyphens-auto max-h-32 overflow-y-auto">
-                {comment.text}
-              </p>
-              <div className="absolute bottom-0 right-0">
-                <span className="text-blue-600 font-serif text-xs italic">
-                  〰{comment.userName}〰
+            <div className="border border-yellow-400 rounded-md bg-slate-200 max-w-full p-2 relative flex items-center justify-between">
+              <div className=" flex space-x-1 cursor-pointer m-1">
+                <FaThumbsUp
+                  className="text-blue-400 size-6 hover:text-blue-700"
+                  onClick={() => handleLike(comment._id)}
+                />
+                <span className="tetx-blue-800 font-medium">
+                  {reactionCounts[comment._id]?.like > 0 && (
+                    <span className="text-gray-600">
+                      {reactionCounts[comment._id]?.like}
+                    </span>
+                  )}
                 </span>
               </div>
+              <div className="flex items-center">
+                {reactionCounts[comment._id]?.like > 0 && (
+                  <span className="ml-1 text-gray-600">
+                    {reactionCounts[comment._id]?.like}
+                  </span>
+                )}
+                <p className="ml- text-gray-800 font-mono break-all whitespace-normal overflow-wrap-anywhere word-break-break-word hyphens-auto max-h-32 overflow-y-auto">
+                  {comment.text}
+                </p>
+              </div>
+              <span className="text-blue-600 font-serif text-xs italic mt-auto">
+                〰{comment.userName}〰
+              </span>
             </div>
           </div>
         ))}
