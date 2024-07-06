@@ -11,8 +11,7 @@ const CommentSection = ({
   bookId,
 }) => {
   const [charCount, setCharCount] = useState(200);
-  const [likedComments, setLikedComments] = useState([]);
-  const [reactionCounts, setReactionCounts] = useState(0);
+  const [reactionCounts, setReactionCounts] = useState({});
 
   useEffect(() => {
     const fetchReactions = async () => {
@@ -48,6 +47,14 @@ const CommentSection = ({
     try {
       const userId = localStorage.getItem("userId");
       const reactionType = "like";
+      setReactionCounts((prevCounts) => ({
+        ...prevCounts,
+        [commentId]: {
+          ...prevCounts[commentId],
+          like: (prevCounts[commentId]?.like || 0) + 1,
+        },
+      }));
+
       const response = await axios.post(
         `http://localhost:5555/${bookId}/comments/${commentId}/postreactions`,
         {
@@ -56,18 +63,24 @@ const CommentSection = ({
         }
       );
 
-      if (response.status === 201) {
-        setLikedComments([...likedComments, commentId]);
+      if (response.status !== 200 && response.status !== 201) {
         setReactionCounts((prevCounts) => ({
           ...prevCounts,
           [commentId]: {
             ...prevCounts[commentId],
-            like: (prevCounts[commentId]?.like || 0) + 1,
+            like: (prevCounts[commentId]?.like || 1) - 1,
           },
         }));
       }
     } catch (error) {
       console.error("Error adding reaction:", error);
+      setReactionCounts((prevCounts) => ({
+        ...prevCounts,
+        [commentId]: {
+          ...prevCounts[commentId],
+          like: (prevCounts[commentId]?.like || 1) - 1,
+        },
+      }));
     }
   };
 
@@ -75,32 +88,23 @@ const CommentSection = ({
     <div className="my-4 bg-gray-800 p-4 rounded-lg shadow-lg w-full flex flex-col items-center">
       <h2 className="text-xl font-semibold text-white mb-4">User Opinions:</h2>
       <div className="w-full">
-        {comments.map((comment, index) => (
+        {comments.map((comment) => (
           <div
-            key={index}
-            className=" flexp-2 bg-gray-700 rounded-lg border border-gray-600 w-full flex flex-col"
+            key={comment._id}
+            className="flex p-2 bg-gray-700 rounded-lg border border-gray-600 w-full flex-col"
           >
             <div className="border border-yellow-400 rounded-md bg-slate-200 max-w-full p-2 relative flex items-center justify-between">
-              <div className=" flex space-x-1 cursor-pointer m-1">
+              <div className="flex space-x-1 cursor-pointer m-1">
                 <FaThumbsUp
                   className="text-blue-400 size-6 hover:text-blue-700"
                   onClick={() => handleLike(comment._id)}
                 />
-                <span className="tetx-blue-800 font-medium">
-                  {reactionCounts[comment._id]?.like > 0 && (
-                    <span className="text-gray-600">
-                      {reactionCounts[comment._id]?.like}
-                    </span>
-                  )}
+                <span className="text-blue-800 font-medium">
+                  {reactionCounts[comment._id]?.like || 0}
                 </span>
               </div>
               <div className="flex items-center">
-                {reactionCounts[comment._id]?.like > 0 && (
-                  <span className="ml-1 text-gray-600">
-                    {reactionCounts[comment._id]?.like}
-                  </span>
-                )}
-                <p className="ml- text-gray-800 font-mono break-all whitespace-normal overflow-wrap-anywhere word-break-break-word hyphens-auto max-h-32 overflow-y-auto">
+                <p className="ml-2 text-gray-800 font-mono break-all whitespace-normal overflow-wrap-anywhere word-break-break-word hyphens-auto max-h-32 overflow-y-auto">
                   {comment.text}
                 </p>
               </div>

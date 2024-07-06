@@ -20,7 +20,7 @@ app.get("/", (request, response) => {
 app.use("/books", booksRoute);
 app.use("/users", usersRoute);
 app.use("/messages", messageRoute);
-app.use("/reactions", reactionRoute);
+app.use("/", reactionRoute);
 
 mongoose
   .connect(mongoDBURL)
