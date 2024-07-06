@@ -47,13 +47,34 @@ const CommentSection = ({
     try {
       const userId = localStorage.getItem("userId");
       const reactionType = "like";
-      setReactionCounts((prevCounts) => ({
-        ...prevCounts,
-        [commentId]: {
-          ...prevCounts[commentId],
-          like: (prevCounts[commentId]?.like || 0) + 1,
-        },
-      }));
+
+      // Check if the user has already liked the comment
+      if (
+        reactionCounts[commentId]?.like &&
+        reactionCounts[commentId]?.usersLiked.includes(userId)
+      ) {
+        // User has already liked, remove like
+        setReactionCounts((prevCounts) => ({
+          ...prevCounts,
+          [commentId]: {
+            ...prevCounts[commentId],
+            like: prevCounts[commentId].like - 1,
+            usersLiked: prevCounts[commentId].usersLiked.filter(
+              (id) => id !== userId
+            ),
+          },
+        }));
+      } else {
+        // User hasn't liked, add like
+        setReactionCounts((prevCounts) => ({
+          ...prevCounts,
+          [commentId]: {
+            ...prevCounts[commentId],
+            like: (prevCounts[commentId]?.like || 0) + 1,
+            usersLiked: [...(prevCounts[commentId]?.usersLiked || []), userId],
+          },
+        }));
+      }
 
       const response = await axios.post(
         `http://localhost:5555/${bookId}/comments/${commentId}/postreactions`,
@@ -64,6 +85,7 @@ const CommentSection = ({
       );
 
       if (response.status !== 200 && response.status !== 201) {
+        // Revert the reaction count on failure
         setReactionCounts((prevCounts) => ({
           ...prevCounts,
           [commentId]: {

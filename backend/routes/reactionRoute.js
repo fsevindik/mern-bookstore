@@ -23,17 +23,16 @@ router.post("/:bookId/comments/:commentId/postreactions", async (req, res) => {
 
     switch (reactionType) {
       case "like":
-        if (!comment.reactions.usersLiked.includes(userId)) {
+        const userIndex = comment.reactions.usersLiked.indexOf(userId);
+        if (userIndex === -1) {
           comment.reactions.like++;
           comment.reactions.usersLiked.push(userId);
-          console.log("Added user to usersLiked array");
         } else {
-          console.log("User already liked this comment, removing like...");
+          // User already liked the comment, remove like
           comment.reactions.like--;
-          comment.usersLiked.splice(userIndex, 1);
+          comment.reactions.usersLiked.splice(userIndex, 1);
         }
         break;
-      // rest of the cases will come for next project :)
       default:
         return res.status(400).json({ message: "Invalid reaction type" });
     }

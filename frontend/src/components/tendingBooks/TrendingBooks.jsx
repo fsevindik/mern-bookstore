@@ -90,7 +90,7 @@ const TrendingBooks = () => {
   };
 
   return (
-    <div className="my-8 mx-auto max-w-[90%] px-4">
+    <div className="my-8 mx-auto max-w-[85%]  px-4">
       <h2 className="text-2xl font-bold text-center mb-4 text-white">
         Some of Trending Books
       </h2>
@@ -102,7 +102,7 @@ const TrendingBooks = () => {
             <Link key={book._id} to={`/books/details/${book._id}`}>
               <div className="px-2">
                 <div className="bg-yellow-500 p-3 rounded-lg shadow-md flex flex-col cursor-pointer lg:h-[280px]">
-                  <div className="relative pb-[95%] overflow-hidden rounded-lg">
+                  <div className="relative pb-[75%] overflow-hidden rounded-lg">
                     <img
                       src={book.imageA}
                       alt={book.title}
