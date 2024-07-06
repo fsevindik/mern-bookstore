@@ -18,6 +18,7 @@ const reactionSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  usersLiked: [],
 });
 
 // Comment schema
