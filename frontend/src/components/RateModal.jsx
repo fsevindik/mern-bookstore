@@ -22,6 +22,7 @@ const RateModal = ({ book }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [rating, setRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
+  const [userId, setUserId] = useState(localStorage.getItem("userId"));
   const modalRef = useRef(null);
 
   useOutsideClick(modalRef, () => setIsOpen(false));
@@ -33,7 +34,6 @@ const RateModal = ({ book }) => {
   useEffect(() => {
     const fetchUserRating = async () => {
       try {
-        const userId = localStorage.getItem("userId");
         const savedRating = localStorage.getItem(
           `rating_${book._id}_${userId}`
         );
@@ -56,12 +56,13 @@ const RateModal = ({ book }) => {
       }
     };
 
-    fetchUserRating();
-  }, [book._id]);
+    if (userId) {
+      fetchUserRating();
+    }
+  }, [book._id, userId]);
 
   const handleRating = async (rate) => {
     try {
-      const userId = localStorage.getItem("userId");
       const response = await axios.post(
         `http://localhost:5555/books/${book._id}/rate`,
         {
@@ -89,17 +90,21 @@ const RateModal = ({ book }) => {
   return (
     <div className="relative ml-auto">
       <div
-        className={`flex border-4 border-gray-700 ml-auto animate-pulse items-center rounded-lg sm:rounded-xl h-10 sm:h-12 lg:h-14 xl:h-16 w-20 sm:w-24 lg:w-28 xl:w-32 bg-yellow-500 text-blue-600 p-2 cursor-pointer transition duration-300 ${
+        className={`flex border-4 border-gray-700 ml-auto items-center rounded-lg sm:rounded-xl h-10 sm:h-12 lg:h-14 xl:h-16 w-20 sm:w-24 lg:w-28 xl:w-32 bg-yellow-500 text-blue-600 p-2 cursor-pointer transition duration-300 ${
           isHovered
             ? "hover:bg-blue-500 hover:animate-none"
             : "hover:bg-yellow-500"
         }`}
-        onMouseEnter={handleHover}
-        onMouseLeave={handleMouseLeave}
-        onClick={handleClick}
-        style={{ color: isHovered ? "#fff" : "inherit" }}
+        onMouseEnter={userId ? handleHover : null}
+        onMouseLeave={userId ? handleMouseLeave : null}
+        onClick={userId ? handleClick : null}
+        style={{
+          color: isHovered ? "#fff" : "inherit",
+          opacity: userId ? 1 : 0.5,
+          cursor: userId ? "pointer" : "not-allowed",
+        }}
       >
-        <StarIcon isHovered={isHovered} />
+        <StarIcon isHovered={isHovered} disabled={!userId} />
         <span
           className={`ml-2 text-sm sm:text-base lg:text-lg xl:text-xl font-bold ${
             isHovered ? "text-white" : "text-gray-900"
@@ -144,6 +149,7 @@ const RateModal = ({ book }) => {
                   onClick={() => handleRating(index + 1)}
                   onMouseEnter={() => handleHoverRating(index + 1)}
                   onMouseLeave={handleLeaveRating}
+                  disabled={!userId}
                 />
               ))}
             </div>

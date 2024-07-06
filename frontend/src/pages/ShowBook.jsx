@@ -17,7 +17,7 @@ const ShowBook = () => {
   const [averageRating, setAverageRating] = useState(0);
   const { id } = useParams();
 
-  const PORT = "http://localhost:5555"; // this is saved in config file
+  const PORT = "http://localhost:5555"; // this is also saved in config
   const userId = localStorage.getItem("userId");
 
   useEffect(() => {

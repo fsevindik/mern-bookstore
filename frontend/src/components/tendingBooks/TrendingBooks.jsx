@@ -52,7 +52,7 @@ const TrendingBooks = () => {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 6,
+    slidesToShow: 7,
     slidesToScroll: 1,
     responsive: [
       {
@@ -102,7 +102,7 @@ const TrendingBooks = () => {
             <Link key={book._id} to={`/books/details/${book._id}`}>
               <div className="px-2">
                 <div className="bg-yellow-500 p-3 rounded-lg shadow-md flex flex-col cursor-pointer lg:h-[280px]">
-                  <div className="relative pb-[75%] overflow-hidden rounded-lg">
+                  <div className="relative pb-[85%] mx-[15%]  overflow-hidden rounded-lg">
                     <img
                       src={book.imageA}
                       alt={book.title}
@@ -122,7 +122,7 @@ const TrendingBooks = () => {
                     </div>
                     <div className="flex items-center justify-center mt-1">
                       <FaStar className="text-blue-500 mr-1 text-xs" />
-                      <span className="text-white text-xs font-bold">
+                      <span className="text-white lg:text-lg  sm:text-xs font-bold">
                         {book.averageRating
                           ? book.averageRating.toFixed(1)
                           : "N/A"}

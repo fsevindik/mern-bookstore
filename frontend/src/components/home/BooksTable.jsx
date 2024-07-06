@@ -65,7 +65,7 @@ const BooksTable = ({ books }) => {
               {index + 1}
             </td>
             <Link key={book._id} to={`/books/details/${book._id}`}>
-              <td className="border border-slate-700 hover:bg-yellow-500 hover:scale-105 cursor-pointer rounded-md text-left flex items-center p-2 font-serif font-semibold">
+              <td className="border border-slate-700 hover:bg-yellow-500 hover:animate-pulse cursor-pointer rounded-md text-left flex items-center p-2 font-serif font-semibold">
                 <img
                   src={book.imageA}
                   alt={book.title}

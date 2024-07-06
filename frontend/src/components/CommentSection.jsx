@@ -10,7 +10,7 @@ const CommentSection = ({
   canComment,
   bookId,
 }) => {
-  const [charCount, setCharCount] = useState(200);
+  const [charCount, setCharCount] = useState(222);
   const [reactionCounts, setReactionCounts] = useState({});
 
   useEffect(() => {
@@ -39,7 +39,7 @@ const CommentSection = ({
     const value = e.target.value;
     if (value.length <= 222) {
       setNewComment(value);
-      setCharCount(200 - value.length);
+      setCharCount(222 - value.length);
     }
   };
 
@@ -47,13 +47,10 @@ const CommentSection = ({
     try {
       const userId = localStorage.getItem("userId");
       const reactionType = "like";
-
-      // Check if the user has already liked the comment
       if (
         reactionCounts[commentId]?.like &&
         reactionCounts[commentId]?.usersLiked.includes(userId)
       ) {
-        // User has already liked, remove like
         setReactionCounts((prevCounts) => ({
           ...prevCounts,
           [commentId]: {
@@ -65,7 +62,6 @@ const CommentSection = ({
           },
         }));
       } else {
-        // User hasn't liked, add like
         setReactionCounts((prevCounts) => ({
           ...prevCounts,
           [commentId]: {
@@ -85,7 +81,6 @@ const CommentSection = ({
       );
 
       if (response.status !== 200 && response.status !== 201) {
-        // Revert the reaction count on failure
         setReactionCounts((prevCounts) => ({
           ...prevCounts,
           [commentId]: {
@@ -106,33 +101,42 @@ const CommentSection = ({
     }
   };
 
+  const userId = localStorage.getItem("userId");
+
   return (
-    <div className="my-4 bg-gray-800 p-4 rounded-lg shadow-lg w-full flex flex-col items-center">
+    <div className="my-4 bg-gray-800 p-4 rounded-lg shadow-lg w-full">
       <h2 className="text-xl font-semibold text-white mb-4">User Opinions:</h2>
       <div className="w-full">
         {comments.map((comment) => (
           <div
             key={comment._id}
-            className="flex p-2 bg-gray-700 rounded-lg border border-gray-600 w-full flex-col"
+            className="flex p-2 bg-gray-700 rounded-lg border border-gray-600 mb-4"
           >
-            <div className="border border-yellow-400 rounded-md bg-slate-200 max-w-full p-2 relative flex items-center justify-between">
-              <div className="flex space-x-1 cursor-pointer m-1">
-                <FaThumbsUp
-                  className="text-blue-400 size-6 hover:text-blue-700"
-                  onClick={() => handleLike(comment._id)}
-                />
-                <span className="text-blue-800 font-medium">
-                  {reactionCounts[comment._id]?.like || 0}
-                </span>
-              </div>
-              <div className="flex items-center">
-                <p className="ml-2 text-gray-800 font-mono break-all whitespace-normal overflow-wrap-anywhere word-break-break-word hyphens-auto max-h-32 overflow-y-auto">
+            <div
+              className={` ${
+                !userId ? "cursor-not-allowed" : "cursor-pointer"
+              }`}
+            >
+              <FaThumbsUp
+                className={`text-yellow-400 hover:text-blue-700 ${
+                  !userId ? "cursor-not-allowed" : "cursor-pointer"
+                }`}
+                onClick={!userId ? null : () => handleLike(comment._id)}
+                style={!userId ? { pointerEvents: "none" } : {}}
+              />
+              <span className="text-yellow-400 font-medium ml-1">
+                {reactionCounts[comment._id]?.like || 0}
+              </span>
+            </div>
+            <div className="flex-1 ml-2">
+              <div className="border border-yellow-400 rounded-md bg-slate-300 max-w-full p-2 relative">
+                <p className="text-gray-800 font-mono break-all whitespace-normal overflow-wrap-anywhere word-break-break-word hyphens-auto max-h-24 overflow-y-auto">
                   {comment.text}
                 </p>
+                <span className="text-blue-600 font-serif text-xs italic absolute bottom-2 right-2">
+                  〰{comment.userName}〰
+                </span>
               </div>
-              <span className="text-blue-600 font-serif text-xs italic mt-auto">
-                〰{comment.userName}〰
-              </span>
             </div>
           </div>
         ))}
@@ -160,7 +164,10 @@ const CommentSection = ({
         </div>
       </div>
       {!canComment && (
-        <p className="text-red-500 mt-2">You need to log in to comment.</p>
+        <p className="text-red-500 mt-2 font-sans">
+          ❗️You need to log in to leave a comment, rate a book or like
+          comments.
+        </p>
       )}
     </div>
   );
