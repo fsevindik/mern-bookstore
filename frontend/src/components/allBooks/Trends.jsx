@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { FaStar } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import BackButton from "../BackButton";
+import Spinner from "../Spinner";
 
 const Trends = () => {
   const [books, setBooks] = useState([]);
@@ -46,7 +47,7 @@ const Trends = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Spinner />;
   }
 
   return (
