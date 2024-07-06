@@ -13,24 +13,27 @@ router.post("/:bookId/comments/:commentId/postreactions", async (req, res) => {
     if (!book) {
       return res.status(404).json({ message: "Book not found" });
     }
-    const comment = book.comments.find((comment) => comment.id === commentId);
+
+    const comment = book.comments.find(
+      (comment) => comment._id.toString() === commentId
+    );
     if (!comment) {
       return res.status(404).json({ message: "Comment not found" });
     }
-    console.log(comment);
+
     switch (reactionType) {
       case "like":
-        const userIndex = comment.usersLiked.indexOf(userId);
-        if (userIndex === -1) {
+        if (!comment.reactions.usersLiked.includes(userId)) {
           comment.reactions.like++;
-          comment.usersLiked.push(userId);
-          console.log(usersLiked);
+          comment.reactions.usersLiked.push(userId);
+          console.log("Added user to usersLiked array");
         } else {
-          console.log("cant add to usersliked");
+          console.log("User already liked this comment, removing like...");
           comment.reactions.like--;
           comment.usersLiked.splice(userIndex, 1);
         }
         break;
+      // rest of the cases will come for next project :)
       default:
         return res.status(400).json({ message: "Invalid reaction type" });
     }
@@ -65,9 +68,7 @@ router.get("/:bookId/comments/:commentId/getreactions", async (req, res) => {
     res.status(200).json(comment.reactions);
   } catch (error) {
     console.error("Error getting reactions:", error);
-    res
-      .status(500)
-      .json({ message: "Server error last line", error: error.message });
+    res.status(500).json({ message: "Server error", error: error.message });
   }
 });
 
