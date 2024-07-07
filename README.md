@@ -37,5 +37,3 @@ This project implements a simple Bookstore application using the MERN stack (Mon
 
 Don't worry, I will hash 🛡️ your passwords with bcrypt 🔒. 
 
-##
-I will publish my project temporarily (estimated to be removed in about 2-3 weeks) to gather feedback, and everyone is welcome to visit. Please take a look and don't forget to leave your comments and messages.
