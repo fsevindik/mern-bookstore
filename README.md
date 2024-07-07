@@ -36,4 +36,6 @@ This project implements a simple Bookstore application using the MERN stack (Mon
 ## Password Security
 
 Don't worry, I will hash 🛡️ your passwords with bcrypt 🔒. 
+And also I got pass. req.
+
 
