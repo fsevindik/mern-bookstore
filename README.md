@@ -37,5 +37,5 @@ This project implements a simple Bookstore application using the MERN stack (Mon
 
 Don't worry, I will hash 🛡️ your passwords with bcrypt 🔒. 
 And also I got pass. req.
-
+(frontend/src/assets/Screenshot 2024-07-08 003335.png)
 
