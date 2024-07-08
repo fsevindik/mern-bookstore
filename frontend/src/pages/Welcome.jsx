@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import MessageButton from "../components/MessageButton";
+import MessageButton from "../components/MessageButton.jsx";
 
 const Welcome = () => {
   const userName = localStorage.getItem("UserName") || "Guest";
