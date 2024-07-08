@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import MessageButton from "../components/MessageButton.jsx";
+import UserMessage from "../components/UserMessage.jsx";
 
 const Welcome = () => {
   const userName = localStorage.getItem("UserName") || "Guest";
@@ -31,7 +31,7 @@ const Welcome = () => {
           </Link>
         </button>
       </div>{" "}
-      <MessageButton />
+      <UserMessage />
     </div>
   );
 };

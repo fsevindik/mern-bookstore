@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 
-const MessageButton = () => {
+const UserMessage = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [content, setContent] = useState("");
   const [sending, setSending] = useState(false);
@@ -115,4 +115,4 @@ const MessageButton = () => {
   );
 };
 
-export default MessageButton;
+export default UserMessage;
