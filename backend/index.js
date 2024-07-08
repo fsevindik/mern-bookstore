@@ -9,9 +9,11 @@ import usersRoute from "./routes/usersRoute.js";
 
 const app = express();
 
+// Middleware
 app.use(express.json());
 app.use(cors());
 
+// Routes
 app.get("/", (request, response) => {
   console.log(request);
   return response.status(200).send("Welcome to MERN project");
@@ -20,16 +22,19 @@ app.get("/", (request, response) => {
 app.use("/books", booksRoute);
 app.use("/users", usersRoute);
 app.use("/messages", messageRoute);
-app.use("/", reactionRoute);
+app.use("/reactions", reactionRoute);
 
 mongoose
-  .connect(mongoDBURL)
+  .connect(mongoDBURL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => {
-    console.log("App connected to database (MongoDb)");
+    console.log("Connected to MongoDB");
     app.listen(PORT, () => {
-      console.log(`App is listening to PORT: ${PORT}`);
+      console.log(`Server is running on PORT: ${PORT}`);
     });
   })
   .catch((error) => {
-    console.log(error);
+    console.error("Error connecting to MongoDB:", error.message);
   });
