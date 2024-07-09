@@ -56,49 +56,39 @@ const UserMessage = () => {
   };
 
   return (
-    <div className="flex ml-1 justify-center items-center h-screen relative">
+    <div className="relative">
       <button
-        className="bg-red-600 hover:bg-blue-600 py-2 px-4 rounded-md mb-4 z-10"
+        className="bg-red-600 hover:bg-blue-600 py-2 px-4 rounded-md mb-4 shadow-md"
         onClick={() => setIsOpen(true)}
       >
         Send Message
       </button>
       {isOpen && (
-        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50">
-          <div
-            className="absolute top-0 left-0 w-full h-full bg-cover bg-center z-40"
-            style={{
-              backgroundImage: `url('https://i.ytimg.com/vi/xK3nH3StRRs/maxresdefault.jpg')`,
-            }}
-          />
-          <div
-            ref={ref}
-            className="bg-white p-6 rounded-md shadow-md max-w-md text-center relative z-50 "
-            style={{ minWidth: "300px", maxWidth: "90%" }}
-          >
-            <h2 className="text-2xl font-semibold mb-4 ">
-              Send a Message to Admin
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-white rounded-md shadow-md p-4 max-w-xs md:max-w-md w-full">
+            <div className="flex justify-end">
+              <button
+                className="text-gray-600 hover:text-gray-800"
+                onClick={() => setIsOpen(false)}
+              >
+                ✕
+              </button>
+            </div>
+            <h2 className="text-xl md:text-2xl font-semibold mb-4 text-center">
+              Send a Message to👨🏻‍💻
             </h2>
-            <button
-              className="absolute top-2 right-2 text-gray-600 hover:text-gray-800"
-              onClick={() => setIsOpen(false)}
-            >
-              ✕
-            </button>
-            <form onSubmit={handleSubmit} className="space-y-4 ">
-              <div className="flex flex-col">
-                <textarea
-                  id="message"
-                  value={content}
-                  onChange={(e) => setContent(e.target.value)}
-                  required
-                  rows={3}
-                  className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-yellow-500"
-                />
-              </div>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <textarea
+                id="message"
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+                required
+                rows={3}
+                className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-yellow-500 w-full"
+              />
               <button
                 type="submit"
-                className={`bg-black text-white py-2 px-4 rounded-md ${
+                className={`bg-black text-white py-2 px-4 rounded-md w-full ${
                   sending
                     ? "opacity-50 cursor-not-allowed"
                     : "hover:bg-yellow-600"
