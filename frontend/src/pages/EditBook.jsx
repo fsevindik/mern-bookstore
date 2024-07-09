@@ -21,7 +21,7 @@ const EditBook = () => {
   useEffect(() => {
     // Fetch book data based on the ID
     axios
-      .get(`http://localhost:5555/books/${id}`)
+      .get(`https://mern-bookstore-6hsv.onrender.com/${id}`)
       .then((response) => {
         setBook(response.data);
         setLoading(false);
@@ -36,7 +36,7 @@ const EditBook = () => {
   const handleSaveBook = () => {
     setLoading(true);
     axios
-      .put(`http://localhost:5555/books/${id}`, book)
+      .put(`https://mern-bookstore-6hsv.onrender.com/${id}`, book)
       .then(() => {
         setLoading(false);
         enqueueSnackbar("Book updated successfully", { variant: "success" });
