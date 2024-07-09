@@ -1,7 +1,6 @@
 import cors from "cors";
 import express from "express";
 import mongoose from "mongoose";
-import { PORT, mongoDBURL } from "./config.js";
 import booksRoute from "./routes/booksRoute.js";
 import messageRoute from "./routes/messageRoute.js";
 import reactionRoute from "./routes/reactionRoute.js";
@@ -21,6 +20,9 @@ app.use("/books", booksRoute);
 app.use("/users", usersRoute);
 app.use("/messages", messageRoute);
 app.use("/reactions", reactionRoute);
+
+const PORT = process.env.PORT || 5000;
+const mongoDBURL = process.env.MONGODB_URI;
 
 mongoose
   .connect(mongoDBURL, {
