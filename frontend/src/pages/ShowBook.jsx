@@ -49,6 +49,20 @@ const ShowBook = () => {
     setCanComment(!!userId);
   }, [userId]);
 
+  useEffect(() => {
+    fetchAverageRating();
+  }, [id]);
+  const fetchAverageRating = async () => {
+    try {
+      const response = await axios.get(
+        `https://mern-bookstore-6hsv.onrender.com/books/${id}/averageRating`
+      );
+      setAverageRating(response.data.averageRating);
+    } catch (error) {
+      console.error("Error fetching average rating:", error);
+    }
+  };
+
   const handleCommentSubmit = async (e) => {
     e.preventDefault();
 
@@ -74,16 +88,18 @@ const ShowBook = () => {
       return;
     }
     try {
-      const response = await axios.post(`${PORT}/${id}/rate`, {
+      const response = await axios.post(`${PORT}/books/${id}/rate`, {
         userId,
         rating,
       });
-      setAverageRating(response.data.averageRating);
+      // setAverageRating(response.data.averageRating);
+      fetchAverageRating();
     } catch (error) {
       console.error("Error rating book:", error);
       alert("Error rating book. Please try again.");
     }
   };
+
   if (loading) {
     return <Spinner />;
   }
