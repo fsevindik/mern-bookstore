@@ -7,7 +7,7 @@ This project implements a simple Bookstore application using the MERN stack (Mon
 
 **Temporary Announcement:** I'm currently hosting this project temporarily. All guests are welcome, and I appreciate any feedback!
 
-[Explore the Project](https://mern-bookstore-1-n0fo.onrender.com/)
+[Here mern-bookstore Project](https://mern-bookstore-1-n0fo.onrender.com/)
 
 
 ## Features
