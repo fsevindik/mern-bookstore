@@ -18,7 +18,7 @@ const Home = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get("https://mern-bookstore-6hsv.onrender.com")
+      .get("https://mern-bookstore-6hsv.onrender.com/books")
       .then((response) => {
         setBooks(response.data.data);
         setLoading(false);
@@ -50,7 +50,7 @@ const Home = () => {
           </Link>
         ) : null}
       </div>
-      {/* Conditional rendering based on loading state */}
+
       {loading ? <div>Loading...</div> : <BooksTable books={filteredBooks} />}
     </div>
   );
