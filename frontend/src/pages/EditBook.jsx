@@ -6,7 +6,7 @@ import BackButton from "../components/BackButton";
 import Spinner from "../components/Spinner";
 
 const EditBook = () => {
-  const { id } = useParams(); // Assuming you're using React Router for dynamic routing
+  const { id } = useParams();
   const [book, setBook] = useState({
     title: "",
     author: "",
@@ -14,14 +14,13 @@ const EditBook = () => {
     imageA: "",
     imageB: "",
   });
-  const [loading, setLoading] = useState(true); // Assume initial loading state
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
-    // Fetch book data based on the ID
     axios
-      .get(`https://mern-bookstore-6hsv.onrender.com/${id}`)
+      .get(`https://mern-bookstore-6hsv.onrender.com/books/${id}`)
       .then((response) => {
         setBook(response.data);
         setLoading(false);
@@ -36,7 +35,7 @@ const EditBook = () => {
   const handleSaveBook = () => {
     setLoading(true);
     axios
-      .put(`https://mern-bookstore-6hsv.onrender.com/${id}`, book)
+      .put(`https://mern-bookstore-6hsv.onrender.com/books/${id}`, book)
       .then(() => {
         setLoading(false);
         enqueueSnackbar("Book updated successfully", { variant: "success" });

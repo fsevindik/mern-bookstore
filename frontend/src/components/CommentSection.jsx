@@ -167,8 +167,7 @@ const CommentSection = ({
       </div>
       {!canComment && (
         <p className="text-red-500 mt-2 font-sans">
-          ❗️You need to log in to leave a comment, rate a book or like
-          comments.
+          ❗️Register to leave a comment, rate a book or like comments.
         </p>
       )}
     </div>
