@@ -10,7 +10,7 @@ import Spinner from "../Spinner";
 const TrendingBooks = () => {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(false);
-  const PORT = "http://localhost:5555";
+  const PORT = "https://mern-bookstore-6hsv.onrender.com";
 
   useEffect(() => {
     setLoading(true);

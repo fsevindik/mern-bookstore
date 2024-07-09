@@ -8,7 +8,7 @@ import Spinner from "../Spinner";
 const Trends = () => {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
-  const PORT = "http://localhost:5555";
+  const PORT = "https://mern-bookstore-6hsv.onrender.com";
 
   useEffect(() => {
     axios
