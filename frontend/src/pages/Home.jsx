@@ -20,7 +20,7 @@ const Home = () => {
     axios
       .get("https://mern-bookstore-6hsv.onrender.com")
       .then((response) => {
-        setBooks(response.data.data);
+        setBooks(response.data.data || []);
         setLoading(false);
       })
       .catch((error) => {
@@ -29,9 +29,12 @@ const Home = () => {
       });
   }, [userStatus]);
 
-  const filteredBooks = books.filter((book) =>
-    book.title.toLowerCase().includes(search.toLowerCase())
-  );
+  const filteredBooks =
+    books.length > 0
+      ? books.filter((book) =>
+          book.title.toLowerCase().includes(search.toLowerCase())
+        )
+      : [];
 
   return (
     <div className="p-4 bg-[#1c1a1a] flex-grow">
@@ -47,7 +50,8 @@ const Home = () => {
           </Link>
         ) : null}
       </div>
-      <BooksTable books={filteredBooks} />
+      {/* Conditional rendering based on loading state */}
+      {loading ? <div>Loading...</div> : <BooksTable books={filteredBooks} />}
     </div>
   );
 };
