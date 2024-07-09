@@ -23,18 +23,18 @@ const BookInfo = ({ book }) => {
         <div className="w-full rounded-lg p-4">
           <div className="grid grid-cols-2 gap-2">
             <div>
-              <span className="font-bold text-lg text-blue-700">Title :</span>
+              <span className="font-bold text-lg text-blue-700">Title:</span>
               <span className="ml-2 font-bold text-gray-800">{book.title}</span>
             </div>
             <div>
-              <span className="font-bold text-lg text-blue-700">Author :</span>
+              <span className="font-bold text-lg text-blue-700">Author:</span>
               <span className="ml-2 font-bold text-gray-800 ">
                 {book.author}
               </span>
             </div>
             <div>
               <span className="font-bold text-lg text-blue-700">
-                Publish Year :
+                Publish Year:
               </span>
               <span className="ml-2 font-bold text-gray-800">
                 {book.publishYear}
@@ -42,7 +42,7 @@ const BookInfo = ({ book }) => {
             </div>
             <div>
               <span className="font-bold text-lg text-blue-700 ">
-                Create Time :
+                Create Time:
               </span>
               <span className="ml-2 font-bold text-gray-800">
                 {new Date(book.createdAt).toLocaleString()}
@@ -50,7 +50,7 @@ const BookInfo = ({ book }) => {
             </div>
             <div className="col-span-2">
               <span className="font-bold text-lg text-blue-700">
-                Last Update Time :
+                Last Update Time:
               </span>
               <span className="ml-2 font-bold text-gray-800">
                 {new Date(book.updatedAt).toLocaleString()}

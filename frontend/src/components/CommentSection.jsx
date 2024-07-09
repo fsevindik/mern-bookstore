@@ -155,7 +155,7 @@ const CommentSection = ({
           <p className="text-gray-400 mt-1 mr-2">{charCount} characters left</p>
           <button
             type="submit"
-            className={`px-4 py-2 rounded-full ${
+            className={`px-4 py-2 rounded-full cursor-pointer ${
               canComment ? "bg-yellow-600 hover:bg-red-600" : "bg-gray-600"
             } text-white font-semibold`}
             disabled={!canComment || newComment.trim().length === 0}
