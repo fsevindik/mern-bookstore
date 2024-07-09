@@ -14,11 +14,13 @@ router.post("/:bookId/comments/:commentId/postreactions", async (req, res) => {
       return res.status(404).json({ message: "Book not found" });
     }
 
-    const comment = book.comments.find(
-      (comment) => comment._id.toString() === commentId
-    );
+    const comment = book.comments.id(commentId);
     if (!comment) {
       return res.status(404).json({ message: "Comment not found" });
+    }
+
+    if (!comment.reactions) {
+      comment.reactions = { like: 0, usersLiked: [] };
     }
 
     switch (reactionType) {
@@ -28,7 +30,6 @@ router.post("/:bookId/comments/:commentId/postreactions", async (req, res) => {
           comment.reactions.like++;
           comment.reactions.usersLiked.push(userId);
         } else {
-          // User already liked the comment, remove like
           comment.reactions.like--;
           comment.reactions.usersLiked.splice(userIndex, 1);
         }
@@ -39,13 +40,13 @@ router.post("/:bookId/comments/:commentId/postreactions", async (req, res) => {
 
     await book.save();
 
-    res.status(201).json({
+    res.status(200).json({
       message: "Reaction toggled successfully",
       reactions: comment.reactions,
     });
   } catch (error) {
     console.error("Error adding reaction:", error);
-    res.status(500).json({ message: "Server error" });
+    res.status(500).json({ message: "Server error", error: error.message });
   }
 });
 
@@ -64,7 +65,7 @@ router.get("/:bookId/comments/:commentId/getreactions", async (req, res) => {
       return res.status(404).json({ message: "Comment not found" });
     }
 
-    res.status(200).json(comment.reactions);
+    res.status(200).json(comment.reactions || { like: 0, usersLiked: [] });
   } catch (error) {
     console.error("Error getting reactions:", error);
     res.status(500).json({ message: "Server error", error: error.message });

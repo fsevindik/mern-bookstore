@@ -25,7 +25,7 @@ const CreateBooks = () => {
     };
     setLoading(true);
     axios
-      .post("https://mern-bookstore-6hsv.onrender.com", data)
+      .post("https://mern-bookstore-6hsv.onrender.com/books", data)
       .then(() => {
         setLoading(false);
         enqueueSnackbar("Book Created Successfully", { variant: "success" });

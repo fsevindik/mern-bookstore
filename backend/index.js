@@ -9,11 +9,9 @@ import usersRoute from "./routes/usersRoute.js";
 
 const app = express();
 
-// Middleware
 app.use(express.json());
 app.use(cors());
 
-// Routes
 app.get("/", (request, response) => {
   console.log(request);
   return response.status(200).send("Welcome to MERN project");

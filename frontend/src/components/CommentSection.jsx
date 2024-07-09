@@ -18,7 +18,7 @@ const CommentSection = ({
       try {
         const promises = comments.map((comment) =>
           axios.get(
-            `https://mern-bookstore-6hsv.onrender.com/${bookId}/comments/${comment._id}/getreactions`
+            `https://mern-bookstore-6hsv.onrender.com/reactions/${bookId}/comments/${comment._id}/getreactions`
           )
         );
         const responses = await Promise.all(promises);
@@ -73,7 +73,7 @@ const CommentSection = ({
       }
 
       const response = await axios.post(
-        `https://mern-bookstore-6hsv.onrender.com/${bookId}/comments/${commentId}/postreactions`,
+        `https://mern-bookstore-6hsv.onrender.com/reactions/${bookId}/comments/${commentId}/postreactions`,
         {
           userId,
           reactionType,
