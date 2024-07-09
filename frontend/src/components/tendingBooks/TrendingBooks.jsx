@@ -92,7 +92,7 @@ const TrendingBooks = () => {
   return (
     <div className="my-8 mx-auto max-w-[85%]  px-4">
       <h2 className="text-2xl font-bold text-center mb-4 text-white">
-        Some of Trending Books
+        Trendings
       </h2>
       {loading ? (
         <Spinner />

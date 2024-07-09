@@ -42,7 +42,7 @@ const Home = () => {
       <div className="flex justify-center items-center gap-x-4 mb-8"></div>
       <div className="flex justify-between items-center">
         <h1 className="text-3xl my-8  mx-auto text-white  font-bold">
-          Book List
+          Editors Choise
         </h1>
         {userStatus === "admin" ? (
           <Link to="/books/create">
