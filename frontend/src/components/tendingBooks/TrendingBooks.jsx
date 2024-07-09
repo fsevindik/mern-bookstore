@@ -101,7 +101,7 @@ const TrendingBooks = () => {
           {books.map((book) => (
             <Link key={book._id} to={`/books/details/${book._id}`}>
               <div className="px-2">
-                <div className="bg-yellow-500 p-3 rounded-lg shadow-md flex flex-col cursor-pointer lg:h-[280px]">
+                <div className="bg-yellow-500 p-3 rounded-lg hover:scale-105 shadow-md flex flex-col cursor-pointer lg:h-[280px]">
                   <div className="relative pb-[85%] mx-[15%]  overflow-hidden rounded-lg">
                     <img
                       src={book.imageA}
