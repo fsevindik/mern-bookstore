@@ -17,7 +17,7 @@ const useOutsideClick = (ref, handler) => {
   }, [ref, handler]);
 };
 
-const RateModal = ({ book }) => {
+const RateModal = ({ book, onRate }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [rating, setRating] = useState(0);
@@ -41,7 +41,7 @@ const RateModal = ({ book }) => {
           setRating(Number(savedRating));
         } else {
           const response = await axios.get(
-            `https://mern-bookstore-6hsv.onrender.com/${book._id}/user-rating/${userId}`
+            `https://mern-bookstore-6hsv.onrender.com/books/${book._id}/user-rating/${userId}`
           );
           if (response.status === 200) {
             setRating(response.data.rating);
@@ -64,7 +64,7 @@ const RateModal = ({ book }) => {
   const handleRating = async (rate) => {
     try {
       const response = await axios.post(
-        `https://mern-bookstore-6hsv.onrender.com/${book._id}/rate`,
+        `https://mern-bookstore-6hsv.onrender.com/books/${book._id}/rate`,
         {
           userId,
           rating: rate,
@@ -76,6 +76,7 @@ const RateModal = ({ book }) => {
         localStorage.setItem(`rating_${book._id}_${userId}`, rate);
         setIsOpen(false);
         alert(`Rated ${rate} stars`);
+        onRate(rate);
       } else {
         throw new Error("Failed to rate the book.");
       }
