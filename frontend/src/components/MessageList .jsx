@@ -5,7 +5,7 @@ import { FaExclamationTriangle } from "react-icons/fa";
 const MessageList = () => {
   const [messages, setMessages] = useState([]);
   const [isSmallScreen, setIsSmallScreen] = useState(false);
-  const PORT = "http://localhost:5555";
+  const PORT = "https://mern-bookstore-6hsv.onrender.com";
 
   useEffect(() => {
     fetchMessages();

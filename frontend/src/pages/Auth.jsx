@@ -17,7 +17,7 @@ const Auth = () => {
 
   const handleAuth = async (event, isLogin) => {
     event.preventDefault();
-    const endpoint = `http://localhost:5555${
+    const endpoint = `https://mern-bookstore-6hsv.onrender.com${
       isLogin ? "/users/login" : "/users/register"
     }`;
 

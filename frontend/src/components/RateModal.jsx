@@ -41,7 +41,7 @@ const RateModal = ({ book }) => {
           setRating(Number(savedRating));
         } else {
           const response = await axios.get(
-            `http://localhost:5555/books/${book._id}/user-rating/${userId}`
+            `https://mern-bookstore-6hsv.onrender.com/${book._id}/user-rating/${userId}`
           );
           if (response.status === 200) {
             setRating(response.data.rating);
@@ -64,7 +64,7 @@ const RateModal = ({ book }) => {
   const handleRating = async (rate) => {
     try {
       const response = await axios.post(
-        `http://localhost:5555/books/${book._id}/rate`,
+        `https://mern-bookstore-6hsv.onrender.com/${book._id}/rate`,
         {
           userId,
           rating: rate,
