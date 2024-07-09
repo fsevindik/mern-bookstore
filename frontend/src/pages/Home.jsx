@@ -20,7 +20,7 @@ const Home = () => {
     axios
       .get("https://mern-bookstore-6hsv.onrender.com")
       .then((response) => {
-        setBooks(response.data.data || []);
+        setBooks(response.data.data);
         setLoading(false);
       })
       .catch((error) => {
