@@ -64,6 +64,7 @@ const Auth = () => {
       return <Navigate to="/admin" replace />;
     }
   }
+
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -76,7 +77,6 @@ const Auth = () => {
         </h2>
         {mode === "register" && (
           <p className="font-mono mb-4 ">
-            {" "}
             😜 You may register with a dummy email
           </p>
         )}
@@ -109,17 +109,19 @@ const Auth = () => {
               {showPassword ? <FaEye /> : <FaEyeSlash />}
             </button>
           </div>
-          <PasswordRequirement password={password} />
           {mode === "register" && (
-            <div>
-              <input
-                type="text"
-                placeholder="Username"
-                className="w-full px-4 py-3 border border-gray-300 rounded-md focus-ring"
-                value={userName}
-                onChange={(e) => setUserName(e.target.value)}
-              />
-            </div>
+            <>
+              <PasswordRequirement password={password} />
+              <div>
+                <input
+                  type="text"
+                  placeholder="Username"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-md focus-ring"
+                  value={userName}
+                  onChange={(e) => setUserName(e.target.value)}
+                />
+              </div>
+            </>
           )}
           <button
             type="submit"

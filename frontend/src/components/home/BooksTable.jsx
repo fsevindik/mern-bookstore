@@ -60,7 +60,7 @@ const BooksTable = ({ books = [] }) => {
           {books.map((book, index) => (
             <tr key={book._id} className="h-8 bg-gray-300">
               <Link key={book._id} to={`/books/details/${book._id}`}>
-                <td className=" hover:bg-slate-400 ml-3 cursor-pointer rounded-md text-left flex items-center p-2 font-serif font-semibold">
+                <td className=" hover:bg-yellow-600 ml-5 cursor-pointer   text-left flex items-center p-2 font-serif font-semibold">
                   <img
                     src={book.imageA}
                     alt={book.title}
