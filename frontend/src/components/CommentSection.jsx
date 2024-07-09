@@ -104,18 +104,20 @@ const CommentSection = ({
   const userId = localStorage.getItem("userId");
 
   return (
-    <div className="my-4 bg-gray-800 p-4 rounded-lg shadow-lg w-full">
-      <h2 className="text-xl font-semibold text-white mb-4">User Opinions:</h2>
+    <div className="my-4 bg-gray-800 p-2 sm:p-4 rounded-lg shadow-lg w-full">
+      <h2 className="text-lg sm:text-xl font-semibold text-white mb-2 sm:mb-4">
+        User Opinions:
+      </h2>
       <div className="w-full">
         {comments.map((comment) => (
           <div
             key={comment._id}
-            className="flex p-2 bg-gray-700 rounded-lg border border-gray-600 mb-4"
+            className="flex flex-col sm:flex-row p-2 sm:p-2 bg-gray-700 rounded-lg border border-gray-600 mb-2 sm:mb-4"
           >
             <div
-              className={` ${
+              className={`${
                 !userId ? "cursor-not-allowed" : "cursor-pointer"
-              }`}
+              } mb-2 sm:mb-0`}
             >
               <FaThumbsUp
                 className={`text-yellow-400 hover:text-blue-700 ${
@@ -128,12 +130,12 @@ const CommentSection = ({
                 {reactionCounts[comment._id]?.like || 0}
               </span>
             </div>
-            <div className="flex-1 ml-2">
-              <div className="border border-yellow-400 rounded-md bg-slate-300 max-w-full p-2 relative">
+            <div className="flex-1 ml-0 sm:ml-2">
+              <div className="border border-yellow-400 rounded-md bg-slate-300 p-2 relative">
                 <p className="text-gray-800 font-mono break-all whitespace-normal overflow-wrap-anywhere word-break-break-word hyphens-auto max-h-24 overflow-y-auto">
                   {comment.text}
                 </p>
-                <span className="text-blue-600 font-serif text-xs italic absolute bottom-2 right-2">
+                <span className="text-blue-600 font-serif text-xs italic">
                   〰{comment.userName}〰
                 </span>
               </div>
