@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useSnackbar } from "notistack";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
@@ -13,9 +12,9 @@ const CreateBooks = () => {
   const [publishYear, setPublishYear] = useState("");
   const [imageA, setImageA] = useState("");
   const [imageB, setImageB] = useState("");
+  const [bookOverview, setBookOverview] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { enqueueSnackbar } = useSnackbar();
 
   const handleSaveBook = () => {
     const data = {
@@ -24,19 +23,20 @@ const CreateBooks = () => {
       publishYear,
       imageA,
       imageB,
+      bookOverview,
     };
     setLoading(true);
     axios
       .post("https://mern-bookstore-6hsv.onrender.com/books", data)
       .then(() => {
         setLoading(false);
-        enqueueSnackbar("Book Created Successfully", { variant: "success" });
+        toast.error("Book Created Successfully", { variant: "success" });
         navigate("/");
       })
       .catch((error) => {
         setLoading(false);
         toast.error("An error happened. Please check console");
-        enqueueSnackbar("Error", { variant: "error" });
+
         console.log(error);
       });
   };
@@ -57,7 +57,7 @@ const CreateBooks = () => {
           />
         </div>
         <div className="my-4">
-          <label className="text-xl mr-4  text-white">Author</label>
+          <label className="text-xl mr-4 text-white">Author</label>
           <input
             type="text"
             value={author}
@@ -94,6 +94,15 @@ const CreateBooks = () => {
             value={imageB}
             onChange={(e) => setImageB(e.target.value)}
             className="border-2 border-gray-500 px-4 py-2  w-full "
+          />
+        </div>
+        <div className="my-4">
+          <label className="text-xl mr-4 text-white">Book Overview</label>
+          <textarea
+            value={bookOverview}
+            onChange={(e) => setBookOverview(e.target.value)}
+            className="border-2 border-gray-500 px-4 py-2 w-full h-24"
+            placeholder="Write a brief overview of the book..."
           />
         </div>
         <button

@@ -36,11 +36,19 @@ router.get("/:id", async (request, response) => {
 // create book
 router.post("/", async (request, response) => {
   try {
-    const { title, author, publishYear, imageA, imageB } = request.body;
-    if (!title || !author || !publishYear || !imageA || !imageB) {
+    const { title, author, publishYear, imageA, imageB, bookOverview } =
+      request.body;
+    if (
+      !title ||
+      !author ||
+      !publishYear ||
+      !imageA ||
+      !imageB ||
+      !bookOverview
+    ) {
       return response.status(400).send({
         message:
-          "Send all required fields: title, author, publishYear, imageA, imageB",
+          "Send all required fields: title, author, publishYear, imageA, imageB, bookOverview",
       });
     }
     const newBook = {
@@ -49,6 +57,7 @@ router.post("/", async (request, response) => {
       publishYear,
       imageA,
       imageB,
+      bookOverview,
       comments: [],
       ratings: [],
     };
