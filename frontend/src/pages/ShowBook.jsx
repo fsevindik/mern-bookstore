@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import BackButton from "../components/BackButton";
 import BookInfo from "../components/BookInfo";
 import CommentSection from "../components/CommentSection";
@@ -35,7 +37,7 @@ const ShowBook = () => {
         setAverageRating(ratingResponse.data.averageRating);
       } catch (error) {
         console.error("Error fetching book data:", error);
-        alert("Failed to load book data. Please try again.");
+        toast.error("Failed to load book data. Please try again.");
       } finally {
         setLoading(false);
       }
@@ -66,7 +68,7 @@ const ShowBook = () => {
     e.preventDefault();
 
     if (!userId) {
-      alert("Please log in to add a comment.");
+      toast.error("Please log in to add a comment.");
       return;
     }
     try {
@@ -78,12 +80,12 @@ const ShowBook = () => {
       setNewComment("");
     } catch (error) {
       console.error("Error adding comment:", error);
-      alert("Error adding comment. Please try again.");
+      toast.error("Error adding comment. Please try again.");
     }
   };
   const handleRating = async (rating) => {
     if (!userId) {
-      alert("Please log in to rate the book.");
+      toast.error("Please log in to rate the book.");
       return;
     }
     try {
@@ -95,7 +97,7 @@ const ShowBook = () => {
       fetchAverageRating();
     } catch (error) {
       console.error("Error rating book:", error);
-      alert("Error rating book. Please try again.");
+      toast.error("Error rating book. Please try again.");
     }
   };
 
@@ -126,6 +128,7 @@ const ShowBook = () => {
           bookId={id}
         />
       </div>
+      <ToastContainer />
     </div>
   );
 };

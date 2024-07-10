@@ -1,5 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const UserMessage = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -37,7 +39,7 @@ const UserMessage = () => {
         }
       );
       console.log("Message sent:", response.data);
-      alert("Message sent successfully!");
+      toast.success("Message sent successfully👌");
       setContent("");
       setIsOpen(false);
     } catch (error) {
@@ -45,7 +47,7 @@ const UserMessage = () => {
         "Error sending message:",
         error.response?.data || error.message
       );
-      alert(
+      toast.error(
         `Failed to send message: ${
           error.response?.data?.message || error.message
         }`
@@ -101,6 +103,7 @@ const UserMessage = () => {
           </div>
         </div>
       )}
+      <ToastContainer />
     </div>
   );
 };

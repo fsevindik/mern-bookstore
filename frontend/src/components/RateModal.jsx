@@ -1,5 +1,7 @@
 import axios from "axios";
-import React, { useEffect, useRef, useState } from "react";
+import { default as React, useEffect, useRef, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import StarIcon from "./icons/StarIcon";
 
 const useOutsideClick = (ref, handler) => {
@@ -75,13 +77,14 @@ const RateModal = ({ book, onRate }) => {
         setRating(rate);
         localStorage.setItem(`rating_${book._id}_${userId}`, rate);
         setIsOpen(false);
-        alert(`Rated ${rate} stars`);
+        toast.success(`Rated ${rate} stars`);
         onRate(rate);
       } else {
         throw new Error("Failed to rate the book.");
       }
     } catch (error) {
       console.error("Error rating the book:", error.response || error);
+      toast.error("Failed to rate the book");
     }
   };
 
@@ -157,6 +160,7 @@ const RateModal = ({ book, onRate }) => {
           </div>
         </div>
       )}
+      <ToastContainer />
     </div>
   );
 };

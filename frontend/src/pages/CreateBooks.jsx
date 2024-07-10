@@ -2,6 +2,8 @@ import axios from "axios";
 import { useSnackbar } from "notistack";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import BackButton from "../components/BackButton";
 import Spinner from "../components/Spinner";
 
@@ -33,7 +35,7 @@ const CreateBooks = () => {
       })
       .catch((error) => {
         setLoading(false);
-        alert("An error happened. Please check console");
+        toast.error("An error happened. Please check console");
         enqueueSnackbar("Error", { variant: "error" });
         console.log(error);
       });
@@ -101,6 +103,7 @@ const CreateBooks = () => {
           Save
         </button>
       </div>
+      <ToastContainer />
     </div>
   );
 };
