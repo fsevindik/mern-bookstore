@@ -43,14 +43,17 @@ const BooksTable = ({ books = [] }) => {
       <table className="w-full border-separate border-spacing-2">
         <thead>
           <tr>
-            <th className="border border-slate-600 rounded-md bg-slate-500 ">
+            <th className="w-1/2 border border-slate-600 rounded-md bg-slate-500">
               Title
             </th>
-            <th className="border border-slate-600 rounded-md bg-slate-500 hidden md:table-cell">
+            <th className="w-1/6 border border-slate-600 rounded-md bg-slate-500 hidden md:table-cell">
+              Author
+            </th>
+            <th className="w-1/6 border border-slate-600 rounded-md bg-slate-500 hidden md:table-cell">
               Publish Year
             </th>
             {userType === "admin" && (
-              <th className="border border-slate-600 rounded-md bg-slate-500">
+              <th className="w-1/6 border border-slate-600 rounded-md bg-slate-500">
                 Operations
               </th>
             )}
@@ -58,23 +61,29 @@ const BooksTable = ({ books = [] }) => {
         </thead>
         <tbody>
           {books.map((book, index) => (
-            <tr key={book._id} className="h-8 bg-gray-300">
-              <Link key={book._id} to={`/books/details/${book._id}`}>
-                <td className=" hover:bg-yellow-600 ml-5 cursor-pointer   text-left flex items-center p-2 font-serif font-semibold">
+            <tr key={book._id} className="h-12 bg-gray-300">
+              <td className="relative pl-5 ">
+                <Link
+                  to={`/books/details/${book._id}`}
+                  className="flex items-center p-2 hover:bg-yellow-600 cursor-pointer font-serif font-semibold"
+                >
                   <img
                     src={book.imageA}
                     alt={book.title}
                     className="h-12 w-12 object-cover mr-2"
                   />
-                  {book.title}
-                </td>
-              </Link>
-              <td className="border border-slate-700 rounded-md text-center font-semibold hidden md:table-cell">
+                  <span>{book.title}</span>
+                </Link>
+              </td>
+              <td className="border border-slate-700 rounded-md text-center font-semibold hidden md:table-cell w-1/6">
+                {book.author}
+              </td>
+              <td className="border border-slate-700 rounded-md text-center font-semibold hidden md:table-cell w-1/6">
                 {book.publishYear}
               </td>
               {userType === "admin" && (
-                <td className="border border-slate-700 rounded-md text-center">
-                  <div className="flex justify-center gap-x-2 md:gap-x-4 ">
+                <td className="border border-slate-700 rounded-md text-center w-1/6">
+                  <div className="flex justify-center gap-x-2 md:gap-x-4">
                     <DetailsButton bookId={book._id} />
                     <EditButton
                       bookId={book._id}
