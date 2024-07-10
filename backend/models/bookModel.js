@@ -82,6 +82,10 @@ const bookSchema = new mongoose.Schema(
     },
     ratings: [rateSchema],
     comments: [commentSchema],
+    bookOverview: {
+      type: String,
+      required: true,
+    },
   },
   { timestamps: true }
 );

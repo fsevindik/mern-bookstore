@@ -143,28 +143,31 @@ const CommentSection = ({
           </div>
         ))}
       </div>
-      <div className="mt-4 w-full">
-        <textarea
-          value={newComment}
-          onChange={handleCommentChange}
-          className="w-full p-2 border border-gray-600 rounded-md bg-gray-900 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-          placeholder="Write a comment..."
-          disabled={!canComment}
-        />
-        <div className="flex justify-end">
-          <p className="text-gray-400 mt-1 mr-2">{charCount} characters left</p>
-          <button
-            type="submit"
-            className={`px-4 py-2 rounded-full cursor-pointer ${
-              canComment ? "bg-yellow-600 hover:bg-red-600" : "bg-gray-600"
-            } text-white font-semibold`}
-            disabled={!canComment || newComment.trim().length === 0}
-            onClick={handleCommentSubmit}
-          >
-            Submit
-          </button>
+      {canComment && (
+        <div className="mt-4 w-full">
+          <textarea
+            value={newComment}
+            onChange={handleCommentChange}
+            className="w-full p-2 border border-gray-600 rounded-md bg-gray-900 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Write a comment..."
+          />
+          <div className="flex justify-end">
+            <p className="text-gray-400 mt-1 mr-2">
+              {charCount} characters left
+            </p>
+            <button
+              type="submit"
+              className={`px-4 py-2 rounded-full cursor-pointer ${
+                canComment ? "bg-yellow-600 hover:bg-red-600" : "bg-gray-600"
+              } text-white font-semibold`}
+              disabled={!canComment || newComment.trim().length === 0}
+              onClick={handleCommentSubmit}
+            >
+              Submit
+            </button>
+          </div>
         </div>
-      </div>
+      )}
       {!canComment && (
         <p className="text-red-500 mt-2 font-sans">
           ❗️Register to leave a comment, rate a book or like comments.
