@@ -30,7 +30,7 @@ const CreateBooks = () => {
       .post("https://mern-bookstore-6hsv.onrender.com/books", data)
       .then(() => {
         setLoading(false);
-        toast.error("Book Created Successfully", { variant: "success" });
+        toast.success("Book Created Successfully");
         navigate("/");
       })
       .catch((error) => {
@@ -99,9 +99,10 @@ const CreateBooks = () => {
         <div className="my-4">
           <label className="text-xl mr-4 text-white">Book Overview</label>
           <textarea
-            value={bookOverview}
+            type="text"
+            value={bookOverview.toString()}
             onChange={(e) => setBookOverview(e.target.value)}
-            className="border-2 border-gray-500 px-4 py-2 w-full h-24"
+            className="border-2 border-gray-500 px-4 py-2 w-full h-24 "
             placeholder="Write a brief overview of the book..."
           />
         </div>
