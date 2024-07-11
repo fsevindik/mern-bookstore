@@ -65,14 +65,16 @@ const BooksTable = ({ books = [] }) => {
               <td className="relative pl-5 ">
                 <Link
                   to={`/books/details/${book._id}`}
-                  className="flex items-center p-2 hover:bg-yellow-600 cursor-pointer font-serif font-semibold"
+                  className="flex items-center p-2 hover:bg-yellow-600 cursor-pointer font-serif font-semibold flex-wrap md:flex-nowrap"
                 >
                   <img
                     src={book.imageA}
                     alt={book.title}
-                    className="h-12 w-12 object-cover mr-2"
+                    className="h-12 w-12 object-cover mr-2 mb-2 md:h-16 md:w-16 md:mb-0"
                   />
-                  <span>{book.title}</span>
+                  <span className="md:ml-2 md:text-base text-sm">
+                    {book.title}
+                  </span>
                 </Link>
               </td>
               <td className="border border-slate-700 rounded-md text-center font-semibold hidden md:table-cell w-1/6">
