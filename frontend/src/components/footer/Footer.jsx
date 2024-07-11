@@ -5,10 +5,10 @@ const Footer = () => {
   return (
     <footer className="bg-gray-900 text-center py-4">
       <div className="container mx-auto">
-        <p className="text-gray-300">
+        <p className="text-gray-300 font-semibold">
           &copy; 2024 Book Store. All rights reserved.
         </p>
-        <p className="text-gray-300">
+        <p className="text-gray-300 font-semibold">
           Created by{" "}
           <a
             href="https://muratcan23.github.io/myportfolio/"

@@ -14,7 +14,7 @@ const PasswordRequirement = ({ password }) => {
   // const hasPsSymbol = /\W|_/g.test(passwordString);
 
   return (
-    <div className="flex flex-col w-350px h-130px p-1 rounded-md bg-white">
+    <div className="flex flex-col w-350px h-130px p-1 rounded-md bg-slate-100">
       <RequirementCard text="Required!" hasPassed={hasPsValue} />
       <RequirementCard
         text="At least 6 characters"

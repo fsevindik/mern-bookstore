@@ -2,7 +2,9 @@ import React from "react";
 import { FaCheckCircle, FaDotCircle } from "react-icons/fa";
 
 const RequirementCard = ({ text, hasPassed }) => {
-  const color = hasPassed ? "text-green-500" : "text-red-500";
+  const color = hasPassed
+    ? "text-green-600 font-semibold"
+    : "text-red-600 font-semibold ";
   const IconComponent = hasPassed ? FaCheckCircle : FaDotCircle;
 
   return (

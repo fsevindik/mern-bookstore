@@ -72,14 +72,20 @@ const Auth = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient bg-slate-500">
-      <div className="bg-[#f5f5f0] p-8 rounded-lg shadow-custom w-full max-w-md text-center auth-container">
+    <div
+      className="flex flex-col items-center justify-center min-h-screen"
+      style={{
+        backgroundImage: `url('https://static01.nyt.com/images/2018/06/03/books/review/03GLASSIE-SUB/03GLASSIE-SUB-videoSixteenByNineJumbo1600.jpg')`,
+        backgroundSize: "cover",
+      }}
+    >
+      <div className="bg-[#a3a385] p-8 rounded-lg shadow-custom w-full max-w-md text-center auth-container">
         <h2 className="text-3xl font-bold mb-6">
           {mode === "register" ? "Register" : "Login"}
         </h2>
         {mode === "register" && (
-          <p className="font-mono mb-4 ">
-            😜 You may register with a dummy email
+          <p className="font-mono mb-4 text-sm ">
+            You may register with a dummy email
           </p>
         )}
         <form
@@ -118,7 +124,7 @@ const Auth = () => {
                 <input
                   type="text"
                   placeholder="Username"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-md focus-ring"
+                  className="w-full px-4 py-3 border  border-gray-300 rounded-md focus-ring"
                   value={userName}
                   onChange={(e) => setUserName(e.target.value)}
                 />
@@ -127,7 +133,7 @@ const Auth = () => {
           )}
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-3 rounded-md hover:bg-blue-700 btn-transition"
+            className="w-full bg-blue-600 text-white py-3 rounded-md hover:bg-yellow-600 btn-transition"
           >
             {mode === "register" ? "Register" : "Login"}
           </button>
