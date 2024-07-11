@@ -2,6 +2,7 @@ import axios from "axios";
 import { useSnackbar } from "notistack";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 import BackButton from "../components/BackButton";
 import Spinner from "../components/Spinner";
 
@@ -13,6 +14,7 @@ const EditBook = () => {
     publishYear: "",
     imageA: "",
     imageB: "",
+    bookOverview: "",
   });
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -28,9 +30,8 @@ const EditBook = () => {
       .catch((error) => {
         setLoading(false);
         console.error("Error fetching book:", error);
-        enqueueSnackbar("Error fetching book", { variant: "error" });
       });
-  }, [id, enqueueSnackbar]);
+  }, [id]);
 
   const handleSaveBook = () => {
     setLoading(true);
@@ -38,13 +39,13 @@ const EditBook = () => {
       .put(`https://mern-bookstore-6hsv.onrender.com/books/${id}`, book)
       .then(() => {
         setLoading(false);
-        enqueueSnackbar("Book updated successfully", { variant: "success" });
+        toast.success("Book updated successfully");
         navigate("/");
       })
       .catch((error) => {
         setLoading(false);
         console.error("Error updating book:", error);
-        enqueueSnackbar("Error updating book", { variant: "error" });
+        toast.error("Error updating book");
       });
   };
 
@@ -116,6 +117,16 @@ const EditBook = () => {
             className="border-2 border-gray-500 px-4 py-2 w-full"
           />
         </div>
+        <div className="my-4">
+          <label className="text-xl mr-4 text-white">Book Overview</label>
+          <textarea
+            name="bookOverview"
+            value={book.bookOverview}
+            onChange={handleChange}
+            className="border-2 border-gray-500 px-4 py-2 w-full h-24"
+            placeholder="Write a brief overview of the book..."
+          />
+        </div>
         <button
           className="p-2 bg-yellow-500 hover:bg-red-600 m-8 rounded-md"
           onClick={handleSaveBook}
@@ -123,6 +134,7 @@ const EditBook = () => {
           Save
         </button>
       </div>
+      <ToastContainer />
     </div>
   );
 };
