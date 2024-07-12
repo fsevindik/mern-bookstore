@@ -4,8 +4,8 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { API_URL } from "../../config";
 import PasswordRequirement from "../components/passwordCheck/PasswordRequirement ";
-import { API_URL } from "./config.js";
 
 const Auth = () => {
   const navigate = useNavigate();
