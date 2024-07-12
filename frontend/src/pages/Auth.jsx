@@ -1,9 +1,11 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PasswordRequirement from "../components/passwordCheck/PasswordRequirement ";
+import { API_URL } from "./config.js";
 
 const Auth = () => {
   const navigate = useNavigate();
@@ -19,43 +21,38 @@ const Auth = () => {
 
   const handleAuth = async (event, isLogin) => {
     event.preventDefault();
-    const endpoint = `https://mern-bookstore-6hsv.onrender.com${
+    const endpoint = `${API_URL}${
       isLogin ? "/users/login" : "/users/register"
     }`;
 
     try {
-      const response = await fetch(endpoint, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password, name: userName }),
+      const response = await axios.post(endpoint, {
+        email,
+        password,
+        name: userName,
       });
 
-      if (!response.ok) {
-        const errorResponse = await response.json();
-        throw new Error(
-          errorResponse.message ||
-            (isLogin ? "Login failed" : "Registration failed")
-        );
-      }
-
-      const responseData = await response.json();
-      const { token, name, role } = responseData;
+      const { token, name, role } = response.data;
 
       localStorage.setItem("token", token);
       localStorage.setItem("UserName", name);
       localStorage.setItem("UserRole", role);
-      localStorage.setItem("userId", responseData._id);
+      localStorage.setItem("userId", response.data._id);
       setLoggedIn(true);
       setUserName(name);
       setUserStatus(role);
+
+      if (role === "visitor") {
+        navigate("/welcome");
+      } else if (role === "admin") {
+        navigate("/admin");
+      }
     } catch (error) {
       console.error(
         isLogin ? "Login error:" : "Registration error:",
-        error.message
+        error.response?.data?.message || error.message
       );
-      toast.error(`${error.message}`);
+      toast.error(error.response?.data?.message || "An error occurred");
     }
   };
 
