@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { API_URL } from "../../config";
 import BackButton from "../components/BackButton";
 import BookInfo from "../components/BookInfo";
 import CommentSection from "../components/CommentSection";
@@ -19,7 +20,7 @@ const ShowBook = () => {
   const [averageRating, setAverageRating] = useState(0);
   const { id } = useParams();
 
-  const PORT = "https://mern-bookstore-6hsv.onrender.com";
+  const PORT = API_URL;
 
   const userId = localStorage.getItem("userId");
 
@@ -55,9 +56,7 @@ const ShowBook = () => {
   }, [id]);
   const fetchAverageRating = async () => {
     try {
-      const response = await axios.get(
-        `https://mern-bookstore-6hsv.onrender.com/books/${id}/averageRating`
-      );
+      const response = await axios.get(`${PORT}/books/${id}/averageRating`);
       setAverageRating(response.data.averageRating);
     } catch (error) {
       console.error("Error fetching average rating:", error);
@@ -93,7 +92,6 @@ const ShowBook = () => {
         userId,
         rating,
       });
-      // setAverageRating(response.data.averageRating);
       fetchAverageRating();
     } catch (error) {
       console.error("Error rating book:", error);

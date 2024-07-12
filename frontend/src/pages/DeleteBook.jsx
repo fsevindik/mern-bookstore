@@ -2,6 +2,7 @@ import axios from "axios";
 import { useSnackbar } from "notistack";
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { API_URL } from "../../config";
 import BackButton from "../components/BackButton";
 import Spinner from "../components/Spinner";
 
@@ -14,7 +15,7 @@ const DeleteBook = () => {
   const handleDeleteBook = () => {
     setLoading(true);
     axios
-      .delete(`https://mern-bookstore-6hsv.onrender.com/books/${id}`)
+      .delete(`${API_URL}/books/${id}`)
       .then(() => {
         setLoading(false);
         enqueueSnackbar("Book Deleted successfully", { variant: "success" });

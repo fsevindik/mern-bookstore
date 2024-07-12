@@ -44,7 +44,7 @@ const AuthForm = ({
     )}
     <button
       type="submit"
-      className="w-full bg-blue-600 text-white py-3 rounded-md hover:bg-yellow-600 btn-transition"
+      className="w-full bg-blue-600 text-white py-3 rounded-md hover:bg-blue-700 transition duration-300 ease-in-out"
     >
       {mode === "register" ? "Register" : "Login"}
     </button>

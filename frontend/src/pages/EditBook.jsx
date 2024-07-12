@@ -3,6 +3,7 @@ import { useSnackbar } from "notistack";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
+import { API_URL } from "../../config";
 import BackButton from "../components/BackButton";
 import Spinner from "../components/Spinner";
 
@@ -22,7 +23,7 @@ const EditBook = () => {
 
   useEffect(() => {
     axios
-      .get(`https://mern-bookstore-6hsv.onrender.com/books/${id}`)
+      .get(`${API_URL}/books/${id}`)
       .then((response) => {
         setBook(response.data);
         setLoading(false);
@@ -36,7 +37,7 @@ const EditBook = () => {
   const handleSaveBook = () => {
     setLoading(true);
     axios
-      .put(`https://mern-bookstore-6hsv.onrender.com/books/${id}`, book)
+      .put(`${API_URL}/${id}`, book)
       .then(() => {
         setLoading(false);
         toast.success("Book updated successfully");

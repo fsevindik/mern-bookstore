@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { MdOutlineAddBox } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { API_URL } from "../../config";
 import BooksTable from "../components/home/BooksTable";
 import TrendingBooks from "../components/tendingBooks/TrendingBooks";
 import BooksContext from "../context/BookDb.jsx";
@@ -18,7 +19,7 @@ const Home = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get("https://mern-bookstore-6hsv.onrender.com/books")
+      .get(`${API_URL}/books`)
       .then((response) => {
         setBooks(response.data.data);
         setLoading(false);

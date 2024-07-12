@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { API_URL } from "../../config";
 import BackButton from "../components/BackButton";
 import Spinner from "../components/Spinner";
 
@@ -21,7 +22,7 @@ const CreateBooks = () => {
   const handleSaveBook = () => {
     setLoading(true);
     axios
-      .post("https://mern-bookstore-6hsv.onrender.com/books", book)
+      .post(`${API_URL}/books`, book)
       .then(() => {
         setLoading(false);
         toast.success("Book Created Successfully");
