@@ -1,11 +1,11 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { API_URL } from "../../config";
-import PasswordRequirement from "../components/passwordCheck/PasswordRequirement ";
+import AuthContainer from "../components/authComponents/AuthContainer";
+import AuthForm from "../components/authComponents/AuthForm";
 
 const Auth = () => {
   const navigate = useNavigate();
@@ -69,75 +69,29 @@ const Auth = () => {
   };
 
   return (
-    <div
-      className="flex flex-col items-center justify-center min-h-screen"
-      style={{
-        backgroundImage: `url('https://static01.nyt.com/images/2018/06/03/books/review/03GLASSIE-SUB/03GLASSIE-SUB-videoSixteenByNineJumbo1600.jpg')`,
-        backgroundSize: "cover",
-      }}
-    >
-      <div className="bg-[#a3a385] p-8 rounded-lg shadow-custom w-full max-w-md text-center auth-container">
-        <h2 className="text-3xl font-bold mb-6">
-          {mode === "register" ? "Register" : "Login"}
-        </h2>
-        {mode === "register" && (
-          <p className="font-mono mb-4 text-sm ">
-            You may register with a dummy email
-          </p>
-        )}
-        <form
-          onSubmit={(e) => handleAuth(e, mode !== "register")}
-          className="space-y-4"
-        >
-          <div>
-            <input
-              type="email"
-              placeholder="Email"
-              className="w-full px-4 py-3 border border-gray-300 rounded-md focus-ring"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-          <div className="relative">
-            <input
-              type={showPassword ? "text" : "password"}
-              placeholder="Password"
-              className="w-full px-4 py-3 border border-gray-300 rounded-md pr-10 focus-ring"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <button
-              type="button"
-              className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 focus:outline-none"
-              onClick={togglePasswordVisibility}
-            >
-              {showPassword ? <FaEye /> : <FaEyeSlash />}
-            </button>
-          </div>
-          {mode === "register" && (
-            <>
-              <PasswordRequirement password={password} />
-              <div>
-                <input
-                  type="text"
-                  placeholder="Username"
-                  className="w-full px-4 py-3 border  border-gray-300 rounded-md focus-ring"
-                  value={userName}
-                  onChange={(e) => setUserName(e.target.value)}
-                />
-              </div>
-            </>
-          )}
-          <button
-            type="submit"
-            className="w-full bg-blue-600 text-white py-3 rounded-md hover:bg-yellow-600 btn-transition"
-          >
-            {mode === "register" ? "Register" : "Login"}
-          </button>
-        </form>
-      </div>
+    <AuthContainer>
+      <h2 className="text-3xl font-bold mb-6">
+        {mode === "register" ? "Register" : "Login"}
+      </h2>
+      {mode === "register" && (
+        <p className="font-mono mb-4 text-sm">
+          You may register with a dummy email
+        </p>
+      )}
+      <AuthForm
+        mode={mode}
+        email={email}
+        setEmail={setEmail}
+        password={password}
+        setPassword={setPassword}
+        userName={userName}
+        setUserName={setUserName}
+        showPassword={showPassword}
+        togglePasswordVisibility={togglePasswordVisibility}
+        handleAuth={handleAuth}
+      />
       <ToastContainer />
-    </div>
+    </AuthContainer>
   );
 };
 
