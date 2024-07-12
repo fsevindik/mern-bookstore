@@ -92,11 +92,11 @@ const RateModal = ({ book, onRate }) => {
   const handleLeaveRating = () => setHoverRating(0);
 
   return (
-    <div className="relative ml-auto">
+    <div className="relative ml-auto ">
       <div
-        className={`flex border-4 border-gray-700 ml-auto items-center rounded-lg sm:rounded-xl h-10 sm:h-12 lg:h-14 xl:h-16 w-20 sm:w-24 lg:w-28 xl:w-32 bg-yellow-500 text-blue-600 p-2 cursor-pointer transition duration-300 ${
+        className={`flex border-4 border-gray-800 ml-auto items-center rounded-lg sm:rounded-xl h-10 sm:h-12 lg:h-14 xl:h-16 w-20 sm:w-24 lg:w-28 xl:w-32 bg-yellow-500 text-blue-600 p-2 cursor-pointer transition duration-300 animate-pulse ${
           isHovered
-            ? "hover:bg-blue-500 hover:animate-none"
+            ? "hover:bg-blue-500 hover:animate-none "
             : "hover:bg-yellow-500"
         }`}
         onMouseEnter={userId ? handleHover : null}
@@ -111,7 +111,7 @@ const RateModal = ({ book, onRate }) => {
         <StarIcon isHovered={isHovered} disabled={!userId} />
         <span
           className={`ml-2 text-sm sm:text-base lg:text-lg xl:text-xl font-bold ${
-            isHovered ? "text-white" : "text-gray-900"
+            isHovered ? "text-white" : "text-gray-800"
           }`}
         >
           Rate
