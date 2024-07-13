@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import MessageList from "../components/MessageList ";
+import MessageList from "../components/MessageList";
 
 const Admin = () => {
   const [showMessages, setShowMessages] = useState(false);
@@ -12,7 +12,7 @@ const Admin = () => {
   return (
     <div className="flex min-h-screen bg-gray-700">
       <div
-        className={`fixed top-0 right-0 h-full bg-gray-800 w-2/5 transition-transform duration-300 transform ${
+        className={`fixed top-0 right-0 h-full bg-gray-800 w-full md:w-2/5 transition-transform duration-300 transform ${
           showMessages ? "translate-x-0" : "translate-x-full"
         }`}
         style={{ zIndex: 100 }}

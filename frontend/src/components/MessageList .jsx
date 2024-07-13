@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { FaExclamationTriangle } from "react-icons/fa";
 
-const MessageList = () => {
+const MessageList = ({ toggleMessages }) => {
   const [messages, setMessages] = useState([]);
   const [isSmallScreen, setIsSmallScreen] = useState(false);
   const PORT = "https://mern-bookstore-6hsv.onrender.com";
@@ -47,12 +47,20 @@ const MessageList = () => {
 
   if (messages.length === 0) {
     return (
-      <p className="text-white font-bold text-center">No messages found.</p>
+      <div className="container mx-auto p-4">
+        <p className="text-white font-bold text-center">No messages found.</p>
+        <button
+          className="bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded mt-4"
+          onClick={toggleMessages}
+        >
+          Close
+        </button>
+      </div>
     );
   }
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto p-4 h-full overflow-y-auto">
       <h2 className="text-white text-2xl mb-4 font-bold text-center bg-slate-500 py-2 rounded">
         Messages
       </h2>
@@ -65,7 +73,7 @@ const MessageList = () => {
             <div
               className={`flex ${
                 isSmallScreen ? "flex-col" : "flex-row"
-              } items-start p-4 border-2 border-gray-300`}
+              } items-start p-4 border-4 border-yellow-500 rounded-md`}
             >
               <div
                 className={`text-black ${
@@ -106,6 +114,12 @@ const MessageList = () => {
           </li>
         ))}
       </ul>
+      <button
+        className="bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded mt-4"
+        onClick={toggleMessages}
+      >
+        Close
+      </button>
     </div>
   );
 };
