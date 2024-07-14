@@ -52,7 +52,11 @@ const Home = () => {
         ) : null}
       </div>
 
-      {loading ? <div>Loading...</div> : <BooksTable books={filteredBooks} />}
+      {loading ? (
+        <div className="text-white">Loading...</div>
+      ) : (
+        <BooksTable books={filteredBooks} />
+      )}
     </div>
   );
 };
