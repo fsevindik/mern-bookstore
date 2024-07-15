@@ -37,7 +37,7 @@ const EditBook = () => {
   const handleSaveBook = () => {
     setLoading(true);
     axios
-      .put(`${API_URL}/${id}`, book)
+      .put(`${API_URL}/books/${id}`, book)
       .then(() => {
         setLoading(false);
         toast.success("Book updated successfully");
