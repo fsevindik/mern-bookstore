@@ -9,14 +9,14 @@ const BookInfo = ({ book }) => {
             <img
               src={book.imageA}
               alt="Book cover 1"
-              className="rounded-lg shadow-lg w-full h-full object-cover"
+              className="rounded-lg shadow-lg w-full h-full object-cover border-2 border-gray-700"
             />
           </div>
           <div className="hidden md:block w-1/2 pl-2 aspect-[3/4]">
             <img
               src={book.imageB}
               alt="Book cover 2"
-              className="rounded-lg shadow-lg w-full h-full object-cover"
+              className="rounded-lg shadow-lg w-full h-full object-cover border-2 border-gray-700"
             />
           </div>
         </div>
