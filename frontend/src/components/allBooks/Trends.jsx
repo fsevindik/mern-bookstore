@@ -62,11 +62,11 @@ const Trends = () => {
           {books.map((book) => (
             <Link key={book._id} to={`/books/details/${book._id}`}>
               <div className="bg-yellow-500 p-4 rounded-lg shadow-md flex flex-col h-[400px] cursor-pointer transition-transform duration-300 ease-in-out hover:scale-105">
-                <div className="relative flex-grow overflow-hidden rounded-lg">
+                <div className="flex flex-grow overflow-hidden rounded-lg justify-center ">
                   <img
                     src={book.imageA}
                     alt={book.title}
-                    className="absolute top-0 left-0 w-full h-full object-cover rounded-lg"
+                    className=" items-center  top-0  w-3/4 h-full object-cover rounded-lg border-2 border-gray-700"
                   />
                 </div>
                 <div className="mt-4 flex flex-col justify-between">
