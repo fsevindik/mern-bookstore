@@ -12,8 +12,6 @@ const Auth = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const mode = new URLSearchParams(location.search).get("mode");
-
-  // State variables
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [userName, setUserName] = useState("");
