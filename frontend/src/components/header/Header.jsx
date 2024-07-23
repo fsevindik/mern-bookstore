@@ -1,9 +1,8 @@
 import React, { useContext, useRef, useState } from "react";
 import { AiOutlineBook, AiOutlineHome } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import BooksContext from "../../context/BookDb";
 import UserDropdown from "./UserDropdown";
-const mode = new URLSearchParams(location.search).get("mode");
 
 const Header = ({ user }) => {
   const { handleSearch } = useContext(BooksContext);
@@ -11,6 +10,8 @@ const Header = ({ user }) => {
   const [searchResults, setSearchResults] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const debounceTimeoutRef = useRef(null);
+  const location = useLocation();
+  const mode = new URLSearchParams(location.search).get("mode");
 
   const debounceSearch = (value) => {
     clearTimeout(debounceTimeoutRef.current);
