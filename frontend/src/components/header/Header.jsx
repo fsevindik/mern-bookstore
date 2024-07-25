@@ -50,7 +50,7 @@ const Header = ({ user }) => {
         <div className="text-yellow-300 text-lg font-sm italic w-full md:w-auto text-center md:text-left mb-2 md:mb-0 p-1 bg-inherit rounded-md hover:bg-[#4c515e] cursor-pointer">
           <p>Books are the only poison with an antidote.</p>
         </div>
-        {mode !== "login" && mode !== "register" && (
+        {location.pathname === "/" && (
           <div className="flex items-center justify-center mt-4 md:mt-0 w-full md:w-auto">
             <input
               type="text"
