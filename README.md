@@ -4,9 +4,6 @@
 
 This project implements a simple Bookstore application using the MERN stack (MongoDB, Express, React, Node.js). It provides functionalities to manage a collection of books where only admins can perform CRUD operations.
 
-
-**Temporary Announcement:** I'm currently releasing  this project temporarily. All guests are welcome, and I appreciate any feedback!
-
 [HERE BOOKSTORE PROJECT deployed via render.com 👍🔗](https://mern-bookstore-1-n0fo.onrender.com/)
 The link can take a minute to load because of render.com's cold-start mechanism...
 
